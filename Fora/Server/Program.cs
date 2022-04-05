@@ -44,7 +44,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 //User db context
-builder.Services.AddDbContext<UserDbContext>(options => options.UseSqlite(
+builder.Services.AddDbContext<UserDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("UserConnection")
     ));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
@@ -62,6 +62,7 @@ using (var scope = app.Services.CreateScope())
     {
         context.Database.EnsureDeleted();
         context.Database.Migrate();
+       // context.Database.EnsureCreated();
     }
 }
 

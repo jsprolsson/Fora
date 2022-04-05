@@ -9,7 +9,6 @@ namespace Fora.Shared.Entities
 {
     public class ApplicationUser : IdentityUser
     {
-        public string Username { get; set; } = String.Empty;
         public bool Banned { get; set; }
         public bool Deleted { get; set; }
         public DateTime DateTimeCreated { get; set; } = DateTime.Now;
