@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Fora.Server.Services.InterestService;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +9,40 @@ namespace Fora.Server.Controllers
     [ApiController]
     public class InterestsController : ControllerBase
     {
-        // GET: api/<InterestsController>
+        private readonly IInterestService _interestService;
+
+        public InterestsController(IInterestService interestService)
+        {
+            _interestService = interestService ?? throw new ArgumentNullException(nameof(interestService));
+        }
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<InterestModel>> GetInterests()
         {
-            return new string[] { "value1", "value2" };
+            return await _interestService.GetInterests();
         }
 
-        // GET api/<InterestsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<InterestModel> GetInterest(int id)
         {
-            return "value";
+            return await _interestService.GetInterest(id);
         }
 
-        // POST api/<InterestsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<InterestModel> Post([FromBody] InterestModel interest)
         {
+            await _interestService.CreateInterest(interest);
+            return interest;
         }
 
-        // PUT api/<InterestsController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<InterestsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
+            await _interestService.DeleteInterest(id);
         }
     }
 }
