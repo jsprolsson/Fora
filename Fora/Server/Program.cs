@@ -1,5 +1,6 @@
 global using Fora.Server.Data;
 global using Fora.Shared;
+using Fora.Server.Services.InterestService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -35,6 +36,8 @@ builder.Services.AddSwaggerGen(setupAction =>
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(connectionString));
+
+builder.Services.AddScoped<IInterestService, InterestService>();
 
 var app = builder.Build();
 
