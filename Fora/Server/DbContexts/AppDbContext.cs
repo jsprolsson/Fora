@@ -52,6 +52,8 @@ namespace Fora.Server.Data
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            // Seed data
+
             modelBuilder.Entity<UserModel>()
                 .HasData(new UserModel { Id = 1, Username = "Jesper", Banned = false, Deleted = false });
 
