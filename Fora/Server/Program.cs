@@ -1,12 +1,12 @@
 global using Fora.Server.Data;
 global using Fora.Shared;
-global using Microsoft.EntityFrameworkCore;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Fora.Server.Services.InterestService;
-using Microsoft.OpenApi.Models;
+global using Microsoft.EntityFrameworkCore;
 using Fora.Server.DbContexts;
+using Fora.Server.Services.InterestService;
 using Fora.Shared.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +40,7 @@ builder.Services.AddSwaggerGen(setupAction =>
 
 //Fora db context
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(connectionString));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 //User db context
 builder.Services.AddDbContext<UserDbContext>(options => options.UseSqlite(
