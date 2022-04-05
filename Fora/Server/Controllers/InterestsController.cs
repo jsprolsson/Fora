@@ -1,8 +1,6 @@
 ﻿using Fora.Server.Services.InterestService;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Fora.Server.Controllers
 {
     [Route("api/interests")]
@@ -15,6 +13,7 @@ namespace Fora.Server.Controllers
         {
             _interestService = interestService ?? throw new ArgumentNullException(nameof(interestService));
         }
+
         [HttpGet]
         public async Task<List<InterestModel>> GetInterests()
         {
@@ -34,15 +33,31 @@ namespace Fora.Server.Controllers
             return interest;
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> Put(int id, [FromBody] string name)
         {
+            var interestEntity = await _interestService.GetInterest(id);
+            if (interestEntity == null)
+            {
+                return NotFound();
+            }
+
+            InterestDto interest = new()
+            {
+                Id = id,
+                Name = name,
+                DateTimeModified = DateTime.Now,
+            };
+
+            await _interestService.UpdateInterest(interest);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             await _interestService.DeleteInterest(id);
+            return Ok();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Fora.Server.Controllers
     public class AuthenticationController : ControllerBase
     {
         [HttpPost("authenticate")]
-        public ActionResult<string> Authenticate()
+        public ActionResult<string> Authenticate(UserLoginDto user)
         {
             return null;
         }

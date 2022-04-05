@@ -33,19 +33,17 @@ namespace Fora.Server.Services.InterestService
 
         public async Task<List<InterestModel>> GetInterests()
         {
-            return await _appDbContext.Interests.ToListAsync();
+            return await _appDbContext.Interests.OrderBy(i => i.Name).ToListAsync();
         }
 
-        public async Task<InterestModel> UpdateInterest(InterestModel interest)
+        public async Task UpdateInterest(InterestDto interest)
         {
-            var interestToUpdate = await _appDbContext.Interests.FirstOrDefaultAsync(i => i.Id == interest.Id);
-            if (interestToUpdate is not null)
+            var interestEntity = await _appDbContext.Interests.FirstOrDefaultAsync(i => i.Id == interest.Id);
+            if (interestEntity is not null)
             {
-                _appDbContext.Entry(interestToUpdate).CurrentValues.SetValues(interest);
+                _appDbContext.Entry(interestEntity).CurrentValues.SetValues(interest);
                 await _appDbContext.SaveChangesAsync();
-                return interest;
             }
-            return new InterestModel();
         }
     }
 }
