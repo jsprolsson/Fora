@@ -1,8 +1,12 @@
 global using Fora.Server.Data;
 global using Fora.Shared;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Fora.Server.Services.InterestService;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Fora.Server.DbContexts;
+using Fora.Shared.Entities;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,8 +38,15 @@ builder.Services.AddSwaggerGen(setupAction =>
     });
 });
 
+//Fora db context
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(connectionString));
+
+//User db context
+builder.Services.AddDbContext<UserDbContext>(options => options.UseSqlite(
+    builder.Configuration.GetConnectionString("UserConnection")
+    ));
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
 
 builder.Services.AddScoped<IInterestService, InterestService>();
 
@@ -62,6 +73,8 @@ app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 
 app.MapRazorPages();

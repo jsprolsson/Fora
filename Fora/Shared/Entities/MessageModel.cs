@@ -8,6 +8,9 @@ namespace Fora.Shared
         [Key]
         public int Id { get; set; }
         public string Message { get; set; } = String.Empty;
+        public DateTime DateTimeCreated { get; set; } = DateTime.Now;
+        public DateTime DateTimeModified { get; set; }
+
 
         // Relations
         [ForeignKey(nameof(Thread))]

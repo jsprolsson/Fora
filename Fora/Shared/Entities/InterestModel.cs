@@ -9,6 +9,8 @@ namespace Fora.Shared
         public int Id { get; set; }
         public string Name { get; set; } = String.Empty;
         public List<ThreadModel> Threads { get; set; }
+        public DateTime DateTimeCreated { get; set; } = DateTime.Now;
+        public DateTime DateTimeModified { get; set; }
 
         // Relations
         public List<UserInterestModel> UserInterests { get; set; }
