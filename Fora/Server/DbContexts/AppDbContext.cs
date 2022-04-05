@@ -51,6 +51,7 @@ namespace Fora.Server.Data
                 .HasForeignKey(i => i.UserId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.SetNull);
+
         }
     }
 }
