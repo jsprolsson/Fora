@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Fora.Server.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,11 +13,11 @@ namespace Fora.Server.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", nullable: false),
-                    Banned = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Deleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Banned = table.Column<bool>(type: "bit", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,10 +28,12 @@ namespace Fora.Server.Migrations
                 name: "Interests",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateTimeCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateTimeModified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,11 +50,13 @@ namespace Fora.Server.Migrations
                 name: "Threads",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    InterestId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateTimeCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateTimeModified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    InterestId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -74,8 +79,8 @@ namespace Fora.Server.Migrations
                 name: "UserInterestModel",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    InterestId = table.Column<int>(type: "INTEGER", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    InterestId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,11 +103,13 @@ namespace Fora.Server.Migrations
                 name: "Messages",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Message = table.Column<string>(type: "TEXT", nullable: false),
-                    ThreadId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateTimeCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateTimeModified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ThreadId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -120,6 +127,49 @@ namespace Fora.Server.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Banned", "Deleted", "Username" },
+                values: new object[] { 1, false, false, "Jesper" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Banned", "Deleted", "Username" },
+                values: new object[] { 2, false, false, "Filip" });
+
+            migrationBuilder.InsertData(
+                table: "Interests",
+                columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "Name", "UserId" },
+                values: new object[] { 1, new DateTime(2022, 4, 5, 14, 5, 41, 982, DateTimeKind.Local).AddTicks(1888), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Games", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Interests",
+                columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "Name", "UserId" },
+                values: new object[] { 2, new DateTime(2022, 4, 5, 14, 5, 41, 982, DateTimeKind.Local).AddTicks(1924), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Books", 2 });
+
+            migrationBuilder.InsertData(
+                table: "Threads",
+                columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "InterestId", "Name", "UserId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 4, 5, 14, 5, 41, 982, DateTimeKind.Local).AddTicks(1952), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Elden Ring", 1 },
+                    { 2, new DateTime(2022, 4, 5, 14, 5, 41, 982, DateTimeKind.Local).AddTicks(1961), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Blazors guide to the universe", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "UserInterestModel",
+                columns: new[] { "InterestId", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Messages",
+                columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "Message", "ThreadId", "UserId" },
+                values: new object[] { 1, new DateTime(2022, 4, 5, 14, 5, 41, 982, DateTimeKind.Local).AddTicks(1969), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "I love the new elden ring game", 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Interests_UserId",
