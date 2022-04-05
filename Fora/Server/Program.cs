@@ -1,9 +1,11 @@
 global using Fora.Server.Data;
 global using Fora.Shared;
+global using Fora.Shared.DTO;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore;
 using Fora.Server.DbContexts;
 using Fora.Server.Services.InterestService;
+using Fora.Server.Services.ThreadService;
 using Fora.Shared.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
@@ -49,6 +51,7 @@ builder.Services.AddDbContext<UserDbContext>(options => options.UseSqlite(
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
 
 builder.Services.AddScoped<IInterestService, InterestService>();
+builder.Services.AddScoped<IThreadService, ThreadService>();
 
 var app = builder.Build();
 

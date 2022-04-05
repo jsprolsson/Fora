@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using Fora.Server.Services.ThreadService;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Fora.Server.Controllers
 {
@@ -8,36 +7,57 @@ namespace Fora.Server.Controllers
     [ApiController]
     public class ThreadsController : ControllerBase
     {
-        // GET: api/<ThreadsController>
+        private readonly IThreadService _threadService;
+
+        public ThreadsController(IThreadService threadService)
+        {
+            _threadService = threadService ?? throw new ArgumentNullException(nameof(threadService));
+        }
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<ThreadModel>> GetThreads()
         {
-            return new string[] { "value1", "value2" };
+            return await _threadService.GetThreads();
         }
 
-        // GET api/<ThreadsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ThreadModel> GetThread(int id)
         {
-            return "value";
+            return await _threadService.GetThread(id);
         }
 
-        // POST api/<ThreadsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ThreadModel> Post([FromBody] ThreadModel thread)
         {
+            await _threadService.CreateThread(thread);
+            return thread;
         }
 
-        // PUT api/<ThreadsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> Put(int interestId, int id, [FromBody] string name)
         {
+            var threadEntity = await _threadService.GetThread(id);
+            if (threadEntity == null)
+            {
+                return NotFound();
+            }
+
+            ThreadDto thread = new()
+            {
+                Id = id,
+                Name = name,
+                DateTimeModified = DateTime.Now,
+                InterestId = interestId
+            };
+
+            await _threadService.UpdateThread(thread);
+            return Ok();
         }
 
-        // DELETE api/<ThreadsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            await _threadService.DeleteThread(id);
+            return Ok();
         }
     }
 }
