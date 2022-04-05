@@ -5,6 +5,7 @@ global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore;
 using Fora.Server.DbContexts;
 using Fora.Server.Services.InterestService;
+using Fora.Server.Services.MessageService;
 using Fora.Server.Services.ThreadService;
 using Fora.Shared.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -53,6 +54,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFramework
 
 builder.Services.AddScoped<IInterestService, InterestService>();
 builder.Services.AddScoped<IThreadService, ThreadService>();
+builder.Services.AddScoped<IMessageService, MessageService>();
 
 
 var app = builder.Build();

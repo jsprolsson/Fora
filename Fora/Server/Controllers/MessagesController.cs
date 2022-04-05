@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Fora.Server.Services.MessageService;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,19 +9,25 @@ namespace Fora.Server.Controllers
     [ApiController]
     public class MessagesController : ControllerBase
     {
-        // GET: api/<MessagesController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IMessageService _messageService;
+
+        public MessagesController(IMessageService MessageService)
         {
-            return new string[] { "value1", "value2" };
+            _messageService = MessageService;
+        }
+        
+        [HttpGet]
+        public async Task<List<MessageModel>> Get(int threadId)
+        {
+            return await _messageService.GetMessages(threadId);
         }
 
-        // GET api/<MessagesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //// GET api/<MessagesController>/5
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
         // POST api/<MessagesController>
         [HttpPost]
