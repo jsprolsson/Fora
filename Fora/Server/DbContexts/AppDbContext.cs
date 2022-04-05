@@ -55,28 +55,28 @@ namespace Fora.Server.Data
             // Seed data
 
             modelBuilder.Entity<UserModel>()
-                .HasData(new UserModel { Id = 1, Username = "Jesper", Banned = false, Deleted = false });
-
-            modelBuilder.Entity<UserModel>()
-                .HasData(new UserModel { Id = 2, Username = "Filip", Banned = false, Deleted = false });
-
-            modelBuilder.Entity<InterestModel>()
-                .HasData(new InterestModel { Id = 1, Name = "Games", UserId = 1 });
+                .HasData(
+                new UserModel { Id = 1, Username = "Jesper", Banned = false, Deleted = false },
+                new UserModel { Id = 2, Username = "Filip", Banned = false, Deleted = false }
+                );
 
             modelBuilder.Entity<InterestModel>()
-                .HasData(new InterestModel { Id = 2, Name = "Books", UserId = 2 });
+                .HasData(
+                new InterestModel { Id = 1, Name = "Games", UserId = 1 },
+                new InterestModel { Id = 2, Name = "Books", UserId = 2 }
+                );
 
             modelBuilder.Entity<UserInterestModel>()
-                .HasData(new UserInterestModel { UserId = 1, InterestId = 1 });
-
-            modelBuilder.Entity<UserInterestModel>()
-                .HasData(new UserInterestModel { UserId = 2, InterestId = 2 });
-
-            modelBuilder.Entity<ThreadModel>()
-                .HasData(new ThreadModel { Id = 1, Name = "Elden Ring", UserId = 1, InterestId = 1 });
+                .HasData(
+                new UserInterestModel { UserId = 1, InterestId = 1 },
+                new UserInterestModel { UserId = 2, InterestId = 2 }
+                );
 
             modelBuilder.Entity<ThreadModel>()
-                .HasData(new ThreadModel { Id = 2, Name = "Blazors guide to the universe", UserId = 2, InterestId = 2 });
+                .HasData(
+                new ThreadModel { Id = 2, Name = "Blazors guide to the universe", UserId = 2, InterestId = 2 },
+                new ThreadModel { Id = 1, Name = "Elden Ring", UserId = 1, InterestId = 1 }
+                );
 
             modelBuilder.Entity<MessageModel>()
                 .HasData(new MessageModel { Id = 1, ThreadId = 1, UserId = 1, Message = "I love the new elden ring game"});
