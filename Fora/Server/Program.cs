@@ -15,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
+
 // Swagger with Bearer token
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(setupAction =>
@@ -50,7 +51,20 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFramework
 
 builder.Services.AddScoped<IInterestService, InterestService>();
 
+
 var app = builder.Build();
+
+//Deletes, creates and updates database anew with the seeded data.
+
+using (var scope = app.Services.CreateScope())
+{
+    using (var context = scope.ServiceProvider.GetService<AppDbContext>())
+    {
+        context.Database.EnsureDeleted();
+        context.Database.Migrate();
+    }
+}
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
