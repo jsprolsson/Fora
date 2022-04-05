@@ -3,6 +3,7 @@ using System;
 using Fora.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fora.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220405083847_addedSeedData")]
+    partial class addedSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
@@ -74,15 +76,6 @@ namespace Fora.Server.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Messages");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Message = "I love the new elden ring game",
-                            ThreadId = 1,
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("Fora.Shared.ThreadModel", b =>
@@ -108,22 +101,6 @@ namespace Fora.Server.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Threads");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            InterestId = 1,
-                            Name = "Elden Ring",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            InterestId = 2,
-                            Name = "Blazors guide to the universe",
-                            UserId = 2
-                        });
                 });
 
             modelBuilder.Entity("Fora.Shared.UserInterestModel", b =>
@@ -139,18 +116,6 @@ namespace Fora.Server.Migrations
                     b.HasIndex("InterestId");
 
                     b.ToTable("UserInterestModel");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            InterestId = 1
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            InterestId = 2
-                        });
                 });
 
             modelBuilder.Entity("Fora.Shared.UserModel", b =>
