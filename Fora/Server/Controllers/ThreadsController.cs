@@ -26,10 +26,10 @@ namespace Fora.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ThreadModel> Post([FromBody] ThreadModel thread)
+        public async Task<ThreadModel> Post([FromBody] ThreadDto thread)
         {
-            await _threadService.CreateThread(thread);
-            return thread;
+            var createdThread = await _threadService.CreateThread(thread);
+            return createdThread;
         }
 
         [HttpPatch("{id}")]

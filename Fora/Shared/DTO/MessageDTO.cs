@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fora.Shared.DTO
 {
-    public class MessageDTO
+    public class MessageDto
     {
         public int Id { get; set; }
         public string Message { get; set; } = String.Empty;

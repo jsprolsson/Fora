@@ -3,8 +3,8 @@
     public interface IMessageService
     {
         Task<List<MessageModel>> GetMessages(int threadId);
-        Task<MessageModel> CreateMessage(MessageDTO message, int threadId);
-        Task UpdateMessage(MessageDTO message);
+        Task<MessageModel> CreateMessage(MessageDto message, int threadId);
+        Task UpdateMessage(MessageDto message);
         Task DeleteMessage(int messageId);
     }
 }

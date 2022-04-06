@@ -1,7 +1,6 @@
 ﻿using Fora.Server.Services.MessageService;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Fora.Server.Controllers
 {
@@ -24,14 +23,14 @@ namespace Fora.Server.Controllers
 
 
         [HttpPost]
-        public async Task<MessageModel> Post(MessageDTO message, int threadId)
+        public async Task<MessageModel> Post(MessageDto message, int threadId)
         {
             var createdMessage = await _messageService.CreateMessage(message, threadId);
             return createdMessage;
         }
 
         [HttpPut]
-        public async Task Put(MessageDTO message, int threadId)
+        public async Task Put(MessageDto message, int threadId)
         {
             message.ThreadId = threadId;
             await _messageService.UpdateMessage(message);

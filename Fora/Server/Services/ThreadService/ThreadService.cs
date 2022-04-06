@@ -8,12 +8,20 @@
         {
             _appDbContext = appDbContext ?? throw new ArgumentNullException(nameof(appDbContext));
         }
-        public async Task<ThreadModel> CreateThread(ThreadModel thread)
+        public async Task<ThreadModel> CreateThread(ThreadDto thread)
         {
-            await _appDbContext.AddAsync(thread);
+            var threadToCreate = new ThreadModel()
+            {
+                Id = thread.Id,
+                Name = thread.Name,
+                UserId = thread.UserId,
+                InterestId = thread.InterestId
+            };
+
+            await _appDbContext.AddAsync(threadToCreate);
             var created = await _appDbContext.SaveChangesAsync();
             if (created < 1) return new ThreadModel();
-            else return thread;
+            else return threadToCreate;
         }
 
         public async Task DeleteThread(int threadId)
