@@ -9,7 +9,7 @@
             _appDbContext = appDbContext;
         }
 
-        public async Task<MessageModel> CreateMessage(MessageDTO message, int threadId)
+        public async Task<MessageModel> CreateMessage(MessageDto message, int threadId)
         {
             //Use DTO object to not clutter json object in swagger with all the relations.
             var messageModel = new MessageModel()
@@ -31,7 +31,7 @@
         }
 
 
-        public async Task UpdateMessage(MessageDTO message)
+        public async Task UpdateMessage(MessageDto message)
         {
             //Find message to update
             var messageEntity = await _appDbContext.Messages.FirstOrDefaultAsync(m => m.Id == message.Id);
