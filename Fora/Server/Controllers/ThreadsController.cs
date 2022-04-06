@@ -14,9 +14,9 @@ namespace Fora.Server.Controllers
             _threadService = threadService ?? throw new ArgumentNullException(nameof(threadService));
         }
         [HttpGet]
-        public async Task<List<ThreadModel>> GetThreads()
+        public async Task<List<ThreadModel>> GetThreads(int interestId)
         {
-            return await _threadService.GetThreads();
+            return await _threadService.GetThreads(interestId);
         }
 
         [HttpGet("{id}")]

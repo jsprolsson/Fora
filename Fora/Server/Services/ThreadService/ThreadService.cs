@@ -29,9 +29,13 @@
             return await _appDbContext.Threads.Where(i => i.Id == threadId).FirstOrDefaultAsync();
         }
 
-        public async Task<List<ThreadModel>> GetThreads()
+        public async Task<List<ThreadModel>> GetThreads(int interestId)
         {
-            return await _appDbContext.Threads.OrderBy(i => i.Name).ToListAsync();
+            //Ska inte kunna hämta alla trådar sammanlagt. Bara alla trådar för ett intresse.
+
+            //Plocka in intresse-id:t, jämför och hitta alla trådar som har detta intresse:idt
+
+            return await _appDbContext.Threads.Where(t => t.InterestId == interestId).OrderBy(t => t.Name).ToListAsync();
         }
 
         public async Task UpdateThread(ThreadDto thread)

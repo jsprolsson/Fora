@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Fora.Server.Controllers
 {
-    [Route("api/interests/{interestId}/threads/{threadId}/messages")]
+    [Route("api/threads/{threadId}/messages")]
     [ApiController]
     public class MessagesController : ControllerBase
     {
@@ -22,29 +22,25 @@ namespace Fora.Server.Controllers
             return await _messageService.GetMessages(threadId);
         }
 
-        //// GET api/<MessagesController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
 
-        // POST api/<MessagesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<MessageModel> Post(MessageDTO message, int threadId)
         {
+            var createdMessage = await _messageService.CreateMessage(message, threadId);
+            return createdMessage;
         }
 
-        // PUT api/<MessagesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task Put(MessageDTO message, int threadId)
         {
+            message.ThreadId = threadId;
+            await _messageService.UpdateMessage(message);
         }
 
-        // DELETE api/<MessagesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
+            await _messageService.DeleteMessage(id);
         }
     }
 }

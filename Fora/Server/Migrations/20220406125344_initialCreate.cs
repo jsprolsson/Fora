@@ -108,6 +108,7 @@ namespace Fora.Server.Migrations
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateTimeCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateTimeModified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
                     ThreadId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -144,10 +145,10 @@ namespace Fora.Server.Migrations
                 columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "Name", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(492), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Games", 1 },
-                    { 2, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(530), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Books", 2 },
-                    { 3, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(533), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Music", 2 },
-                    { 4, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(534), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hiking", 1 }
+                    { 1, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4016), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Games", 1 },
+                    { 2, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4053), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Books", 2 },
+                    { 3, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4056), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Music", 2 },
+                    { 4, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4057), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hiking", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -155,10 +156,10 @@ namespace Fora.Server.Migrations
                 columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "InterestId", "Name", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(564), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Elden Ring", 1 },
-                    { 2, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(560), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Blazors guide to the universe", 2 },
-                    { 3, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(566), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, "Hiking in dr martens??", 3 },
-                    { 4, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(567), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "About twilight...", 4 }
+                    { 1, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4089), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Elden Ring", 1 },
+                    { 2, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4085), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Blazors guide to the universe", 2 },
+                    { 3, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4136), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, "Hiking in dr martens??", 3 },
+                    { 4, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4139), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "About twilight...", 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -177,19 +178,19 @@ namespace Fora.Server.Migrations
 
             migrationBuilder.InsertData(
                 table: "Messages",
-                columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "Message", "ThreadId", "UserId" },
+                columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "Deleted", "Message", "ThreadId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(579), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "I love the new elden ring game", 1, 1 },
-                    { 2, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(582), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "I think it's the worst in the series", 1, 4 },
-                    { 3, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(584), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "It's not a part of any series", 1, 1 },
-                    { 4, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(586), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Yes it is", 1, 4 },
-                    { 5, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(587), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "I've heard they are releasing another book in the twilight franschise", 4, 4 },
-                    { 6, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(589), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "NOBODY CARES", 4, 1 },
-                    { 7, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(591), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "I care", 4, 4 },
-                    { 8, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(592), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Keep a civil tone in here please and only post regarding the topic.", 4, 2 },
-                    { 9, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(594), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "I'm sorry. I'm actually prtty excited 4 the new release", 4, 1 },
-                    { 10, new DateTime(2022, 4, 6, 10, 8, 7, 832, DateTimeKind.Local).AddTicks(595), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Has anybody tried hiking in dr martens?? And if so, do you have any recommendations for me? I'm going up to Sälen next week and would like a pair of martens, but I've heard they're not that good for hiking in..", 3, 3 }
+                    { 1, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4154), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I love the new elden ring game", 1, 1 },
+                    { 2, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4158), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I think it's the worst in the series", 1, 4 },
+                    { 3, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4160), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "It's not a part of any series", 1, 1 },
+                    { 4, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4162), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Yes it is", 1, 4 },
+                    { 5, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4164), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I've heard they are releasing another book in the twilight franschise", 4, 4 },
+                    { 6, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4166), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "NOBODY CARES", 4, 1 },
+                    { 7, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4167), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I care", 4, 4 },
+                    { 8, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4169), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Keep a civil tone in here please and only post regarding the topic.", 4, 2 },
+                    { 9, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4171), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I'm sorry. I'm actually prtty excited 4 the new release", 4, 1 },
+                    { 10, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4172), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Has anybody tried hiking in dr martens?? And if so, do you have any recommendations for me? I'm going up to Sälen next week and would like a pair of martens, but I've heard they're not that good for hiking in..", 3, 3 }
                 });
 
             migrationBuilder.CreateIndex(
