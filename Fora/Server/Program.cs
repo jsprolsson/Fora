@@ -4,6 +4,7 @@ global using Fora.Shared.DTO;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore;
 using Fora.Server.DbContexts;
+using Fora.Server.Services.AuthService;
 using Fora.Server.Services.InterestService;
 using Fora.Server.Services.ThreadService;
 using Fora.Shared.Entities;
@@ -51,8 +52,20 @@ builder.Services.AddDbContext<UserDbContext>(options => options.UseSqlServer(
     ));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
 
+// Password
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequiredUniqueChars = 0;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 3;
+});
+
 builder.Services.AddScoped<IInterestService, InterestService>();
 builder.Services.AddScoped<IThreadService, ThreadService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 var app = builder.Build();
@@ -65,7 +78,7 @@ using (var scope = app.Services.CreateScope())
     {
         context.Database.EnsureDeleted();
         context.Database.Migrate();
-       // context.Database.EnsureCreated();
+        // context.Database.EnsureCreated();
     }
 }
 
