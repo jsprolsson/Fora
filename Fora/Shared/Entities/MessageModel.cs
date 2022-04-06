@@ -10,6 +10,7 @@ namespace Fora.Shared
         public string Message { get; set; } = String.Empty;
         public DateTime DateTimeCreated { get; set; } = DateTime.Now;
         public DateTime DateTimeModified { get; set; }
+        public bool Deleted { get; set; }
 
 
         // Relations

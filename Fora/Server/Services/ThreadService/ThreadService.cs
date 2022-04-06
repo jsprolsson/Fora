@@ -8,12 +8,20 @@
         {
             _appDbContext = appDbContext ?? throw new ArgumentNullException(nameof(appDbContext));
         }
-        public async Task<ThreadModel> CreateThread(ThreadModel thread)
+        public async Task<ThreadModel> CreateThread(ThreadDto thread)
         {
-            await _appDbContext.AddAsync(thread);
+            var threadToCreate = new ThreadModel()
+            {
+                Id = thread.Id,
+                Name = thread.Name,
+                UserId = thread.UserId,
+                InterestId = thread.InterestId
+            };
+
+            await _appDbContext.AddAsync(threadToCreate);
             var created = await _appDbContext.SaveChangesAsync();
             if (created < 1) return new ThreadModel();
-            else return thread;
+            else return threadToCreate;
         }
 
         public async Task DeleteThread(int threadId)
@@ -29,9 +37,13 @@
             return await _appDbContext.Threads.Where(i => i.Id == threadId).FirstOrDefaultAsync();
         }
 
-        public async Task<List<ThreadModel>> GetThreads()
+        public async Task<List<ThreadModel>> GetThreads(int interestId)
         {
-            return await _appDbContext.Threads.OrderBy(i => i.Name).ToListAsync();
+            //Ska inte kunna hämta alla trådar sammanlagt. Bara alla trådar för ett intresse.
+
+            //Plocka in intresse-id:t, jämför och hitta alla trådar som har detta intresse:idt
+
+            return await _appDbContext.Threads.Where(t => t.InterestId == interestId).OrderBy(t => t.Name).ToListAsync();
         }
 
         public async Task UpdateThread(ThreadDto thread)

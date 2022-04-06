@@ -29,9 +29,5 @@
     <ProjectReference Include="..\Shared\Fora.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\MessageService\" />
-  </ItemGroup>
-
 
 </Project>

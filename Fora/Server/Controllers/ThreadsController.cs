@@ -14,9 +14,9 @@ namespace Fora.Server.Controllers
             _threadService = threadService ?? throw new ArgumentNullException(nameof(threadService));
         }
         [HttpGet]
-        public async Task<List<ThreadModel>> GetThreads()
+        public async Task<List<ThreadModel>> GetThreads(int interestId)
         {
-            return await _threadService.GetThreads();
+            return await _threadService.GetThreads(interestId);
         }
 
         [HttpGet("{id}")]
@@ -26,10 +26,10 @@ namespace Fora.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ThreadModel> Post([FromBody] ThreadModel thread)
+        public async Task<ThreadModel> Post([FromBody] ThreadDto thread)
         {
-            await _threadService.CreateThread(thread);
-            return thread;
+            var createdThread = await _threadService.CreateThread(thread);
+            return createdThread;
         }
 
         [HttpPatch("{id}")]

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Fora.Server.Migrations
 {
-    public partial class init : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -108,6 +108,7 @@ namespace Fora.Server.Migrations
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateTimeCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateTimeModified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
                     ThreadId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -131,30 +132,34 @@ namespace Fora.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Banned", "Deleted", "Username" },
-                values: new object[] { 1, false, false, "Jesper" });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "Banned", "Deleted", "Username" },
-                values: new object[] { 2, false, false, "Filip" });
-
-            migrationBuilder.InsertData(
-                table: "Interests",
-                columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "Name", "UserId" },
-                values: new object[] { 1, new DateTime(2022, 4, 5, 14, 5, 41, 982, DateTimeKind.Local).AddTicks(1888), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Games", 1 });
+                values: new object[,]
+                {
+                    { 1, false, false, "Jesper" },
+                    { 2, false, false, "Filip" },
+                    { 3, true, false, "Mårten" },
+                    { 4, false, false, "Dragan" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Interests",
                 columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "Name", "UserId" },
-                values: new object[] { 2, new DateTime(2022, 4, 5, 14, 5, 41, 982, DateTimeKind.Local).AddTicks(1924), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Books", 2 });
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4016), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Games", 1 },
+                    { 2, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4053), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Books", 2 },
+                    { 3, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4056), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Music", 2 },
+                    { 4, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4057), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hiking", 1 }
+                });
 
             migrationBuilder.InsertData(
                 table: "Threads",
                 columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "InterestId", "Name", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 4, 5, 14, 5, 41, 982, DateTimeKind.Local).AddTicks(1952), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Elden Ring", 1 },
-                    { 2, new DateTime(2022, 4, 5, 14, 5, 41, 982, DateTimeKind.Local).AddTicks(1961), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Blazors guide to the universe", 2 }
+                    { 1, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4089), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Elden Ring", 1 },
+                    { 2, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4085), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Blazors guide to the universe", 2 },
+                    { 3, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4136), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, "Hiking in dr martens??", 3 },
+                    { 4, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4139), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "About twilight...", 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -163,13 +168,30 @@ namespace Fora.Server.Migrations
                 values: new object[,]
                 {
                     { 1, 1 },
-                    { 2, 2 }
+                    { 2, 1 },
+                    { 2, 2 },
+                    { 3, 2 },
+                    { 4, 3 },
+                    { 1, 4 },
+                    { 2, 4 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Messages",
-                columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "Message", "ThreadId", "UserId" },
-                values: new object[] { 1, new DateTime(2022, 4, 5, 14, 5, 41, 982, DateTimeKind.Local).AddTicks(1969), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "I love the new elden ring game", 1, 1 });
+                columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "Deleted", "Message", "ThreadId", "UserId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4154), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I love the new elden ring game", 1, 1 },
+                    { 2, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4158), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I think it's the worst in the series", 1, 4 },
+                    { 3, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4160), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "It's not a part of any series", 1, 1 },
+                    { 4, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4162), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Yes it is", 1, 4 },
+                    { 5, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4164), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I've heard they are releasing another book in the twilight franschise", 4, 4 },
+                    { 6, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4166), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "NOBODY CARES", 4, 1 },
+                    { 7, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4167), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I care", 4, 4 },
+                    { 8, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4169), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Keep a civil tone in here please and only post regarding the topic.", 4, 2 },
+                    { 9, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4171), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I'm sorry. I'm actually prtty excited 4 the new release", 4, 1 },
+                    { 10, new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4172), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Has anybody tried hiking in dr martens?? And if so, do you have any recommendations for me? I'm going up to Sälen next week and would like a pair of martens, but I've heard they're not that good for hiking in..", 3, 3 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Interests_UserId",

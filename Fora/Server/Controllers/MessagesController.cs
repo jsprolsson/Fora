@@ -1,43 +1,45 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Fora.Server.Services.MessageService;
+using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Fora.Server.Controllers
 {
-    [Route("api/interests/{interestId}/threads/{threadId}/messages")]
+    [Route("api/threads/{threadId}/messages")]
     [ApiController]
     public class MessagesController : ControllerBase
     {
-        // GET: api/<MessagesController>
+        private readonly IMessageService _messageService;
+
+        public MessagesController(IMessageService MessageService)
+        {
+            _messageService = MessageService;
+        }
+        
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<MessageModel>> Get(int threadId)
         {
-            return new string[] { "value1", "value2" };
+            return await _messageService.GetMessages(threadId);
         }
 
-        // GET api/<MessagesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
-        // POST api/<MessagesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<MessageModel> Post(MessageDto message, int threadId)
         {
+            var createdMessage = await _messageService.CreateMessage(message, threadId);
+            return createdMessage;
         }
 
-        // PUT api/<MessagesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task Put(MessageDto message, int threadId)
         {
+            message.ThreadId = threadId;
+            await _messageService.UpdateMessage(message);
         }
 
-        // DELETE api/<MessagesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
+            await _messageService.DeleteMessage(id);
         }
     }
 }
