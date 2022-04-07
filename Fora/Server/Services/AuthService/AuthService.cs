@@ -39,12 +39,12 @@ namespace Fora.Server.Services.AuthService
             List<Claim> claims = new List<Claim>
             {
                 // Add new claims here if more user properties are needed
-                new Claim("username", user.UserName)
+                new Claim(ClaimTypes.Name, user.UserName)
             };
             // Add all user roles
             foreach (var role in roles)
             {
-                claims.Add(new Claim("role", role));
+                claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
