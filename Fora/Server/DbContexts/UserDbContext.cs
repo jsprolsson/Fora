@@ -24,9 +24,10 @@ namespace Fora.Server.DbContexts
             {
                 Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                 UserName = "admin",
+                NormalizedUserName = "ADMIN",
                 Email = "admin@gmail.com",
                 LockoutEnabled = false,
-               // PhoneNumber = "1234567890"
+                // PhoneNumber = "1234567890"
             };
 
             PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();

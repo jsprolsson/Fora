@@ -47,21 +47,6 @@ builder.Services.AddSwaggerGen(setupAction =>
     });
 });
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.RequireHttpsMetadata = true;
-        options.SaveToken = true;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes(builder.Configuration.GetSection("Authentication:SecretForKey").Value)),
-            ValidateIssuer = true,
-            ValidateAudience = true
-        };
-    });
-
 //Fora db context
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
@@ -88,6 +73,40 @@ builder.Services.AddScoped<IThreadService, ThreadService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+// JWT
+var jwtSettings = builder.Configuration.GetSection("JWTSettings");
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretForKey"]))
+    };
+});
+
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("Default", new AuthorizationPolicyBuilder()
+//        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+//        .RequireAuthenticatedUser()
+//        .Build());
+
+//    options.AddPolicy("Admin", new AuthorizationPolicyBuilder()
+//        .RequireRole("Admin")
+//        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+//        .RequireAuthenticatedUser()
+//        .Build());
+//});
 
 var app = builder.Build();
 
@@ -130,10 +149,9 @@ app.UseHttpsRedirection();
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
-app.UseAuthentication();
-
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

@@ -5,6 +5,7 @@ namespace Fora.Server.Controllers
 {
     [Route("api/interests")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class InterestsController : ControllerBase
     {
         private readonly IInterestService _interestService;
@@ -15,7 +16,6 @@ namespace Fora.Server.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<List<InterestModel>> GetInterests()
         {
             return await _interestService.GetInterests();
