@@ -4,14 +4,22 @@
 
 <AuthorizeView>
     <Authorized>
-        <button @onclick="Logout" class="btn btn-danger">Logout</button>
+        @*<MudIconButton Icon="@Icons.Filled.Logout" @onclick="Logout" aria-label="delete"></MudIconButton>*@
+        <MudText Align="Align.Right">Hi User</MudText>
+        <MudButton Variant="Variant.Filled" StartIcon="@Icons.Filled.Logout" @onclick="Logout" IconColor="Color.Secondary">Logout</MudButton>
     </Authorized>
     <NotAuthorized>
-        <button @onclick="Login" class="btn btn-primary">Login</button>
+                    <MudTextField @bind-Value="Username" Label="Username" Variant="Variant.Outlined" Margin="Margin.Dense" />
+                    <MudTextField @bind-Value="Password" Label="Password" InputType="InputType.Password" Variant="Variant.Outlined" Margin="Margin.Dense" />
+        @*<MudIconButton Icon="@Icons.Filled.Login" @onclick="Login" aria-label="delete"></MudIconButton>*@
+        <MudButton Variant="Variant.Filled" StartIcon="@Icons.Filled.Login" @onclick="Login" IconColor="Color.Primary">Login</MudButton>
     </NotAuthorized>
 </AuthorizeView>
 
 @code {
+    private string Username { get; set; }
+    private string Password { get; set; }
+
     void Login()
     {
         NavigationManager.NavigateTo("login");

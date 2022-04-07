@@ -6,14 +6,25 @@
 @inject ILocalStorageService LocalStorage
 @*move to Services*@
 
-<h3>Login</h3>
+@using System.ComponentModel.DataAnnotations
 
-<EditForm Model="user" OnSubmit="HandleLogin">
-    <label for="username">Name</label>
-    <InputText id="username" @bind-Value="user.Username" />
-    <label for="password">Password</label>
-    <InputText id="password" @bind-Value="user.Password" type="password" />
-    <button type="submit" class="btn btn-primary">Do it!</button>
+<EditForm Model="@user" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator />
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="First name"
+                                  @bind-Value="user.Username" For="@(() => user.Username)" />
+                    <MudTextField Label="Password" Class="mt-3"
+                                  @bind-Value="user.Password" For="@(() => user.Password)" InputType="InputType.Password" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Login</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
 </EditForm>
 
 @code {
