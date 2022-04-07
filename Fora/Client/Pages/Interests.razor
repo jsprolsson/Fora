@@ -1,0 +1,30 @@
+﻿@page "/interests"
+@inject IInterestService InterestService
+
+<MudTable Items="@InterestsList" Hover="true" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>Interest</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+
+        <MudTd DataLabel="Nr">@context.Name</MudTd>
+
+    </RowTemplate>
+</MudTable>
+
+@code {
+    private List<InterestModel>? InterestsList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        InterestDeleteDto interst = new()
+            {
+                Id = 2,
+            };
+
+        await InterestService.DeleteInterest(interst);
+
+        await InterestService.GetInterests();
+        InterestsList = InterestService.Interests;
+    }
+}

@@ -1,6 +1,10 @@
 global using Blazored.LocalStorage;
 global using Fora.Shared.DTO;
 global using Microsoft.AspNetCore.Components.Authorization;
+global using Fora.Shared;
+global using Fora.Shared.DTO;
+global using Fora.Shared.DTO.InterestDtos;
+global using Fora.Client.Services.InterestService;
 using Fora.Client;
 using Fora.Client.Services.AuthService;
 using Microsoft.AspNetCore.Components.Web;
@@ -13,6 +17,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddScoped<IInterestService, InterestService>();
 
 // ----- Auth
 builder.Services.AddScoped<IAuthService, AuthService>();

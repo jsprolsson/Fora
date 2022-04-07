@@ -10,12 +10,18 @@ namespace Fora.Server.Services.InterestService
         {
             _appDbContext = appDbContext ?? throw new ArgumentNullException(nameof(appDbContext));
         }
-        public async Task<InterestModel> CreateInterest(InterestModel interest)
+        public async Task<InterestModel> CreateInterest(InterestCreateDto interest)
         {
-            await _appDbContext.AddAsync(interest);
+            var interestModel = new InterestModel()
+            {
+                Name = interest.Name,
+                UserId = interest.UserId,
+            };
+
+            _appDbContext.Add(interestModel);
             var created = await _appDbContext.SaveChangesAsync();
             if (created < 1) return new InterestModel();
-            else return interest;
+            else return null;
         }
 
         public async Task DeleteInterest(int interestId)
@@ -36,8 +42,9 @@ namespace Fora.Server.Services.InterestService
             return await _appDbContext.Interests.OrderBy(i => i.Name).ToListAsync();
         }
 
-        public async Task UpdateInterest(InterestDto interest)
+        public async Task UpdateInterest(InterestModel interest)
         {
+            //Tänk över hur den uppdaterar
             var interestEntity = await _appDbContext.Interests.FirstOrDefaultAsync(i => i.Id == interest.Id);
             if (interestEntity is not null)
             {
