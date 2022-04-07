@@ -1,15 +1,19 @@
 global using Fora.Server.Data;
 global using Fora.Shared;
 global using Fora.Shared.DTO;
+global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore;
+global using System.Text;
 using Fora.Server.DbContexts;
 using Fora.Server.Services.AuthService;
 using Fora.Server.Services.InterestService;
 using Fora.Server.Services.MessageService;
 using Fora.Server.Services.ThreadService;
 using Fora.Shared.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,6 +46,21 @@ builder.Services.AddSwaggerGen(setupAction =>
             }, new List<string>() }
     });
 });
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = true;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                .GetBytes(builder.Configuration.GetSection("Authentication:SecretForKey").Value)),
+            ValidateIssuer = true,
+            ValidateAudience = true
+        };
+    });
 
 //Fora db context
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -105,10 +124,11 @@ app.UseHttpsRedirection();
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
-app.UseRouting();
-
 app.UseAuthentication();
 
+app.UseRouting();
+
+app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();

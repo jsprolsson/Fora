@@ -15,6 +15,7 @@ namespace Fora.Server.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<List<InterestModel>> GetInterests()
         {
             return await _interestService.GetInterests();
