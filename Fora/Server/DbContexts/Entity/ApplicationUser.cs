@@ -9,6 +9,10 @@ namespace Fora.Shared.Entities
 {
     public class ApplicationUser : IdentityUser
     {
+        public ApplicationUser()
+        {
+            DateTimeModified = DateTime.Now;
+        }
         public bool Banned { get; set; }
         public bool Deleted { get; set; }
         public DateTime DateTimeCreated { get; set; } = DateTime.Now;
