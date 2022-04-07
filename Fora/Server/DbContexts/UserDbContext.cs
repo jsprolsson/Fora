@@ -23,14 +23,14 @@ namespace Fora.Server.DbContexts
             ApplicationUser user = new()
             {
                 Id = "b74ddd14-6340-4840-95c2-db12554843e5",
-                UserName = "Admin",
+                UserName = "admin",
                 Email = "admin@gmail.com",
                 LockoutEnabled = false,
                // PhoneNumber = "1234567890"
             };
 
             PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
-            user.PasswordHash = passwordHasher.HashPassword(user, "Admin*123");
+            user.PasswordHash = passwordHasher.HashPassword(user, "admin");
 
             builder.Entity<ApplicationUser>().HasData(user);
         }
