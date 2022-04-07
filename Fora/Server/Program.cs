@@ -1,15 +1,19 @@
 global using Fora.Server.Data;
 global using Fora.Shared;
 global using Fora.Shared.DTO;
+global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore;
+global using System.Text;
 using Fora.Server.DbContexts;
 using Fora.Server.Services.AuthService;
 using Fora.Server.Services.InterestService;
 using Fora.Server.Services.MessageService;
 using Fora.Server.Services.ThreadService;
 using Fora.Shared.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -69,6 +73,40 @@ builder.Services.AddScoped<IThreadService, ThreadService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+// JWT
+var jwtSettings = builder.Configuration.GetSection("JWTSettings");
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretForKey"]))
+    };
+});
+
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("Default", new AuthorizationPolicyBuilder()
+//        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+//        .RequireAuthenticatedUser()
+//        .Build());
+
+//    options.AddPolicy("Admin", new AuthorizationPolicyBuilder()
+//        .RequireRole("Admin")
+//        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+//        .RequireAuthenticatedUser()
+//        .Build());
+//});
 
 var app = builder.Build();
 
@@ -114,7 +152,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
-
+app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 
 namespace Fora.Server.Services.AuthService
 {
@@ -24,30 +23,38 @@ namespace Fora.Server.Services.AuthService
 
             if (signInResult.Succeeded)
             {
-                // create JWT
-                string token = CreateToken(userLogin);
+                var currentUser = await _signInManager.UserManager.FindByNameAsync(userLogin.Username);
+                // Create JWT
+                return await CreateToken(currentUser);
             }
 
-            // Change to null when signin is working
-            return CreateToken(userLogin);
+            // This will return Admin JWT. Change to null when signin is working
+            var currentUserTemp = await _signInManager.UserManager.FindByNameAsync("ADMIN");
+            return await CreateToken(currentUserTemp);
         }
 
-        private string CreateToken(UserLoginDto userLogin)
+        private async Task<string> CreateToken(ApplicationUser user)
         {
+            var roles = await _signInManager.UserManager.GetRolesAsync(user);
             List<Claim> claims = new List<Claim>
             {
                 // Add new claims here if more user properties are needed
-                new Claim(ClaimTypes.Name, userLogin.Username)
+                new Claim("username", user.UserName)
             };
+            // Add all user roles
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim("role", role));
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                _configuration.GetSection("Authentication:SecretForKey").Value));
+                _configuration.GetSection("JWTSettings:SecretForKey").Value));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                _configuration["Authentication:Issuer"],
-                _configuration["Authentication:Audience"],
+                _configuration["JWTSettings:Issuer"],
+                _configuration["JWTSettings:Audience"],
                 claims: claims,
                 notBefore: DateTime.Now,
                 expires: DateTime.Now.AddMinutes(15),
