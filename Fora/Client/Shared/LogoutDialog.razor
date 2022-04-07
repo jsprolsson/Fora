@@ -1,0 +1,23 @@
+﻿@inject NavigationManager NavigationManager
+@inject IAuthService AuthService
+
+<MudDialog>
+    <DialogContent>
+        Are you sure you want to logout?
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Logout</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    async Task Submit()
+    {
+        await AuthService.Logout();
+        MudDialog.Close(DialogResult.Ok(true));
+        NavigationManager.NavigateTo("/");
+    }
+    void Cancel() => MudDialog.Cancel();
+}

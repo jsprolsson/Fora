@@ -1,40 +1,38 @@
 ﻿@inject NavigationManager NavigationManager
-@inject ILocalStorageService LocalStorage
-@inject AuthenticationStateProvider AuthStateProvider
 @inject IAuthService AuthService
+@inject IDialogService DialogService
 
 <AuthorizeView>
     <Authorized>
         @*<MudIconButton Icon="@Icons.Filled.Logout" @onclick="Logout" aria-label="delete"></MudIconButton>*@
-        <MudText Align="Align.Right">Hi User</MudText>
-        <MudButton Variant="Variant.Filled" StartIcon="@Icons.Filled.Logout" @onclick="Logout" IconColor="Color.Secondary">Logout</MudButton>
+        <MudText Align="Align.Right">Hi @context.User.Identity.Name</MudText>
+        <MudButton Variant="Variant.Filled" StartIcon="@Icons.Filled.Logout" @onclick="OpenLogOutDialog" IconColor="Color.Secondary">Logout</MudButton>
     </Authorized>
     <NotAuthorized>
-                    <MudTextField @bind-Value="Username" Label="Username" Variant="Variant.Outlined" Margin="Margin.Dense" />
-                    <MudTextField @bind-Value="Password" Label="Password" InputType="InputType.Password" Variant="Variant.Outlined" Margin="Margin.Dense" />
+                    <MudTextField @bind-Value="UserLogin.Username" Label="Username" Variant="Variant.Outlined" Margin="Margin.Dense" />
+                    <MudTextField @bind-Value="UserLogin.Password" Label="Password" InputType="InputType.Password" Variant="Variant.Outlined" Margin="Margin.Dense" />
         @*<MudIconButton Icon="@Icons.Filled.Login" @onclick="Login" aria-label="delete"></MudIconButton>*@
         <MudButton Variant="Variant.Filled" StartIcon="@Icons.Filled.Login" @onclick="Login" IconColor="Color.Primary">Login</MudButton>
     </NotAuthorized>
 </AuthorizeView>
 
 @code {
-    public string Username { get; set; }
-    public string Password { get; set; }
     public UserLoginDto UserLogin { get; set; } = new();
 
     async Task Login()
     {
-        UserLogin.Username = Username;
-        UserLogin.Password = Password;
         await AuthService.Login(UserLogin);
-        //NavigationManager.NavigateTo("login");
+        NavigationManager.NavigateTo("interests");
     }
-
+    private void OpenLogOutDialog()
+    {
+		var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show<LogoutDialog>("", options);
+    }
     async Task Logout()
     {
         await AuthService.Logout();
         //await LocalStorage.RemoveItemAsync("token");
         //await AuthStateProvider.GetAuthenticationStateAsync();
     }
-
 }
