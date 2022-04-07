@@ -1,4 +1,4 @@
-﻿namespace Fora.Shared.DTO
+﻿namespace Fora.Shared.DTO.InterestDtos
 {
     public class InterestDeleteDto
     {

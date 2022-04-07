@@ -44,6 +44,7 @@ namespace Fora.Server.Services.InterestService
 
         public async Task UpdateInterest(InterestModel interest)
         {
+            //Tänk över hur den uppdaterar
             var interestEntity = await _appDbContext.Interests.FirstOrDefaultAsync(i => i.Id == interest.Id);
             if (interestEntity is not null)
             {
