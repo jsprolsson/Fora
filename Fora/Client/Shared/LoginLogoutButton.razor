@@ -1,6 +1,7 @@
 ﻿@inject NavigationManager NavigationManager
 @inject ILocalStorageService LocalStorage
 @inject AuthenticationStateProvider AuthStateProvider
+@inject IAuthService AuthService
 
 <AuthorizeView>
     <Authorized>
@@ -17,18 +18,23 @@
 </AuthorizeView>
 
 @code {
-    private string Username { get; set; }
-    private string Password { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
+    public UserLoginDto UserLogin { get; set; } = new();
 
-    void Login()
+    async Task Login()
     {
-        NavigationManager.NavigateTo("login");
+        UserLogin.Username = Username;
+        UserLogin.Password = Password;
+        await AuthService.Login(UserLogin);
+        //NavigationManager.NavigateTo("login");
     }
 
     async Task Logout()
     {
-        await LocalStorage.RemoveItemAsync("token");
-        await AuthStateProvider.GetAuthenticationStateAsync();
+        await AuthService.Logout();
+        //await LocalStorage.RemoveItemAsync("token");
+        //await AuthStateProvider.GetAuthenticationStateAsync();
     }
 
 }
