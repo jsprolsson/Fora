@@ -1,6 +1,7 @@
 global using Fora.Server.Data;
 global using Fora.Shared;
 global using Fora.Shared.DTO;
+global using Fora.Shared.DTO.InterestDtos;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore;
 using Fora.Server.DbContexts;

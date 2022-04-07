@@ -2,10 +2,10 @@
 {
     public interface IInterestService
     {
-        Task<InterestModel> CreateInterest(InterestModel interest);
+        Task<InterestModel> CreateInterest(InterestCreateDto interest);
         Task<List<InterestModel>> GetInterests();
         Task<InterestModel> GetInterest(int interestId);
-        Task UpdateInterest(InterestDto interest);
+        Task UpdateInterest(InterestModel interest);
         Task DeleteInterest(int interestId);
     }
 }

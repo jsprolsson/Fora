@@ -27,26 +27,29 @@ namespace Fora.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<InterestModel> Post([FromBody] InterestModel interest)
+        public async Task Post([FromBody] InterestCreateDto interest)
         {
             await _interestService.CreateInterest(interest);
-            return interest;
+            
         }
 
-        [HttpPatch("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] string name)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(int id, [FromBody] InterestUpdateDto interestToUpdate)
         {
-            var interestEntity = await _interestService.GetInterest(id);
+            var interestEntity = await _interestService.GetInterest(interestToUpdate.Id);
             if (interestEntity == null)
             {
                 return NotFound();
             }
 
-            InterestDto interest = new()
+            InterestModel interest = new()
             {
-                Id = id,
-                Name = name,
+                Id = interestToUpdate.Id,
+                Name = interestToUpdate.Name,
+                UserId = interestEntity.UserId,
+                DateTimeCreated = interestEntity.DateTimeCreated,
                 DateTimeModified = DateTime.Now,
+
             };
 
             await _interestService.UpdateInterest(interest);
