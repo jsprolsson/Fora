@@ -5,7 +5,7 @@ namespace Fora.Server.Controllers
 {
     [Route("api/interests")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class InterestsController : ControllerBase
     {
         private readonly IInterestService _interestService;
