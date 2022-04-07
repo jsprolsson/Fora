@@ -82,6 +82,12 @@ using (var scope = app.Services.CreateScope())
         context.Database.Migrate();
         // context.Database.EnsureCreated();
     }
+
+    using (var context = scope.ServiceProvider.GetService<UserDbContext>())
+    {
+        context.Database.EnsureDeleted();
+        context.Database.EnsureCreated();
+    }
 }
 
 
