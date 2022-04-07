@@ -158,6 +158,21 @@ namespace Fora.Server.Migrations.UserDb
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "fab4fac1-c546-41de-aebc-a14da6895711", "1", "Admin", "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "Banned", "ConcurrencyStamp", "DateTimeCreated", "DateTimeModified", "Deleted", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "b74ddd14-6340-4840-95c2-db12554843e5", 0, false, "e21404bc-c6a2-4251-8529-40c95e06792e", new DateTime(2022, 4, 7, 9, 51, 15, 62, DateTimeKind.Local).AddTicks(72), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "admin@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEMnzU9n95T5laHDdfZ8ugbeWUgMh1o1qXlNqcyHsb3FBTf0nBg04NLgGBC8OqzORXQ==", null, false, "4421cd77-e351-4f0b-a7b4-d92397cd871f", false, "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "fab4fac1-c546-41de-aebc-a14da6895711", "b74ddd14-6340-4840-95c2-db12554843e5" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fora.Server.Migrations.UserDb
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20220405151550_userInitialCreate")]
+    [Migration("20220407075115_userInitialCreate")]
     partial class userInitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,6 +99,26 @@ namespace Fora.Server.Migrations.UserDb
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b74ddd14-6340-4840-95c2-db12554843e5",
+                            AccessFailedCount = 0,
+                            Banned = false,
+                            ConcurrencyStamp = "e21404bc-c6a2-4251-8529-40c95e06792e",
+                            DateTimeCreated = new DateTime(2022, 4, 7, 9, 51, 15, 62, DateTimeKind.Local).AddTicks(72),
+                            DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEMnzU9n95T5laHDdfZ8ugbeWUgMh1o1qXlNqcyHsb3FBTf0nBg04NLgGBC8OqzORXQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "4421cd77-e351-4f0b-a7b4-d92397cd871f",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -126,6 +146,15 @@ namespace Fora.Server.Migrations.UserDb
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "fab4fac1-c546-41de-aebc-a14da6895711",
+                            ConcurrencyStamp = "1",
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -213,6 +242,13 @@ namespace Fora.Server.Migrations.UserDb
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "b74ddd14-6340-4840-95c2-db12554843e5",
+                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895711"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
