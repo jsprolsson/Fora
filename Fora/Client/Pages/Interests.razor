@@ -1,9 +1,10 @@
 ﻿@page "/interests"
 @inject IInterestService InterestService
+@inject NavigationManager navManager
 
-<MudTable Items="@InterestsList" Hover="true" LoadingProgressColor="Color.Info">
+<MudTable T="InterestModel" OnRowClick="@RowClicked" Items="@InterestsList" Hover="true" LoadingProgressColor="Color.Info">
     <HeaderContent>
-        <MudTh>Interest</MudTh>
+        <MudTh><b>Interest</b></MudTh>
     </HeaderContent>
     <RowTemplate>
 
@@ -17,14 +18,13 @@
 
     protected override async Task OnInitializedAsync()
     {
-        InterestDeleteDto interst = new()
-            {
-                Id = 2,
-            };
-
-        await InterestService.DeleteInterest(interst);
-
         await InterestService.GetInterests();
         InterestsList = InterestService.Interests;
+    }
+
+    private void RowClicked(TableRowClickEventArgs<InterestModel> p)
+    {
+        //Passes in the item which the user clicked on's interestid.
+        navManager.NavigateTo($"/threads/{p.Item.Id}");
     }
 }

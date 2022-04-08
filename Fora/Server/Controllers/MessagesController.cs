@@ -23,22 +23,22 @@ namespace Fora.Server.Controllers
 
 
         [HttpPost]
-        public async Task<MessageModel> Post(MessageDto message, int threadId)
+        public async Task<MessageModel> Post(MessageCreateDto message)
         {
-            var createdMessage = await _messageService.CreateMessage(message, threadId);
+            var createdMessage = await _messageService.CreateMessage(message);
             return createdMessage;
         }
 
         [HttpPut]
-        public async Task Put(MessageDto message, int threadId)
+        public async Task Put(MessageUpdateDto messageToUpdate)
         {
-            message.ThreadId = threadId;
-            await _messageService.UpdateMessage(message);
+            await _messageService.UpdateMessage(messageToUpdate);
         }
 
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
+            //Create Get method for finding one message for validation that message exists.. Then if exists, pass to DeleteMessage-func.
             await _messageService.DeleteMessage(id);
         }
     }

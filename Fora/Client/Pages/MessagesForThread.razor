@@ -1,0 +1,39 @@
+﻿@page "/messages/{thread:int}"
+@inject IMessageService MessageService
+
+<MudTable Items=Messages Hover="true" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>UserId</MudTh>
+        <MudTh>Message</MudTh>
+        <MudTh>Posted</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+
+        @if(@context.Deleted == true)
+        {
+            <MudTd DataLabel="UserId"></MudTd>
+            <MudTd DataLabel="Message">Message has been deleted.</MudTd>
+            <MudTd DataLabel="Posted"></MudTd>
+        }
+        else
+        {
+            <MudTd DataLabel="UserId">@context.UserId</MudTd>
+            <MudTd DataLabel="Message">@context.Message</MudTd>
+            <MudTd DataLabel="Posted">@context.DateTimeCreated</MudTd>
+        }
+        
+
+    </RowTemplate>
+</MudTable>
+
+@code {
+    [Parameter]
+    public int Thread { get; set; }
+    private List<MessageModel> Messages { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        Messages = await MessageService.GetMessages(Thread);
+    }
+}

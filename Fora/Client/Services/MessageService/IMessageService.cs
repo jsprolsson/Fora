@@ -1,10 +1,10 @@
-﻿namespace Fora.Server.Services.MessageService
+﻿namespace Fora.Client.Services.MessageService
 {
     public interface IMessageService
     {
+        Task CreateMessage(MessageCreateDto messageToCreate);
         Task<List<MessageModel>> GetMessages(int threadId);
-        Task<MessageModel> CreateMessage(MessageCreateDto messageToCreate);
         Task UpdateMessage(MessageUpdateDto messageToUpdate);
-        Task DeleteMessage(int messageId);
+        Task DeleteMessage(MessageDeleteDto messageToDelete);
     }
 }
