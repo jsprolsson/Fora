@@ -4,8 +4,10 @@ global using Microsoft.AspNetCore.Components.Authorization;
 global using Fora.Shared;
 global using Fora.Shared.DTO.InterestDtos;
 global using Fora.Shared.DTO.ThreadDtos;
+global using Fora.Shared.DTO.MessageDtos;
 global using Fora.Client.Services.InterestService;
 global using Fora.Client.Services.ThreadService;
+global using Fora.Client.Services.MessageService;
 using Fora.Client;
 using Fora.Client.Services.AuthService;
 using Microsoft.AspNetCore.Components.Web;
@@ -20,6 +22,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddScoped<IInterestService, InterestService>();
 builder.Services.AddScoped<IThreadService, ThreadService>();
+builder.Services.AddScoped<IMessageService, MessageService>();
 
 // ----- Auth
 builder.Services.AddScoped<IAuthService, AuthService>();

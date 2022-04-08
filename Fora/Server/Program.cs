@@ -3,6 +3,7 @@ global using Fora.Shared;
 global using Fora.Shared.DTO;
 global using Fora.Shared.DTO.InterestDtos;
 global using Fora.Shared.DTO.ThreadDtos;
+global using Fora.Shared.DTO.MessageDtos;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore;

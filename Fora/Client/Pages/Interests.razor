@@ -1,6 +1,5 @@
 ﻿@page "/interests"
 @inject IInterestService InterestService
-@inject IThreadService ThreadService
 @inject NavigationManager navManager
 
 <MudTable T="InterestModel" OnRowClick="@RowClicked" Items="@InterestsList" Hover="true" LoadingProgressColor="Color.Info">

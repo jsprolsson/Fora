@@ -23,9 +23,9 @@ namespace Fora.Server.Controllers
 
 
         [HttpPost]
-        public async Task<MessageModel> Post(MessageDto message, int threadId)
+        public async Task<MessageModel> Post(MessageCreateDto message)
         {
-            var createdMessage = await _messageService.CreateMessage(message, threadId);
+            var createdMessage = await _messageService.CreateMessage(message);
             return createdMessage;
         }
 

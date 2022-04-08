@@ -1,5 +1,6 @@
 ﻿@page "/threads/{interestid:int}"
 @inject IThreadService ThreadService
+@inject NavigationManager navManager
 
 <MudTable T="ThreadModel" OnRowClick="@RowClicked" Items="@Threads" Hover="true" LoadingProgressColor="Color.Info">
     <HeaderContent>
@@ -26,6 +27,6 @@
 
     public void RowClicked(TableRowClickEventArgs<ThreadModel> t)
     {
-        
+        navManager.NavigateTo($"/messages/{t.Item.Id}");
     }
 }

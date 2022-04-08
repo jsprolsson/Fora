@@ -1,0 +1,37 @@
+﻿@page "/messages/{thread:int}"
+@inject IMessageService MessageService
+
+<MudTable Items=Messages Hover="true" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>UserId</MudTh>
+        <MudTh>Message</MudTh>
+        <MudTh>Posted</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+
+        <MudTd>@context.UserId</MudTd>
+        <MudTd>@context.Message</MudTd>
+        <MudTd>@context.DateTimeCreated</MudTd>
+
+    </RowTemplate>
+</MudTable>
+
+@code {
+    [Parameter]
+    public int Thread { get; set; }
+    private List<MessageModel> Messages { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        MessageCreateDto newMessage = new()
+            {
+                Message = "Yesyes this is new message",
+                ThreadId = 1,
+                UserId = 2
+            };
+
+        await MessageService.CreateMessage(newMessage);
+
+        Messages = await MessageService.GetMessages(Thread);
+    }
+}

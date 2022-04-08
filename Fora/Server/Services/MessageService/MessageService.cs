@@ -9,15 +9,14 @@
             _appDbContext = appDbContext;
         }
 
-        public async Task<MessageModel> CreateMessage(MessageDto message, int threadId)
+        public async Task<MessageModel> CreateMessage(MessageCreateDto messageToCreate)
         {
             //Use DTO object to not clutter json object in swagger with all the relations.
             var messageModel = new MessageModel()
             {
-                Id = message.Id,
-                Message = message.Message,
-                ThreadId = threadId,
-                UserId = message.UserId
+                Message = messageToCreate.Message,
+                ThreadId = messageToCreate.ThreadId,
+                UserId = messageToCreate.UserId
             };
             _appDbContext.Add(messageModel);
             await _appDbContext.SaveChangesAsync();
@@ -27,7 +26,7 @@
         public async Task<List<MessageModel>> GetMessages(int threadId)
         {
             //Gets messages that are in the thread.
-            return await _appDbContext.Messages.Where(m => m.ThreadId == threadId).ToListAsync();
+            return await _appDbContext.Messages.Where(m => m.ThreadId == threadId).OrderBy(m => m.Id).ToListAsync();
         }
 
 
