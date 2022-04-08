@@ -2,7 +2,9 @@
 {
     public interface IThreadService
     {
-        Task CreateThread(ThreadCreateDto thread);
+        Task CreateThread(ThreadCreateDto threadToCreate);
         Task UpdateThread(ThreadUpdateDto threadToUpdate);
+
+        Task DeleteThread(ThreadDeleteDto threadToDelete);
     }
 }

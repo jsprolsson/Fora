@@ -18,16 +18,13 @@
 
     protected override async Task OnInitializedAsync()
     {
-        ThreadUpdateDto threadToUpdate = new()
+        ThreadDeleteDto threadToDelete = new()
             {
-                Id = 4,
-                Name = "NONONON UPDATE",
-                InterestId = 3,
-                UserId = 2
+                Id = 1,
+                InterestId = 1
             };
 
-            await ThreadService.UpdateThread(threadToUpdate);
-
+            await ThreadService.DeleteThread(threadToDelete);
         await InterestService.GetInterests();
         InterestsList = InterestService.Interests;
     }

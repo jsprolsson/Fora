@@ -10,9 +10,14 @@ namespace Fora.Client.Services.ThreadService
         {
             _http = http;
         }
-        public async Task CreateThread(ThreadCreateDto thread)
+        public async Task CreateThread(ThreadCreateDto threadToCreate)
         {
-            var result = await _http.PostAsJsonAsync($"api/interests/{thread.InterestId}/threads", thread);
+            var result = await _http.PostAsJsonAsync($"api/interests/{threadToCreate.InterestId}/threads", threadToCreate);
+        }
+
+        public async Task DeleteThread(ThreadDeleteDto threadToDelete)
+        {
+            var result = await _http.DeleteAsync($"api/interests/{threadToDelete.InterestId}/threads/{threadToDelete.Id}");
         }
 
         public async Task UpdateThread(ThreadUpdateDto threadToUpdate)
