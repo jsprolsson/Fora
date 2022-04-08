@@ -13,15 +13,22 @@ namespace Fora.Server.Services.AuthService
         private readonly AppDbContext _appDbContext;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserDbContext _userDbContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AuthService(IConfiguration configuration, AppDbContext appDbContext, SignInManager<ApplicationUser> signInManager, UserDbContext userDbContext)
+        public AuthService(IConfiguration configuration,
+            AppDbContext appDbContext, SignInManager<ApplicationUser> signInManager,
+            UserDbContext userDbContext, IHttpContextAccessor httpContextAccessor)
         {
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _appDbContext = appDbContext ?? throw new ArgumentNullException(nameof(appDbContext));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
             _userDbContext = userDbContext ?? throw new ArgumentNullException(nameof(userDbContext));
+            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         }
-
+        public int GetForaUserId()
+        {
+            return int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue("ForaUser"));
+        }
         public async Task<string> Login(UserLoginDto userLogin)
         {
             var signInResult = await _signInManager.PasswordSignInAsync(userLogin.Username, userLogin.Password, false, false);
@@ -45,6 +52,7 @@ namespace Fora.Server.Services.AuthService
             {
                 // Add new claims here if more user properties are needed
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim("ForaUser", user.ForaUser.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName)
             };
             // Add all user roles

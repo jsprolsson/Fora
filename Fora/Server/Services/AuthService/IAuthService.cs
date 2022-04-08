@@ -2,6 +2,7 @@
 {
     public interface IAuthService
     {
+        int GetForaUserId();
         Task<string> Login(UserLoginDto userLogin);
         Task Register(UserRegisterDto userRegister);
     }

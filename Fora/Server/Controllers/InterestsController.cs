@@ -31,7 +31,7 @@ namespace Fora.Server.Controllers
         public async Task Post([FromBody] InterestCreateDto interest)
         {
             await _interestService.CreateInterest(interest);
-            
+
         }
 
         [HttpPut("{id}")]

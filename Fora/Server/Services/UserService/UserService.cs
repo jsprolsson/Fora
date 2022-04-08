@@ -1,5 +1,6 @@
 ﻿
 using Fora.Server.DbContexts;
+using Fora.Server.Services.AuthService;
 
 namespace Fora.Server.Services.UserService
 {
@@ -8,12 +9,17 @@ namespace Fora.Server.Services.UserService
         private readonly AppDbContext _appDbContext;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserDbContext _userDbContext;
+        private readonly IAuthService _authService;
 
-        public UserService(AppDbContext appDbContext, SignInManager<ApplicationUser> signInManager, UserDbContext userDbContext)
+        public UserService(AppDbContext appDbContext,
+            SignInManager<ApplicationUser> signInManager,
+            UserDbContext userDbContext,
+            IAuthService AuthService)
         {
             _appDbContext = appDbContext ?? throw new ArgumentNullException(nameof(appDbContext));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
             _userDbContext = userDbContext ?? throw new ArgumentNullException(nameof(userDbContext));
+            _authService = AuthService ?? throw new ArgumentNullException(nameof(AuthService));
         }
         public async Task AddUserInterest(int foraUserId, int interestId)
         {
@@ -46,8 +52,9 @@ namespace Fora.Server.Services.UserService
             }
         }
 
-        public async Task<List<InterestModel>> GetUserInterests(int foraUserId)
+        public async Task<List<InterestModel>> GetUserInterests()
         {
+            var foraUserId = _authService.GetForaUserId();
             return await _appDbContext.Interests
                             .Include(ui => ui.UserInterests)
                             .Where(u => u.UserId == foraUserId).ToListAsync();
