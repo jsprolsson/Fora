@@ -18,14 +18,15 @@
 
     protected override async Task OnInitializedAsync()
     {
-        ThreadCreateDto threadToCreate = new()
+        ThreadUpdateDto threadToUpdate = new()
             {
-                Name = "What the f is this",
+                Id = 4,
+                Name = "NONONON UPDATE",
                 InterestId = 3,
                 UserId = 2
             };
 
-            await ThreadService.CreateThread(threadToCreate);
+            await ThreadService.UpdateThread(threadToUpdate);
 
         await InterestService.GetInterests();
         InterestsList = InterestService.Interests;

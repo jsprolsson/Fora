@@ -36,24 +36,18 @@ namespace Fora.Server.Controllers
             else return BadRequest();
         }
 
-        [HttpPatch("{id}")]
-        public async Task<ActionResult> Put(int interestId, int id, [FromBody] string name)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(int id, [FromBody] ThreadUpdateDto threadToUpdate)
         {
-            var threadEntity = await _threadService.GetThread(id);
+            //Is Id required as a lone parameter in parameter field when Id is passed with threadupdatedto?
+            //Check if thread exists.
+            var threadEntity = await _threadService.GetThread(threadToUpdate.Id);
             if (threadEntity == null)
             {
                 return NotFound();
             }
 
-            ThreadDto thread = new()
-            {
-                Id = id,
-                Name = name,
-                DateTimeModified = DateTime.Now,
-                InterestId = interestId
-            };
-
-            await _threadService.UpdateThread(thread);
+            await _threadService.UpdateThread(threadToUpdate);
             return Ok();
         }
 

@@ -14,5 +14,10 @@ namespace Fora.Client.Services.ThreadService
         {
             var result = await _http.PostAsJsonAsync($"api/interests/{thread.InterestId}/threads", thread);
         }
+
+        public async Task UpdateThread(ThreadUpdateDto threadToUpdate)
+        {
+            var result = await _http.PutAsJsonAsync($"api/interests/{threadToUpdate.InterestId}/threads/{threadToUpdate.Id}", threadToUpdate);
+        }
     }
 }

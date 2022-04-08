@@ -45,11 +45,24 @@
             return await _appDbContext.Threads.Where(t => t.InterestId == interestId).OrderBy(t => t.Name).ToListAsync();
         }
 
-        public async Task UpdateThread(ThreadDto thread)
+        public async Task UpdateThread(ThreadUpdateDto threadToUpdate)
         {
-            var threadEntity = await _appDbContext.Threads.FirstOrDefaultAsync(i => i.Id == thread.Id);
+            //Hämtar threadEntity som berättar vilken thread som ska få dem nya värdena thread som passeras in.
+            var threadEntity = await _appDbContext.Threads.FirstOrDefaultAsync(i => i.Id == threadToUpdate.Id);
+
+            ThreadModel thread = new()
+            {
+                Id = threadToUpdate.Id,
+                Name = threadToUpdate.Name,
+                DateTimeCreated = threadEntity.DateTimeCreated,
+                DateTimeModified = DateTime.Now,
+                InterestId = threadToUpdate.InterestId,
+                UserId = threadToUpdate.UserId,
+            };
+
             if (threadEntity is not null)
             {
+                //Overridear värdena som finns i threadEntity med dem nya.
                 _appDbContext.Entry(threadEntity).CurrentValues.SetValues(thread);
                 await _appDbContext.SaveChangesAsync();
             }
