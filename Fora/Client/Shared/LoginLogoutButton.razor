@@ -5,7 +5,6 @@
 <AuthorizeView>
     <Authorized>
         @*<MudIconButton Icon="@Icons.Filled.Logout" @onclick="Logout" aria-label="delete"></MudIconButton>*@
-        <MudText Align="Align.Right">Hi @context.User.Identity.Name</MudText>
         <MudButton Variant="Variant.Filled" StartIcon="@Icons.Filled.Logout" @onclick="OpenLogOutDialog" IconColor="Color.Secondary">Logout</MudButton>
     </Authorized>
     <NotAuthorized>
