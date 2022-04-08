@@ -1,11 +1,7 @@
-﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
 html, body {
-    /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
-    /*font-family: 'Roboto', sans-serif;*/
-    font-family: 'Grape Nuts', cursive;
+    font-family: 'Roboto', sans-serif;
 }
 
 h1:focus {
