@@ -2,7 +2,8 @@ global using Fora.Server.Data;
 global using Fora.Shared;
 global using Fora.Shared.DTO;
 global using Fora.Shared.DTO.InterestDtos;
-global using Microsoft.AspNetCore.Authorization;
+global using Fora.Shared.Entities;
+global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore;
 global using System.Text;
@@ -11,9 +12,8 @@ using Fora.Server.Services.AuthService;
 using Fora.Server.Services.InterestService;
 using Fora.Server.Services.MessageService;
 using Fora.Server.Services.ThreadService;
-using Fora.Shared.Entities;
+using Fora.Server.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -73,6 +73,7 @@ builder.Services.AddScoped<IInterestService, InterestService>();
 builder.Services.AddScoped<IThreadService, ThreadService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // JWT
 var jwtSettings = builder.Configuration.GetSection("JWTSettings");

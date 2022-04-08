@@ -13,6 +13,7 @@ namespace Fora.Shared.Entities
         {
             DateTimeModified = DateTime.Now;
         }
+        public int ForaUser { get; set; }
         public bool Banned { get; set; }
         public bool Deleted { get; set; }
         public DateTime DateTimeCreated { get; set; } = DateTime.Now;

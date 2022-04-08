@@ -56,10 +56,11 @@ namespace Fora.Server.Data
 
             modelBuilder.Entity<UserModel>()
                 .HasData(
-                new UserModel { Id = 1, Username = "Jesper", Banned = false, Deleted = false },
-                new UserModel { Id = 2, Username = "Filip", Banned = false, Deleted = false },
-                new UserModel { Id = 3, Username = "Mårten", Banned = true, Deleted = false },
-                new UserModel { Id = 4, Username = "Dragan", Banned = false, Deleted = false }
+                new UserModel { Id = 1, Username = "Admin", Banned = false, Deleted = false },
+                new UserModel { Id = 2, Username = "Jesper", Banned = false, Deleted = false },
+                new UserModel { Id = 3, Username = "Filip", Banned = false, Deleted = false },
+                new UserModel { Id = 4, Username = "Mårten", Banned = true, Deleted = false },
+                new UserModel { Id = 5, Username = "Dragan", Banned = false, Deleted = false }
                 );
 
             modelBuilder.Entity<InterestModel>()
@@ -91,7 +92,7 @@ namespace Fora.Server.Data
 
             modelBuilder.Entity<MessageModel>()
                 .HasData(
-                new MessageModel { Id = 1, ThreadId = 1, UserId = 1, Message = "I love the new elden ring game"},
+                new MessageModel { Id = 1, ThreadId = 1, UserId = 1, Message = "I love the new elden ring game" },
                 new MessageModel { Id = 2, ThreadId = 1, UserId = 4, Message = "I think it's the worst in the series" },
                 new MessageModel { Id = 3, ThreadId = 1, UserId = 1, Message = "It's not a part of any series" },
                 new MessageModel { Id = 4, ThreadId = 1, UserId = 4, Message = "Yes it is" },
