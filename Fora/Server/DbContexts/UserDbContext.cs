@@ -23,7 +23,8 @@ namespace Fora.Server.DbContexts
             ApplicationUser user = new()
             {
                 Id = "b74ddd14-6340-4840-95c2-db12554843e5",
-                UserName = "admin",
+                ForaUser = 1,
+                UserName = "Admin",
                 NormalizedUserName = "ADMIN",
                 Email = "admin@gmail.com",
                 LockoutEnabled = false,

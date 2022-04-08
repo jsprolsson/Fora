@@ -15,9 +15,15 @@ namespace Fora.Server.Services.UserService
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
             _userDbContext = userDbContext ?? throw new ArgumentNullException(nameof(userDbContext));
         }
-        public async Task AddUserInterest(int interestId)
+        public async Task AddUserInterest(int foraUserId, int interestId)
         {
-
+            UserInterestModel newUserInterest = new UserInterestModel
+            {
+                UserId = foraUserId,
+                InterestId = interestId,
+            };
+            _appDbContext.Add(newUserInterest);
+            await _appDbContext.SaveChangesAsync();
         }
 
         public async Task BanUser(string userId)
@@ -38,6 +44,13 @@ namespace Fora.Server.Services.UserService
                 userToChange.Deleted = true;
                 await _userDbContext.SaveChangesAsync();
             }
+        }
+
+        public async Task<List<InterestModel>> GetUserInterests(int foraUserId)
+        {
+            return await _appDbContext.Interests
+                            .Include(ui => ui.UserInterests)
+                            .Where(u => u.UserId == foraUserId).ToListAsync();
         }
 
         public Task<List<string>> GetUserRoles(string userId)

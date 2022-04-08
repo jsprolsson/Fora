@@ -14,13 +14,19 @@ namespace Fora.Server.Controllers
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
+        [HttpPost("addUserInterest")]
+        public async Task<ActionResult> AddUserInterest(int foraUserId, int interestId)
+        {
+            await _userService.AddUserInterest(foraUserId, interestId);
+            return Ok();
+        }
         [HttpPost("ban")]
         public async Task<ActionResult> BanUser(string userId)
         {
             await _userService.BanUser(userId);
             return Ok();
         }
-        [HttpPost("unban")]
+        [HttpPost("unBan")]
         public async Task<ActionResult> UnBanUser(string userId)
         {
             await _userService.UnBanUser(userId);
