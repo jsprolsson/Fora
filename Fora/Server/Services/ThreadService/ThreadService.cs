@@ -8,11 +8,10 @@
         {
             _appDbContext = appDbContext ?? throw new ArgumentNullException(nameof(appDbContext));
         }
-        public async Task<ThreadModel> CreateThread(ThreadDto thread)
+        public async Task<ThreadModel> CreateThread(ThreadCreateDto thread)
         {
             var threadToCreate = new ThreadModel()
             {
-                Id = thread.Id,
                 Name = thread.Name,
                 UserId = thread.UserId,
                 InterestId = thread.InterestId

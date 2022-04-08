@@ -1,5 +1,6 @@
 ﻿@page "/interests"
 @inject IInterestService InterestService
+@inject IThreadService ThreadService
 
 <MudTable Items="@InterestsList" Hover="true" LoadingProgressColor="Color.Info">
     <HeaderContent>
@@ -17,12 +18,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        InterestDeleteDto interst = new()
+        ThreadCreateDto threadToCreate = new()
             {
-                Id = 2,
+                Name = "What the f is this",
+                InterestId = 3,
+                UserId = 2
             };
 
-        await InterestService.DeleteInterest(interst);
+            await ThreadService.CreateThread(threadToCreate);
 
         await InterestService.GetInterests();
         InterestsList = InterestService.Interests;
