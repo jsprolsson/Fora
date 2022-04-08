@@ -1,10 +1,10 @@
 global using Blazored.LocalStorage;
-global using Fora.Shared.DTO;
-global using Microsoft.AspNetCore.Components.Authorization;
+global using Fora.Client.Services.InterestService;
 global using Fora.Shared;
 global using Fora.Shared.DTO;
 global using Fora.Shared.DTO.InterestDtos;
-global using Fora.Client.Services.InterestService;
+global using Microsoft.AspNetCore.Components.Authorization;
+global using System.Net.Http.Json;
 using Fora.Client;
 using Fora.Client.Services.AuthService;
 using Microsoft.AspNetCore.Components.Web;

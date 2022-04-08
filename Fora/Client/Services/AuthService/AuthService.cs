@@ -1,5 +1,4 @@
-﻿using System.Net.Http.Json;
-
+﻿
 namespace Fora.Client.Services.AuthService
 {
     public class AuthService : IAuthService

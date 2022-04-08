@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Fora.Server.Migrations.UserDb
 {
-    public partial class userInitialCreate : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,6 +28,7 @@ namespace Fora.Server.Migrations.UserDb
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ForaUser = table.Column<int>(type: "int", nullable: false),
                     Banned = table.Column<bool>(type: "bit", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
                     DateTimeCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -165,8 +166,8 @@ namespace Fora.Server.Migrations.UserDb
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "Banned", "ConcurrencyStamp", "DateTimeCreated", "DateTimeModified", "Deleted", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "b74ddd14-6340-4840-95c2-db12554843e5", 0, false, "e21404bc-c6a2-4251-8529-40c95e06792e", new DateTime(2022, 4, 7, 9, 51, 15, 62, DateTimeKind.Local).AddTicks(72), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "admin@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEMnzU9n95T5laHDdfZ8ugbeWUgMh1o1qXlNqcyHsb3FBTf0nBg04NLgGBC8OqzORXQ==", null, false, "4421cd77-e351-4f0b-a7b4-d92397cd871f", false, "Admin" });
+                columns: new[] { "Id", "AccessFailedCount", "Banned", "ConcurrencyStamp", "DateTimeCreated", "DateTimeModified", "Deleted", "Email", "EmailConfirmed", "ForaUser", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "b74ddd14-6340-4840-95c2-db12554843e5", 0, false, "981952c0-f836-4ebd-8bc6-1a88956831f5", new DateTime(2022, 4, 8, 11, 13, 19, 387, DateTimeKind.Local).AddTicks(3925), new DateTime(2022, 4, 8, 11, 13, 19, 387, DateTimeKind.Local).AddTicks(4029), false, "admin@gmail.com", false, 0, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAELWu2rL+TEmlUUGhEkvSy3/Rda4lQ9OzgRTb+dlTkx/VJxLvdPp+y0N3U5afvRCpPA==", null, false, "6df6de3e-1a34-4bcd-8423-e2276d85d2cf", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

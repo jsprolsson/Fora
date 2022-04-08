@@ -53,6 +53,9 @@ namespace Fora.Server.Migrations.UserDb
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int>("ForaUser")
+                        .HasColumnType("int");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -104,18 +107,20 @@ namespace Fora.Server.Migrations.UserDb
                             Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
                             Banned = false,
-                            ConcurrencyStamp = "e21404bc-c6a2-4251-8529-40c95e06792e",
-                            DateTimeCreated = new DateTime(2022, 4, 7, 9, 51, 15, 62, DateTimeKind.Local).AddTicks(72),
-                            DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "981952c0-f836-4ebd-8bc6-1a88956831f5",
+                            DateTimeCreated = new DateTime(2022, 4, 8, 11, 13, 19, 387, DateTimeKind.Local).AddTicks(3925),
+                            DateTimeModified = new DateTime(2022, 4, 8, 11, 13, 19, 387, DateTimeKind.Local).AddTicks(4029),
                             Deleted = false,
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
+                            ForaUser = 0,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEMnzU9n95T5laHDdfZ8ugbeWUgMh1o1qXlNqcyHsb3FBTf0nBg04NLgGBC8OqzORXQ==",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAELWu2rL+TEmlUUGhEkvSy3/Rda4lQ9OzgRTb+dlTkx/VJxLvdPp+y0N3U5afvRCpPA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4421cd77-e351-4f0b-a7b4-d92397cd871f",
+                            SecurityStamp = "6df6de3e-1a34-4bcd-8423-e2276d85d2cf",
                             TwoFactorEnabled = false,
-                            UserName = "Admin"
+                            UserName = "admin"
                         });
                 });
 
