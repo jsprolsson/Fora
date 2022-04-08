@@ -4,7 +4,7 @@
     {
         Task<List<MessageModel>> GetMessages(int threadId);
         Task<MessageModel> CreateMessage(MessageCreateDto messageToCreate);
-        Task UpdateMessage(MessageDto message);
+        Task UpdateMessage(MessageUpdateDto messageToUpdate);
         Task DeleteMessage(int messageId);
     }
 }

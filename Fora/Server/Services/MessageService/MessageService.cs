@@ -30,26 +30,35 @@
         }
 
 
-        public async Task UpdateMessage(MessageDto message)
+        public async Task UpdateMessage(MessageUpdateDto messageToUpdate)
         {
             //Find message to update
-            var messageEntity = await _appDbContext.Messages.FirstOrDefaultAsync(m => m.Id == message.Id);
+            var messageEntity = await _appDbContext.Messages.FirstOrDefaultAsync(m => m.Id == messageToUpdate.Id);
             if (messageEntity is not null)
             {
-                message.DateTimeCreated = messageEntity.DateTimeCreated;
-                message.DateTimeModified = DateTime.Now;
-                message.Deleted = false;
-                _appDbContext.Entry(messageEntity).CurrentValues.SetValues(message);
+                MessageModel newMessage = new()
+                {
+                    Id = messageToUpdate.Id,
+                    Message = messageToUpdate.Message,
+                    DateTimeCreated = messageEntity.DateTimeCreated,
+                    DateTimeModified = DateTime.Now,
+                    ThreadId = messageToUpdate.ThreadId,
+                    UserId = messageToUpdate.UserId,
+                    Deleted = false
+                };
+                
+                _appDbContext.Entry(messageEntity).CurrentValues.SetValues(newMessage);
                 await _appDbContext.SaveChangesAsync();
             }
         }
 
-        public async Task DeleteMessage(int messageId)
+        public async Task DeleteMessage(int id)
         {
             //Archives the message and uses bool to show as a deleted message.
 
-            var messageToDelete = await _appDbContext.Messages.FirstOrDefaultAsync(m => m.Id == messageId);
+            var messageToDelete = await _appDbContext.Messages.FirstOrDefaultAsync(m => m.Id == id);
             messageToDelete.Deleted = true;
+            messageToDelete.DateTimeModified = DateTime.Now;
             _appDbContext.Update(messageToDelete);
             await _appDbContext.SaveChangesAsync();
         }

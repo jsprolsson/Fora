@@ -9,9 +9,19 @@
     </HeaderContent>
     <RowTemplate>
 
-        <MudTd>@context.UserId</MudTd>
-        <MudTd>@context.Message</MudTd>
-        <MudTd>@context.DateTimeCreated</MudTd>
+        @if(@context.Deleted == true)
+        {
+            <MudTd DataLabel="UserId"></MudTd>
+            <MudTd DataLabel="Message">Message has been deleted.</MudTd>
+            <MudTd DataLabel="Posted"></MudTd>
+        }
+        else
+        {
+            <MudTd DataLabel="UserId">@context.UserId</MudTd>
+            <MudTd DataLabel="Message">@context.Message</MudTd>
+            <MudTd DataLabel="Posted">@context.DateTimeCreated</MudTd>
+        }
+        
 
     </RowTemplate>
 </MudTable>
@@ -23,14 +33,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        MessageCreateDto newMessage = new()
-            {
-                Message = "Yesyes this is new message",
-                ThreadId = 1,
-                UserId = 2
-            };
-
-        await MessageService.CreateMessage(newMessage);
 
         Messages = await MessageService.GetMessages(Thread);
     }
