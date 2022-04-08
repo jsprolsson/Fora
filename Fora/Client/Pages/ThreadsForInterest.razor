@@ -1,0 +1,31 @@
+﻿@page "/threads/{interestid:int}"
+@inject IThreadService ThreadService
+
+<MudTable T="ThreadModel" OnRowClick="@RowClicked" Items="@Threads" Hover="true" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>Interest</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+
+        <MudTd DataLabel="Nr">@context.Name</MudTd>
+
+    </RowTemplate>
+</MudTable>
+
+@code {
+
+    [Parameter]
+    public int InterestId { get; set; }
+
+    private List<ThreadModel> Threads { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Threads = await ThreadService.GetThreads(InterestId);
+    }
+
+    public void RowClicked(TableRowClickEventArgs<ThreadModel> t)
+    {
+        
+    }
+}

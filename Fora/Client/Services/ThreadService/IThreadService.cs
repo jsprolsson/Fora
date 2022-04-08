@@ -2,6 +2,8 @@
 {
     public interface IThreadService
     {
+        Task<ThreadModel> GetThread(ThreadDto thread);
+        Task<List<ThreadModel>> GetThreads(int interestId);
         Task CreateThread(ThreadCreateDto threadToCreate);
         Task UpdateThread(ThreadUpdateDto threadToUpdate);
 
