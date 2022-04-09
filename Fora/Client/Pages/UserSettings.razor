@@ -1,5 +1,6 @@
 ﻿@page "/usersettings"
 @inject IUserService UserService
+@inject IUserInterestService UserInterestService
 @inject IInterestService InterestService
 
 <MudTable Items="@UserInterests.Take(4)" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
@@ -38,7 +39,7 @@
         await InterestService.GetInterests();
         AllInterests = InterestService.Interests;
         //AllInterests = await InterestService.GetInterests();
-        UserInterests = await UserService.GetUserInterests();
+        UserInterests = await UserInterestService.GetUserInterests();
     }
 
 }

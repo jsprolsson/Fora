@@ -22,16 +22,6 @@ namespace Fora.Client.Services.UserService
             await _http.PostAsJsonAsync("api/user/ban", userId);
         }
 
-        public async Task<List<InterestModel>> GetUserInterests()
-        {
-            //var token = await _localStorage.GetItemAsStringAsync("token");
-            //token = token.Replace("\"", "");
-            //_http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            //await _authStateProvider.GetAuthenticationStateAsync();
-            var result = await _http.GetFromJsonAsync<List<InterestModel>>("api/user/interests");
-            return result;
-        }
-
         public async Task UnBanUser(string userId)
         {
             await _http.PostAsJsonAsync("api/user/unban", userId);

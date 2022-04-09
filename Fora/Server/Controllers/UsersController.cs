@@ -14,24 +14,6 @@ namespace Fora.Server.Controllers
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
-        [HttpGet("interests")]
-        public async Task<ActionResult> GetUserInterests()
-        {
-            var userInterests = await _userService.GetUserInterests();
-            return Ok(userInterests);
-        }
-        [HttpPost("addUserInterest")]
-        public async Task<ActionResult> AddUserInterest(int foraUserId, int interestId)
-        {
-            await _userService.AddUserInterest(foraUserId, interestId);
-            return Ok();
-        }
-        [HttpDelete("userInterest")]
-        public async Task<ActionResult> RemoveUserInterest(int interestId)
-        {
-            await _userService.RemoveUserInterest(interestId);
-            return Ok();
-        }
         [HttpPost("ban")]
         public async Task<ActionResult> BanUser(string userId)
         {
