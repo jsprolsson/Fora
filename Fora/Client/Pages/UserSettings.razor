@@ -1,13 +1,44 @@
 ﻿@page "/usersettings"
 @inject IUserService UserService
+@inject IInterestService InterestService
 
-<h3>UserSettings</h3>
+<MudTable Items="@UserInterests.Take(4)" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>ID</MudTh>
+        <MudTh>Interest</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="ID">@context.Id</MudTd>
+        <MudTd DataLabel="Interest">@context.Name</MudTd>
+    </RowTemplate>
+</MudTable>
+
+<MudTable Items="@AllInterests.Take(4)" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>ID</MudTh>
+        <MudTh>Interest</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="ID">@context.Id</MudTd>
+        <MudTd DataLabel="Interest">@context.Name</MudTd>
+    </RowTemplate>
+</MudTable>
+
+<MudSwitch @bind-Checked="_hidePosition">Hide <b>position</b> when Breakpoint=Xs</MudSwitch>
+<MudSwitch @bind-Checked="_loading">Show Loading</MudSwitch>
 
 @code {
+    private bool _hidePosition;
+    private bool _loading;
+    List<InterestModel> AllInterests { get; set; } = new();
     List<InterestModel> UserInterests { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
+        await InterestService.GetInterests();
+        AllInterests = InterestService.Interests;
+        //AllInterests = await InterestService.GetInterests();
         UserInterests = await UserService.GetUserInterests();
     }
+
 }

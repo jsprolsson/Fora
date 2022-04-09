@@ -55,9 +55,12 @@ namespace Fora.Server.Services.UserService
         public async Task<List<InterestModel>> GetUserInterests()
         {
             var foraUserId = _authService.GetForaUserId();
-            return await _appDbContext.Interests
-                            .Include(ui => ui.UserInterests)
-                            .Where(u => u.UserId == foraUserId).ToListAsync();
+            var userInterests = await _appDbContext.UserInterests
+                                .Include(i => i.Interest)
+                                .Where(u => u.UserId == foraUserId)
+                                .ToListAsync();
+            var interests = userInterests.Select(i => i.Interest).ToList();
+            return interests;
         }
 
         public Task<List<string>> GetUserRoles(string userId)

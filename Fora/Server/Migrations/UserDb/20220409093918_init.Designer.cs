@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fora.Server.Migrations.UserDb
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20220408091319_init")]
+    [Migration("20220409093918_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -109,20 +109,20 @@ namespace Fora.Server.Migrations.UserDb
                             Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
                             Banned = false,
-                            ConcurrencyStamp = "981952c0-f836-4ebd-8bc6-1a88956831f5",
-                            DateTimeCreated = new DateTime(2022, 4, 8, 11, 13, 19, 387, DateTimeKind.Local).AddTicks(3925),
-                            DateTimeModified = new DateTime(2022, 4, 8, 11, 13, 19, 387, DateTimeKind.Local).AddTicks(4029),
+                            ConcurrencyStamp = "af55d27b-13b0-49d5-b878-d376c24f0661",
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 39, 18, 105, DateTimeKind.Local).AddTicks(1658),
+                            DateTimeModified = new DateTime(2022, 4, 9, 11, 39, 18, 105, DateTimeKind.Local).AddTicks(2017),
                             Deleted = false,
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
-                            ForaUser = 0,
+                            ForaUser = 1,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAELWu2rL+TEmlUUGhEkvSy3/Rda4lQ9OzgRTb+dlTkx/VJxLvdPp+y0N3U5afvRCpPA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED5KiyA15CyiDI1e/vTD5NhmFj6e/X2FwCQzCYaiLhFKhGTwICW65xj/8BvgMiJRMg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6df6de3e-1a34-4bcd-8423-e2276d85d2cf",
+                            SecurityStamp = "7f93deaa-d662-4032-9678-0e9e3b49480b",
                             TwoFactorEnabled = false,
-                            UserName = "admin"
+                            UserName = "Admin"
                         });
                 });
 

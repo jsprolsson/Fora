@@ -13,6 +13,13 @@ namespace Fora.Client.Services.AuthService
             _http = http ?? throw new ArgumentNullException(nameof(http));
             _localStorage = localStorage ?? throw new ArgumentNullException(nameof(localStorage));
         }
+
+        public async Task<string> GetToken()
+        {
+            var token = await _localStorage.GetItemAsStringAsync("token");
+            return token.Replace("\"", "");
+        }
+
         public async Task Login(UserLoginDto userLogin)
         {
             var result = await _http.PostAsJsonAsync("api/authentication/login", userLogin);

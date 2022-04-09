@@ -71,7 +71,7 @@ namespace Fora.Server.Services.AuthService
                 _configuration["JWTSettings:Audience"],
                 claims: claims,
                 notBefore: DateTime.Now,
-                expires: DateTime.Now.AddMinutes(15),
+                expires: DateTime.Now.AddMinutes(1),
                 signingCredentials: creds
                 );
 

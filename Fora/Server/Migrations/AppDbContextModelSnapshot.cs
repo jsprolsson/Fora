@@ -53,7 +53,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 1,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4016),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4557),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Games",
                             UserId = 1
@@ -61,7 +61,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 2,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4053),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4589),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Books",
                             UserId = 2
@@ -69,7 +69,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 3,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4056),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4591),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Music",
                             UserId = 2
@@ -77,7 +77,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 4,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4057),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4593),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Hiking",
                             UserId = 1
@@ -123,7 +123,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 1,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4154),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4675),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Deleted = false,
                             Message = "I love the new elden ring game",
@@ -133,7 +133,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 2,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4158),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4680),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Deleted = false,
                             Message = "I think it's the worst in the series",
@@ -143,7 +143,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 3,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4160),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4682),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Deleted = false,
                             Message = "It's not a part of any series",
@@ -153,7 +153,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 4,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4162),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4684),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Deleted = false,
                             Message = "Yes it is",
@@ -163,7 +163,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 5,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4164),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4686),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Deleted = false,
                             Message = "I've heard they are releasing another book in the twilight franschise",
@@ -173,7 +173,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 6,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4166),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4687),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Deleted = false,
                             Message = "NOBODY CARES",
@@ -183,7 +183,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 7,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4167),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4689),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Deleted = false,
                             Message = "I care",
@@ -193,7 +193,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 8,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4169),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4691),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Deleted = false,
                             Message = "Keep a civil tone in here please and only post regarding the topic.",
@@ -203,7 +203,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 9,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4171),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4693),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Deleted = false,
                             Message = "I'm sorry. I'm actually prtty excited 4 the new release",
@@ -213,7 +213,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 10,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4172),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4695),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Deleted = false,
                             Message = "Has anybody tried hiking in dr martens?? And if so, do you have any recommendations for me? I'm going up to Sälen next week and would like a pair of martens, but I've heard they're not that good for hiking in..",
@@ -258,7 +258,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 2,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4085),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4656),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InterestId = 2,
                             Name = "Blazors guide to the universe",
@@ -267,7 +267,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 1,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4089),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4660),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InterestId = 1,
                             Name = "Elden Ring",
@@ -276,7 +276,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 3,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4136),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4662),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InterestId = 4,
                             Name = "Hiking in dr martens??",
@@ -285,7 +285,7 @@ namespace Fora.Server.Migrations
                         new
                         {
                             Id = 4,
-                            DateTimeCreated = new DateTime(2022, 4, 6, 14, 53, 44, 448, DateTimeKind.Local).AddTicks(4139),
+                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4664),
                             DateTimeModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InterestId = 2,
                             Name = "About twilight...",
@@ -305,7 +305,7 @@ namespace Fora.Server.Migrations
 
                     b.HasIndex("InterestId");
 
-                    b.ToTable("UserInterestModel");
+                    b.ToTable("UserInterests");
 
                     b.HasData(
                         new
@@ -373,25 +373,32 @@ namespace Fora.Server.Migrations
                             Id = 1,
                             Banned = false,
                             Deleted = false,
-                            Username = "Jesper"
+                            Username = "Admin"
                         },
                         new
                         {
                             Id = 2,
                             Banned = false,
                             Deleted = false,
-                            Username = "Filip"
+                            Username = "Jesper"
                         },
                         new
                         {
                             Id = 3,
+                            Banned = false,
+                            Deleted = false,
+                            Username = "Filip"
+                        },
+                        new
+                        {
+                            Id = 4,
                             Banned = true,
                             Deleted = false,
                             Username = "Mårten"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 5,
                             Banned = false,
                             Deleted = false,
                             Username = "Dragan"
