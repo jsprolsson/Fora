@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Fora.Shared
 {
@@ -15,6 +16,7 @@ namespace Fora.Shared
         // Relations
         [ForeignKey(nameof(Interest))]
         public int InterestId { get; set; }
+        [JsonIgnore]
         public InterestModel Interest { get; set; }
         [ForeignKey(nameof(User))]
         public int? UserId { get; set; }

@@ -2,24 +2,26 @@
 @inject IInterestService InterestService
 @inject NavigationManager navManager
 
-<MudTable T="InterestModel" OnRowClick="@RowClicked" Items="@InterestsList" Hover="true" LoadingProgressColor="Color.Info">
+<MudTable T="InterestModel" OnRowClick="@RowClicked" Items="@InterestService.Interests" Hover="true" LoadingProgressColor="Color.Info">
     <HeaderContent>
         <MudTh><b>Interest</b></MudTh>
+        <MudTh><b># of threads</b></MudTh>
     </HeaderContent>
     <RowTemplate>
 
-        <MudTd DataLabel="Nr">@context.Name</MudTd>
+        <MudTd DataLabel="Interest">@context.Name</MudTd>
+        <MudTd DataLabel="# of threads">@context.Threads.Count()</MudTd>
 
     </RowTemplate>
 </MudTable>
 
 @code {
-    private List<InterestModel>? InterestsList { get; set; }
+   // private List<InterestModel>? InterestsList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await InterestService.GetInterests();
-        InterestsList = InterestService.Interests;
+       // InterestsList = InterestService.Interests;
     }
 
     private void RowClicked(TableRowClickEventArgs<InterestModel> p)

@@ -39,7 +39,7 @@ namespace Fora.Server.Services.InterestService
 
         public async Task<List<InterestModel>> GetInterests()
         {
-            return await _appDbContext.Interests.OrderBy(i => i.Name).ToListAsync();
+            return await _appDbContext.Interests.Include(i => i.Threads).OrderBy(i => i.Name).ToListAsync();
         }
 
         public async Task UpdateInterest(InterestModel interest)
