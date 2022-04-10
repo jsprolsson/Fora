@@ -26,14 +26,26 @@
     </RowTemplate>
 </MudTable>
 
+<AuthorizeView>
+    <Authorized>
+
+        <PostMessage ThreadId="Thread"></PostMessage>
+
+    </Authorized>
+    <NotAuthorized>
+        <p>You must be signed in to post a message.</p>
+    </NotAuthorized>
+    
+</AuthorizeView>
+
 @code {
     [Parameter]
     public int Thread { get; set; }
     private List<MessageModel> Messages { get; set; } = new();
 
+
     protected override async Task OnInitializedAsync()
     {
-
         Messages = await MessageService.GetMessages(Thread);
     }
 }
