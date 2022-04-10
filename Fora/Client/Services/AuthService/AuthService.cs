@@ -44,5 +44,10 @@ namespace Fora.Client.Services.AuthService
             };
             await Login(userLogin);
         }
+
+        public async Task<int> GetUserId()
+        {
+            return await _http.GetFromJsonAsync<int>("/api/authentication/userid");
+        }
     }
 }

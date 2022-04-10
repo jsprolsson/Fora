@@ -26,5 +26,11 @@ namespace Fora.Server.Controllers
             await _authService.Register(userRegister);
             return Ok();
         }
+
+        [HttpGet("userid")]
+        public int GetUserId()
+        {
+            return _authService.GetForaUserId();
+        }
     }
 }

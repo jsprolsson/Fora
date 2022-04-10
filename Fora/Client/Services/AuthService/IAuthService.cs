@@ -6,5 +6,6 @@
         Task Login(UserLoginDto userLogin);
         Task Logout();
         Task Register(UserRegisterDto userRegister);
+        Task<int> GetUserId();
     }
 }
