@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider IsDarkMode="true" />
+@*MudThemeProvider can only be used once. Currently in SwitchTheme*@
+@*<MudThemeProvider />*@ 
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -28,6 +29,7 @@
         </MudContainer>
     </MudMainContent>
 </MudLayout>
+
 @code {
     bool _drawerOpen = true;
 

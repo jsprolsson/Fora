@@ -167,7 +167,7 @@ namespace Fora.Server.Migrations.UserDb
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Banned", "ConcurrencyStamp", "DateTimeCreated", "DateTimeModified", "Deleted", "Email", "EmailConfirmed", "ForaUser", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "b74ddd14-6340-4840-95c2-db12554843e5", 0, false, "981952c0-f836-4ebd-8bc6-1a88956831f5", new DateTime(2022, 4, 8, 11, 13, 19, 387, DateTimeKind.Local).AddTicks(3925), new DateTime(2022, 4, 8, 11, 13, 19, 387, DateTimeKind.Local).AddTicks(4029), false, "admin@gmail.com", false, 0, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAELWu2rL+TEmlUUGhEkvSy3/Rda4lQ9OzgRTb+dlTkx/VJxLvdPp+y0N3U5afvRCpPA==", null, false, "6df6de3e-1a34-4bcd-8423-e2276d85d2cf", false, "admin" });
+                values: new object[] { "b74ddd14-6340-4840-95c2-db12554843e5", 0, false, "af55d27b-13b0-49d5-b878-d376c24f0661", new DateTime(2022, 4, 9, 11, 39, 18, 105, DateTimeKind.Local).AddTicks(1658), new DateTime(2022, 4, 9, 11, 39, 18, 105, DateTimeKind.Local).AddTicks(2017), false, "admin@gmail.com", false, 1, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAED5KiyA15CyiDI1e/vTD5NhmFj6e/X2FwCQzCYaiLhFKhGTwICW65xj/8BvgMiJRMg==", null, false, "7f93deaa-d662-4032-9678-0e9e3b49480b", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

@@ -1,13 +1,8 @@
 ﻿@page "/usersettings"
-@inject IUserService UserService
 
-<h3>UserSettings</h3>
+<UserInterestList />
 
 @code {
-    List<InterestModel> UserInterests { get; set; } = new();
 
-    protected override async Task OnInitializedAsync()
-    {
-        UserInterests = await UserService.GetUserInterests();
-    }
+
 }

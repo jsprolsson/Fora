@@ -11,6 +11,7 @@ global using Microsoft.AspNetCore.Components.Authorization;
 global using System.Net.Http.Json;
 using Fora.Client;
 using Fora.Client.Services.AuthService;
+using Fora.Client.Services.UserInterestService;
 using Fora.Client.Services.UserService;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -26,6 +27,7 @@ builder.Services.AddScoped<IInterestService, InterestService>();
 builder.Services.AddScoped<IThreadService, ThreadService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserInterestService, UserInterestService>();
 
 // ----- Auth
 builder.Services.AddScoped<IAuthService, AuthService>();

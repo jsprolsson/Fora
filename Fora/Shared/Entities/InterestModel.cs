@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Fora.Shared
 {
@@ -13,6 +14,7 @@ namespace Fora.Shared
         public DateTime DateTimeModified { get; set; }
 
         // Relations
+        [JsonIgnore]
         public List<UserInterestModel> UserInterests { get; set; }
 
         [ForeignKey(nameof(User))]

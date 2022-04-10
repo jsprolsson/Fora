@@ -15,6 +15,7 @@ using Fora.Server.Services.AuthService;
 using Fora.Server.Services.InterestService;
 using Fora.Server.Services.MessageService;
 using Fora.Server.Services.ThreadService;
+using Fora.Server.Services.UserInterestService;
 using Fora.Server.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -77,6 +78,7 @@ builder.Services.AddScoped<IThreadService, ThreadService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserInterestService, UserInterestService>();
 builder.Services.AddHttpContextAccessor();
 
 // JWT
@@ -130,7 +132,8 @@ using (var scope = app.Services.CreateScope())
     using (var context = scope.ServiceProvider.GetService<UserDbContext>())
     {
         context.Database.EnsureDeleted();
-        context.Database.EnsureCreated();
+        context.Database.Migrate();
+        //context.Database.EnsureCreated();
     }
 }
 

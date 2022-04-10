@@ -21,16 +21,6 @@ namespace Fora.Server.Services.UserService
             _userDbContext = userDbContext ?? throw new ArgumentNullException(nameof(userDbContext));
             _authService = AuthService ?? throw new ArgumentNullException(nameof(AuthService));
         }
-        public async Task AddUserInterest(int foraUserId, int interestId)
-        {
-            UserInterestModel newUserInterest = new UserInterestModel
-            {
-                UserId = foraUserId,
-                InterestId = interestId,
-            };
-            _appDbContext.Add(newUserInterest);
-            await _appDbContext.SaveChangesAsync();
-        }
 
         public async Task BanUser(string userId)
         {
@@ -52,20 +42,7 @@ namespace Fora.Server.Services.UserService
             }
         }
 
-        public async Task<List<InterestModel>> GetUserInterests()
-        {
-            var foraUserId = _authService.GetForaUserId();
-            return await _appDbContext.Interests
-                            .Include(ui => ui.UserInterests)
-                            .Where(u => u.UserId == foraUserId).ToListAsync();
-        }
-
         public Task<List<string>> GetUserRoles(string userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveUserInterest(int interestId)
         {
             throw new NotImplementedException();
         }
