@@ -42,7 +42,10 @@
 
             //Plocka in intresse-id:t, jämför och hitta alla trådar som har detta intresse:idt
 
-            return await _appDbContext.Threads.Where(t => t.InterestId == interestId).OrderBy(t => t.Name).ToListAsync();
+            return await _appDbContext.Threads
+                .Include(t => t.Messages)
+                .Where(t => t.InterestId == interestId)
+                .OrderBy(t => t.Name).ToListAsync();
         }
 
         public async Task UpdateThread(ThreadUpdateDto threadToUpdate)

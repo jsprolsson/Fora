@@ -5,10 +5,12 @@
 <MudTable T="ThreadModel" OnRowClick="@RowClicked" Items="@Threads" Hover="true" LoadingProgressColor="Color.Info">
     <HeaderContent>
         <MudTh><b>Threads</b></MudTh>
+        <MudTh><b># of messages</b></MudTh>
     </HeaderContent>
     <RowTemplate>
 
-        <MudTd DataLabel="Nr">@context.Name</MudTd>
+        <MudTd DataLabel="Threads">@context.Name</MudTd>
+        <MudTd DataLabel="# of messages">@context.Messages.Count</MudTd>
 
     </RowTemplate>
 </MudTable>

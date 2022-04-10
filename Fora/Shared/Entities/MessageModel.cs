@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Fora.Shared
 {
@@ -16,6 +17,7 @@ namespace Fora.Shared
         // Relations
         [ForeignKey(nameof(Thread))]
         public int ThreadId { get; set; }
+        [JsonIgnore]
         public ThreadModel Thread { get; set; }
 
         [ForeignKey(nameof(User))]
