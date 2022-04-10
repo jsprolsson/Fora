@@ -1,27 +1,34 @@
 ﻿@inject IMessageService MessageService
 @inject NavigationManager NavManager
 
-<EditForm Model="@Message" OnValidSubmit="@CreateMessage">
+<EditForm Model="@MessageToCreate" OnValidSubmit="@CreateMessage">
     <DataAnnotationsValidator/>
     <ValidationSummary></ValidationSummary>
 
-    <MudTextField T="string" Lines="2" Variant="Variant.Outlined" @bind-Value="Message.Message"></MudTextField>
+    <MudTextField T="string" Lines="2" Variant="Variant.Outlined" Text="@BoxText" @bind-Value="MessageToCreate.Message"></MudTextField>
     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Send" Color="Color.Primary">Send</MudButton>
 </EditForm>
 
 @code {
     [Parameter]
     public int ThreadId { get; set; }
-    private MessageCreateDto Message { get; set; } = new();
 
+    [CascadingParameter]
+    public MessagesForThread? _Parent { get; set; }
 
-    private void CreateMessage()
+    private MessageCreateDto MessageToCreate { get; set; } = new();
+    private string BoxText { get; set; } = "";
+
+    private async Task CreateMessage()
     {
 
-        Message.ThreadId = ThreadId;
-        Message.UserId = 1;
-        MessageService.CreateMessage(Message);
-        NavManager.NavigateTo($"/messages/{ThreadId}");
+        MessageToCreate.ThreadId = ThreadId;
+        MessageToCreate.UserId = 1;
+
+        await MessageService.CreateMessage(MessageToCreate);
+        await MessageService.GetMessages(ThreadId);
+        _Parent.RefreshMessages();
+
     }
 
 }

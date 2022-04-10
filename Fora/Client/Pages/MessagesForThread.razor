@@ -1,7 +1,7 @@
 ﻿@page "/messages/{thread:int}"
 @inject IMessageService MessageService
 
-<MudTable Items=Messages Hover="true" LoadingProgressColor="Color.Info">
+<MudTable Items=MessageService.Messages Hover="true" LoadingProgressColor="Color.Info">
     <HeaderContent>
         <MudTh>UserId</MudTh>
         <MudTh>Message</MudTh>
@@ -28,8 +28,10 @@
 
 <AuthorizeView>
     <Authorized>
-
-        <PostMessage ThreadId="Thread"></PostMessage>
+        <CascadingValue Value="this">
+                <PostMessage ThreadId="Thread"></PostMessage>
+        </CascadingValue>
+        
 
     </Authorized>
     <NotAuthorized>
@@ -41,11 +43,16 @@
 @code {
     [Parameter]
     public int Thread { get; set; }
-    private List<MessageModel> Messages { get; set; } = new();
-
 
     protected override async Task OnInitializedAsync()
     {
-        Messages = await MessageService.GetMessages(Thread);
+        await MessageService.GetMessages(Thread);
     }
+
+    public void RefreshMessages()
+    {
+        //Called from child component PostMessage. Refreshes messages when user has posted a new message.
+        this.StateHasChanged();
+    }
+
 }
