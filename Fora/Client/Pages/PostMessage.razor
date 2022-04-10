@@ -1,6 +1,4 @@
 ﻿@inject IMessageService MessageService
-@inject NavigationManager NavManager
-@inject IAuthService AuthService 
 
 <EditForm Model="@MessageToCreate" OnValidSubmit="@CreateMessage" OnInvalidSubmit="@InvalidSubmit">
     <DataAnnotationsValidator/>
@@ -13,6 +11,8 @@
 @code {
     [Parameter]
     public int ThreadId { get; set; }
+    [Parameter]
+    public int UserId { get; set; }
 
     [CascadingParameter]
     public MessagesForThread? _Parent { get; set; }
@@ -20,13 +20,15 @@
     private MessageCreateDto MessageToCreate { get; set; } = new();
     private string BoxText { get; set; } = "";
 
+    protected override async Task OnInitializedAsync()
+    {
+    }
+
     private async Task CreateMessage()
     {
-
         MessageToCreate.ThreadId = ThreadId;
-
         //Finds null after not re-logged in each couple of minutes.
-        MessageToCreate.UserId = await AuthService.GetUserId();
+        MessageToCreate.UserId = UserId;
 
         await MessageService.CreateMessage(MessageToCreate);
         await MessageService.GetMessages(ThreadId);

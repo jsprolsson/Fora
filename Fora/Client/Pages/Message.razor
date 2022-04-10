@@ -1,0 +1,34 @@
+﻿        @if(Msg.Deleted == true)
+        {
+            <MudTd DataLabel="UserId"></MudTd>
+            <MudTd DataLabel="Message">Message has been deleted.</MudTd>
+            <MudTd DataLabel="Posted"></MudTd>
+        }
+        @if(Msg.DateTimeCreated < Msg.DateTimeModified)
+        {
+            <MudTd DataLabel="UserId">@Msg.UserId</MudTd>
+            <MudTd DataLabel="Message">@Msg.Message <i>Message edited</i></MudTd>
+            <MudTd DataLabel="Posted">@Msg.DateTimeCreated</MudTd>
+        }
+        @if(UserId == Msg.UserId)
+        {
+            <MudTd Style="background-color:blue;" DataLabel="UserId">@Msg.UserId</MudTd>
+            <MudTd Style="background-color:blue;" DataLabel="Message">@Msg.Message</MudTd>
+            <MudTd Style="background-color:blue;" DataLabel="Posted">@Msg.DateTimeCreated</MudTd>
+        }
+        else
+        {
+            <MudTd DataLabel="UserId">@Msg.UserId</MudTd>
+            <MudTd DataLabel="Message">@Msg.Message</MudTd>
+            <MudTd DataLabel="Posted">@Msg.DateTimeCreated</MudTd>
+        }
+@code {
+    [Parameter]
+    public MessageModel Msg { get; set; }
+    [Parameter]
+    public int UserId { get; set; }
+
+    //If user banned or deleted
+    //If user logged in's message is on board, make blue
+    //
+}

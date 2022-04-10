@@ -1,5 +1,6 @@
 ﻿@page "/messages/{thread:int}"
 @inject IMessageService MessageService
+@inject IAuthService AuthService
 
 <MudTable Items=MessageService.Messages Hover="true" LoadingProgressColor="Color.Info">
     <HeaderContent>
@@ -9,18 +10,7 @@
     </HeaderContent>
     <RowTemplate>
 
-        @if(@context.Deleted == true)
-        {
-            <MudTd DataLabel="UserId"></MudTd>
-            <MudTd DataLabel="Message">Message has been deleted.</MudTd>
-            <MudTd DataLabel="Posted"></MudTd>
-        }
-        else
-        {
-            <MudTd DataLabel="UserId">@context.UserId</MudTd>
-            <MudTd DataLabel="Message">@context.Message</MudTd>
-            <MudTd DataLabel="Posted">@context.DateTimeCreated</MudTd>
-        }
+        <Message Msg="@context" UserId="UserId"></Message>
         
 
     </RowTemplate>
@@ -29,7 +19,7 @@
 <AuthorizeView>
     <Authorized>
         <CascadingValue Value="this">
-                <PostMessage ThreadId="Thread"></PostMessage>
+                <PostMessage UserId="UserId" ThreadId="Thread"></PostMessage>
         </CascadingValue>
         
 
@@ -43,10 +33,12 @@
 @code {
     [Parameter]
     public int Thread { get; set; }
+    private int UserId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await MessageService.GetMessages(Thread);
+        UserId = await AuthService.GetUserId();
     }
 
     public void RefreshMessages()
