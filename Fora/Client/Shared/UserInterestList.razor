@@ -1,0 +1,39 @@
+﻿@inject IUserInterestService UserInterestService
+@inject IInterestService InterestService
+
+<MudTable Items="@AllInterests.Take(10)" MultiSelection="true" @bind-SelectedItems="selectedItems" Hover="true" Breakpoint="Breakpoint.Sm" Striped="true" Bordered="true"
+          CustomHeader="true" CustomFooter="true" HeaderClass="table-head-bordered" FooterClass="table-foot-bordered">
+    <HeaderContent>
+        <MudTHeadRow IgnoreCheckbox="true" Class="header-centered">
+            <MudTh colspan="3">Choose your interests</MudTh>
+        </MudTHeadRow>
+        <MudTHeadRow IsCheckable="true">
+            <MudTh>Id</MudTh> 
+            <MudTh>Name</MudTh>
+        </MudTHeadRow>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+    </RowTemplate>
+    <FooterContent>
+        <MudTFootRow>
+            <MudTd colspan="5">Selected: @selectedItems.Count</MudTd>
+        </MudTFootRow>
+    </FooterContent>
+</MudTable>
+
+@code {
+    List<InterestModel> AllInterests { get; set; } = new();
+    List<InterestModel> UserInterests { get; set; } = new();
+    private HashSet<InterestModel> selectedItems = new HashSet<InterestModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await InterestService.GetInterests();
+        AllInterests = InterestService.Interests;
+        //AllInterests = await InterestService.GetInterests();
+        UserInterests = await UserInterestService.GetUserInterests();
+    }
+
+}
