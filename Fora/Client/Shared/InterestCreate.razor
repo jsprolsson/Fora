@@ -1,0 +1,40 @@
+﻿@inject IAuthService AuthService
+@inject IInterestService InterestService
+
+
+    <EditForm Model="Interest" OnSubmit="CreateInterest">
+        <DataAnnotationsValidator />
+        <MudGrid>
+            <MudItem xs="12" sm="7">
+                <MudCard>
+                    <MudCardContent>
+                        <MudTextField Label="Interest" @bind-Value="Interest.Name" />
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Create</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+        </MudGrid>
+    </EditForm>
+
+
+
+@code {
+    UserAuth user { get; set; } = new();
+    InterestCreateDto Interest { get; set; } = new();
+    bool success;
+
+    protected async override Task OnInitializedAsync()
+    {
+        user = await AuthService.GetUser();
+    }
+
+    private void CreateInterest(EditContext context)
+    {
+        Interest.UserId = user.Id;
+        InterestService.CreateInterest(Interest);
+        success = true;
+        StateHasChanged();
+    }
+}
