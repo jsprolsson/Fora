@@ -17,14 +17,14 @@ namespace Fora.Client.Services.UserService
             _http = http ?? throw new ArgumentNullException(nameof(http));
             _localStorage = localStorage ?? throw new ArgumentNullException(nameof(localStorage));
         }
-        public async Task BanUser(string userId)
+        public async Task BanUser(string username)
         {
-            await _http.PostAsJsonAsync("api/user/ban", userId);
+            var result = await _http.PostAsJsonAsync("api/user/ban", username);
         }
 
-        public async Task UnBanUser(string userId)
+        public async Task RemoveBan(string username)
         {
-            await _http.PostAsJsonAsync("api/user/unban", userId);
+            var result = await _http.PostAsJsonAsync("api/user/removeban", username);
         }
     }
 }

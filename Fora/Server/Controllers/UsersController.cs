@@ -15,15 +15,15 @@ namespace Fora.Server.Controllers
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
         [HttpPost("ban")]
-        public async Task<ActionResult> BanUser(string userId)
+        public async Task<ActionResult> BanUser([FromBody] string username)
         {
-            await _userService.BanUser(userId);
+            await _userService.BanUser(username);
             return Ok();
         }
-        [HttpPost("unBan")]
-        public async Task<ActionResult> UnBanUser(string userId)
+        [HttpPost("removeban")]
+        public async Task<ActionResult> RemoveBan([FromBody] string username)
         {
-            await _userService.UnBanUser(userId);
+            await _userService.RemoveBan(username);
             return Ok();
         }
     }
