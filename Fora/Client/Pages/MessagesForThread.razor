@@ -17,14 +17,14 @@
 </MudTable>
 
     <CascadingValue Value="this">
-                <PostMessage UserId="User.Id" ThreadId="Thread"></PostMessage>
+                <PostMessage User="User" ThreadId="Thread"></PostMessage>
         </CascadingValue>
 
 @code {
     [Parameter]
     public int Thread { get; set; }
     private List<MessageModel> Messages { get; set; }
-    private UserAuth User { get; set; } = new();
+    private UserAuth User { get; set; }
 
     protected override async Task OnInitializedAsync()
     {

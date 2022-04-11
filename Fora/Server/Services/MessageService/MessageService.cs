@@ -25,9 +25,8 @@
 
         public async Task<List<MessageModel>> GetMessages(int threadId)
         {
-            List<MessageModel> messages = await _appDbContext.Messages.Where(m => m.ThreadId == threadId).Include(m => m.User).OrderBy(m => m.Id).ToListAsync();
+            return await _appDbContext.Messages.Where(m => m.ThreadId == threadId).Include(m => m.User).OrderBy(m => m.Id).ToListAsync();
             //Gets messages that are in the thread.
-            return messages;
         }
 
 

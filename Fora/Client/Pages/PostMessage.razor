@@ -12,7 +12,7 @@
     [Parameter]
     public int ThreadId { get; set; }
     [Parameter]
-    public int UserId { get; set; }
+    public UserAuth User { get; set; }
 
     [CascadingParameter]
     public MessagesForThread? _Parent { get; set; }
@@ -28,7 +28,7 @@
     {
         MessageToCreate.ThreadId = ThreadId;
         //Finds null after not re-logged in each couple of minutes.
-        MessageToCreate.UserId = UserId;
+        MessageToCreate.UserId = User.Id;
 
         await MessageService.CreateMessage(MessageToCreate);
         await MessageService.GetMessages(ThreadId);
