@@ -25,7 +25,14 @@
     </MudDrawer>
     <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.Medium">
-            @Body
+            <AuthorizeView>
+                @Body
+@*                @context.User.Claims.Where(u => u.Type == "ForaUser").Select(u => u.Value).SingleOrDefault();
+                @foreach (var claim in context.User.Claims.Where(u => u.Type == "ForaUser"))
+                {
+                    <p>@claim.Value</p>
+                }*@
+            </AuthorizeView>
         </MudContainer>
     </MudMainContent>
 </MudLayout>

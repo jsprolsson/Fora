@@ -1,0 +1,36 @@
+﻿@inject IUserService UserService
+
+<EditForm Model="@user" OnSubmit="BanUser">
+    <DataAnnotationsValidator />
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="Username"
+                                  @bind-Value="user.Username" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Ban user</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+@code {
+    User user = new User();
+    bool success;
+
+    public class User
+    {
+        [Required]
+        public string Username { get; set; }
+
+    }
+    private void BanUser(EditContext context)
+    {
+        UserService.BanUser(user.Username);
+        success = true;
+        StateHasChanged();
+    }
+}

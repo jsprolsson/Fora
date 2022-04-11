@@ -2,7 +2,7 @@
 {
     public interface IUserService
     {
-        Task BanUser(string userId);
-        Task UnBanUser(string userId);
+        Task BanUser(string username);
+        Task RemoveBan(string username);
     }
 }

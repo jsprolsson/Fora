@@ -22,22 +22,22 @@ namespace Fora.Server.Services.UserService
             _authService = AuthService ?? throw new ArgumentNullException(nameof(AuthService));
         }
 
-        public async Task BanUser(string userId)
+        public async Task BanUser(string username)
         {
-            var userToChange = await _signInManager.UserManager.FindByIdAsync(userId);
-            if (userToChange != null)
+            var userToBan = await _signInManager.UserManager.FindByNameAsync(username);
+            if (userToBan != null)
             {
-                userToChange.Banned = true;
+                userToBan.Banned = true;
                 await _userDbContext.SaveChangesAsync();
             }
         }
 
-        public async Task DeleteUser(string userId)
+        public async Task DeleteUser(string username)
         {
-            var userToChange = await _signInManager.UserManager.FindByIdAsync(userId);
-            if (userToChange != null)
+            var userToDelete = await _signInManager.UserManager.FindByNameAsync(username);
+            if (userToDelete != null)
             {
-                userToChange.Deleted = true;
+                userToDelete.Deleted = true;
                 await _userDbContext.SaveChangesAsync();
             }
         }
@@ -47,12 +47,12 @@ namespace Fora.Server.Services.UserService
             throw new NotImplementedException();
         }
 
-        public async Task UnBanUser(string userId)
+        public async Task RemoveBan(string username)
         {
-            var userToChange = await _signInManager.UserManager.FindByIdAsync(userId);
-            if (userToChange != null)
+            var userToRemoveBan = await _signInManager.UserManager.FindByNameAsync(username);
+            if (userToRemoveBan != null)
             {
-                userToChange.Banned = false;
+                userToRemoveBan.Banned = false;
                 await _userDbContext.SaveChangesAsync();
             }
         }

@@ -4,7 +4,7 @@
     {
         Task<List<string>> GetUserRoles(string userId);
         Task BanUser(string userId);
-        Task UnBanUser(string userId);
+        Task RemoveBan(string userId);
         Task DeleteUser(string userId);
         Task UnDeleteUser(string userId);
     }

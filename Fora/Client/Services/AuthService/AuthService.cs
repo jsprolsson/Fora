@@ -49,5 +49,21 @@ namespace Fora.Client.Services.AuthService
         {
             return await _http.GetFromJsonAsync<int>("/api/authentication/userid");
         }
+        public async Task<UserAuth> GetUser()
+        {
+            var authState = await _authStateProvider.GetAuthenticationStateAsync();
+            var userClaims = authState.User.Claims.ToList();
+
+            if (userClaims.Any())
+            {
+                UserAuth userAuth = new UserAuth
+                {
+                    Id = int.Parse(userClaims.Where(u => u.Type == "ForaUser").Select(u => u.Value).SingleOrDefault()),
+                    Username = authState.User.Identity.Name
+                };
+                return userAuth;
+            }
+            return null;
+        }
     }
 }
