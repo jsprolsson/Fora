@@ -1,14 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Fora.Server.Services.InterestService
 {
     public class InterestService : IInterestService
     {
         private readonly AppDbContext _appDbContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public InterestService(AppDbContext appDbContext)
+        public InterestService(AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor)
         {
             _appDbContext = appDbContext ?? throw new ArgumentNullException(nameof(appDbContext));
+            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentException(nameof(httpContextAccessor));
         }
         public async Task<InterestModel> CreateInterest(InterestCreateDto interest)
         {
@@ -40,6 +43,12 @@ namespace Fora.Server.Services.InterestService
         public async Task<List<InterestModel>> GetInterests()
         {
             return await _appDbContext.Interests.Include(i => i.Threads).OrderBy(i => i.Name).ToListAsync();
+        }
+
+        public async Task<List<InterestModel>> GetUserCreatedInterest(int userId)
+        {
+            //Get current user ID. Match that to the list interests where user id is the same as current user.
+            return await _appDbContext.Interests.Where(i => i.UserId == userId).Include(i => i.Threads).ToListAsync();
         }
 
         public async Task UpdateInterest(InterestModel interest)

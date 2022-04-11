@@ -1,8 +1,13 @@
 ﻿@page "/interests"
 @inject IInterestService InterestService
+@inject IUserInterestService UserInterestService
 @inject NavigationManager navManager
+@inject IAuthService AuthService
 
-<MudTable T="InterestModel" OnRowClick="@RowClicked" Items="@InterestService.Interests" Hover="true" LoadingProgressColor="Color.Info">
+<PageTitle>My Interests</PageTitle>
+<MudText Typo="Typo.h6">My Interests</MudText>
+
+<MudTable T="InterestModel" OnRowClick="@RowClicked" Items="@UserInterestsList" Hover="true" LoadingProgressColor="Color.Info">
     <HeaderContent>
         <MudTh><b>Interest</b></MudTh>
         <MudTh><b># of threads</b></MudTh>
@@ -11,17 +16,22 @@
 
         <MudTd DataLabel="Interest">@context.Name</MudTd>
         <MudTd DataLabel="# of threads">@context.Threads.Count()</MudTd>
+        
 
     </RowTemplate>
 </MudTable>
 
+<RemoveInterest></RemoveInterest>
+
+
 @code {
-   // private List<InterestModel>? InterestsList { get; set; }
+    private List<InterestModel>? UserInterestsList { get; set; }
+    private int UserId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        await InterestService.GetInterests();
-       // InterestsList = InterestService.Interests;
+        UserInterestsList = await UserInterestService.GetUserInterests();
+        UserId = await AuthService.GetUserId();
     }
 
     private void RowClicked(TableRowClickEventArgs<InterestModel> p)

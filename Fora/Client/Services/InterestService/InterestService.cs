@@ -32,6 +32,16 @@ namespace Fora.Client.Services.InterestService
             }
         }
 
+        public async Task<List<InterestModel>> GetUserCreatedInterests(int userId)
+        {
+            var result = await _http.GetFromJsonAsync<List<InterestModel>>($"api/interests/usercreated/{userId}");
+            if (result != null)
+            {
+                return result;
+            }
+            else return null;
+        }
+
         public async Task UpdateInterest(InterestUpdateDto interest)
         {
             var result = await _http.PutAsJsonAsync($"api/interests/{interest.Id}", interest);

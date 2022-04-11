@@ -42,6 +42,7 @@ namespace Fora.Server.Services.UserInterestService
             var foraUserId = _authService.GetForaUserId();
             var userInterests = await _appDbContext.UserInterests
                                 .Include(i => i.Interest)
+                                .ThenInclude(i => i.Threads)
                                 .Where(u => u.UserId == foraUserId)
                                 .ToListAsync();
             var interests = userInterests.Select(i => i.Interest).ToList();

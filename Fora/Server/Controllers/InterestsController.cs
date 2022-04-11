@@ -27,11 +27,16 @@ namespace Fora.Server.Controllers
             return await _interestService.GetInterest(id);
         }
 
+        [HttpGet("usercreated/{userId}")]
+        public async Task<List<InterestModel>> GetUserCreatedInterest(int userId)
+        {
+            return await _interestService.GetUserCreatedInterest(userId);
+        }
+
         [HttpPost]
         public async Task Post([FromBody] InterestCreateDto interest)
         {
             await _interestService.CreateInterest(interest);
-
         }
 
         [HttpPut("{id}")]
