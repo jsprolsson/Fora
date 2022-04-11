@@ -36,9 +36,9 @@
         UserId = await AuthService.GetUserId();
     }
 
-    private void RowClicked(TableRowClickEventArgs<InterestModel> p)
+    private void RowClicked(TableRowClickEventArgs<InterestModel> i)
     {
         //Passes in the item which the user clicked on's interestid.
-        navManager.NavigateTo($"/threads/{p.Item.Id}");
+        navManager.NavigateTo($"/threads/{i.Item.Id}");
     }
 }

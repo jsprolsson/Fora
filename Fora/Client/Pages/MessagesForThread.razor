@@ -2,7 +2,7 @@
 @inject IMessageService MessageService
 @inject IAuthService AuthService
 
-<MudTable Items=MessageService.Messages Hover="true" LoadingProgressColor="Color.Info">
+<MudTable Items=Messages Hover="true" LoadingProgressColor="Color.Info">
     <HeaderContent>
         <MudTh>UserId</MudTh>
         <MudTh>Message</MudTh>
@@ -10,35 +10,26 @@
     </HeaderContent>
     <RowTemplate>
 
-        <Message Msg="@context" UserId="UserId"></Message>
+        <Message Msg="@context" User="User"></Message>
         
 
     </RowTemplate>
 </MudTable>
 
-<AuthorizeView>
-    <Authorized>
-        
-        <CascadingValue Value="this">
-                <PostMessage UserId="UserId" ThreadId="Thread"></PostMessage>
+    <CascadingValue Value="this">
+                <PostMessage UserId="User.Id" ThreadId="Thread"></PostMessage>
         </CascadingValue>
-
-    </Authorized>
-    <NotAuthorized>
-        <p>You must be signed in to post a message.</p>
-    </NotAuthorized>
-    
-</AuthorizeView>
 
 @code {
     [Parameter]
     public int Thread { get; set; }
-    private int UserId { get; set; }
+    private List<MessageModel> Messages { get; set; }
+    private UserAuth User { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
-        await MessageService.GetMessages(Thread);
-        UserId = await AuthService.GetUserId();
+        Messages = await MessageService.GetMessages(Thread);
+        User = await AuthService.GetUser();
     }
 
     public void RefreshMessages()

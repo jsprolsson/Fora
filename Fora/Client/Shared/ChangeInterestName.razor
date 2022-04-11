@@ -12,9 +12,7 @@
     <RowTemplate>
         <MudTd DataLabel="Nr">@context.Id</MudTd>
         <MudTd DataLabel="Sign">@context.Name</MudTd>
-        <MudTd DataLabel="Change Interest Name"> <MudButton @onclick="(() => DisplayForm(context.Id))">EDIT</MudButton></MudTd>
-        
-
+        <MudTd DataLabel="Change Interest Name"> <MudButton @onclick="(() => DisplayForm(context))">EDIT</MudButton></MudTd>
     </RowTemplate>
 </MudTable>
 
@@ -37,9 +35,12 @@
     </EditForm>
 }
 
+<p>@Message</p>
+
 @code {
     private List<InterestModel> UserCreatedInterestsList { get; set; } = new();
     UserAuth user = new();
+    private string? Message { get; set; }
     private bool ShowEditForm { get; set; }
     private int InterestId { get; set; }
     private InterestUpdateDto interestToUpdate { get; set; } = new();
@@ -56,9 +57,19 @@
         await InterestService.UpdateInterest(interestToUpdate);
     }
 
-    public void DisplayForm(int interestId)
+    public void DisplayForm(InterestModel interest)
     {
-        ShowEditForm = ShowEditForm == false ? true : false;
-        InterestId = interestId;
+        if(interest.Threads.Count > 0)
+        {
+            ShowEditForm = false;
+            Message = "Not allowed to edit interest";
+        }
+        else
+        {
+            ShowEditForm = ShowEditForm == false ? true : false;
+            InterestId = interest.Id;
+            Message = "";
+        }
+        
     }
 }

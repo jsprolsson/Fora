@@ -22,7 +22,7 @@ namespace Fora.Shared
 
         [ForeignKey(nameof(User))]
         public int? UserId { get; set; }
-        [JsonIgnore]
+        
         public UserModel? User { get; set; }
     }
 }

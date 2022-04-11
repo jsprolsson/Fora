@@ -21,14 +21,14 @@
 @code {
 
     public int InterestId { get; set; }
-    private int UserId { get; set; }
+    private UserAuth User { get; set; }
 
     private List<InterestModel> UserCreatedInterestsList { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
-        UserId = await AuthService.GetUserId();
-        UserCreatedInterestsList = await InterestService.GetUserCreatedInterests(UserId);
+        User = await AuthService.GetUser();
+        UserCreatedInterestsList = await InterestService.GetUserCreatedInterests(User.Id);
     }
 
     public async Task DeleteInterest(int id)
