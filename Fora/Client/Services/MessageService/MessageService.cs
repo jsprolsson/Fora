@@ -11,6 +11,8 @@ namespace Fora.Client.Services.MessageService
             _http = http;
         }
 
+        public List<MessageModel> Messages { get; set; }
+
         public async Task CreateMessage(MessageCreateDto messageToCreate)
         {
             var result = await _http.PostAsJsonAsync($"api/threads/{messageToCreate.ThreadId}/messages", messageToCreate);
@@ -21,14 +23,13 @@ namespace Fora.Client.Services.MessageService
             var result = await _http.DeleteAsync($"api/threads/{messageToDelete.ThreadId}/messages/{messageToDelete.Id}");
         }
 
-        public async Task<List<MessageModel>> GetMessages(int threadId)
+        public async Task GetMessages(int threadId)
         {
             var result = await _http.GetFromJsonAsync<List<MessageModel>>($"api/threads/{threadId}/messages");
             if (result != null)
             {
-                return result;
+                Messages = result;
             }
-            else return null;
         }
 
         public async Task UpdateMessage(MessageUpdateDto messageToUpdate)

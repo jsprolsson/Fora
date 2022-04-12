@@ -2,7 +2,7 @@
 @inject IMessageService MessageService
 @inject IAuthService AuthService
 
-<MudTable Items=Messages Hover="true" LoadingProgressColor="Color.Info">
+<MudTable Items=MessageService.Messages Hover="true" LoadingProgressColor="Color.Info">
     <HeaderContent>
         <MudTh>UserId</MudTh>
         <MudTh>Message</MudTh>
@@ -23,12 +23,11 @@
 @code {
     [Parameter]
     public int Thread { get; set; }
-    private List<MessageModel> Messages { get; set; }
     private UserAuth User { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        Messages = await MessageService.GetMessages(Thread);
+        await MessageService.GetMessages(Thread);
         User = await AuthService.GetUser();
     }
 
