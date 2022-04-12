@@ -35,7 +35,7 @@ namespace Fora.Client.Services.UserService
         public async Task DeleteUser(string username)
         {
             var result = await _http.DeleteAsync($"api/user/{username}");
-            _authService.Logout();
+            //_authService.Logout();
         }
 
         public async Task AddRole(UserRoleDto userRole)

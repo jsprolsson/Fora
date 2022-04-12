@@ -107,18 +107,18 @@ namespace Fora.Server.Migrations.UserDb
                             Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
                             Banned = false,
-                            ConcurrencyStamp = "79296980-e146-4e76-9f4d-e76b23a3bc8f",
-                            DateTimeCreated = new DateTime(2022, 4, 12, 11, 35, 49, 644, DateTimeKind.Local).AddTicks(907),
-                            DateTimeModified = new DateTime(2022, 4, 12, 11, 35, 49, 644, DateTimeKind.Local).AddTicks(974),
+                            ConcurrencyStamp = "c18abf73-d824-466f-803c-58948c8c18c1",
+                            DateTimeCreated = new DateTime(2022, 4, 12, 17, 1, 45, 872, DateTimeKind.Local).AddTicks(9020),
+                            DateTimeModified = new DateTime(2022, 4, 12, 17, 1, 45, 872, DateTimeKind.Local).AddTicks(9080),
                             Deleted = false,
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             ForaUser = 1,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBykl4j4H70AbmM3GZvIRS9lbzkwbUySfNg0nfINSI1M+dKk50RRYZPCQaOqczwSUA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKhPm2D78BFD7ZkW2oNU4pEFlrFsjVBfKEw78T/l0110Hs00x5LA1PGpM8P0++49dQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "074734e9-24a2-4810-ac9f-c628422035d5",
+                            SecurityStamp = "d64c248d-6de6-4700-b002-1c7cee87d38f",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -127,18 +127,18 @@ namespace Fora.Server.Migrations.UserDb
                             Id = "b74ddd14-6340-4840-95c2-db12554843e6",
                             AccessFailedCount = 0,
                             Banned = false,
-                            ConcurrencyStamp = "534e4fdf-2765-4453-9875-3c5158df6e4d",
-                            DateTimeCreated = new DateTime(2022, 4, 12, 11, 35, 49, 649, DateTimeKind.Local).AddTicks(9283),
-                            DateTimeModified = new DateTime(2022, 4, 12, 11, 35, 49, 649, DateTimeKind.Local).AddTicks(9299),
+                            ConcurrencyStamp = "bf386981-9910-4a30-8cc6-a17600802576",
+                            DateTimeCreated = new DateTime(2022, 4, 12, 17, 1, 45, 879, DateTimeKind.Local).AddTicks(275),
+                            DateTimeModified = new DateTime(2022, 4, 12, 17, 1, 45, 879, DateTimeKind.Local).AddTicks(299),
                             Deleted = false,
                             Email = "jesper@gmail.com",
                             EmailConfirmed = false,
                             ForaUser = 2,
                             LockoutEnabled = false,
                             NormalizedUserName = "JESPER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDxURXRnZ1j1Xg5VyarO2/4AsVwxSUmc5OFSnkKWIwxjYOWHr05UgdpO9IH+IdWZag==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMuG/6O+83EgRHrJAxNe1RDaMwt9uN01bvsMqniFrIMYugqMIIbWBTuNf9nXLcC80Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "73a018a6-5cf3-499c-b152-abb0063ce9cd",
+                            SecurityStamp = "fce43287-ba63-40f8-87fd-d2189e4f9da9",
                             TwoFactorEnabled = false,
                             UserName = "Jesper"
                         },
@@ -147,18 +147,18 @@ namespace Fora.Server.Migrations.UserDb
                             Id = "b74ddd14-6340-4840-95c2-db12554843e7",
                             AccessFailedCount = 0,
                             Banned = true,
-                            ConcurrencyStamp = "e38af087-f962-4fb4-bdfe-477e161168ca",
-                            DateTimeCreated = new DateTime(2022, 4, 12, 11, 35, 49, 656, DateTimeKind.Local).AddTicks(778),
-                            DateTimeModified = new DateTime(2022, 4, 12, 11, 35, 49, 656, DateTimeKind.Local).AddTicks(796),
+                            ConcurrencyStamp = "a52c918c-fc12-4dfe-85cd-06d953397d1b",
+                            DateTimeCreated = new DateTime(2022, 4, 12, 17, 1, 45, 886, DateTimeKind.Local).AddTicks(9370),
+                            DateTimeModified = new DateTime(2022, 4, 12, 17, 1, 45, 886, DateTimeKind.Local).AddTicks(9402),
                             Deleted = false,
                             Email = "filip@gmail.com",
                             EmailConfirmed = false,
                             ForaUser = 3,
                             LockoutEnabled = false,
                             NormalizedUserName = "FILIP",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIRNM4HSzlew8TDx5fES3kUMP+0A6QBFejWZfJnIyUNRItCKCr2TIFoaHQCxVd7Ltg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFMENBgMitl5DS89TMDNIWAxy/7y0rU078IawinUrX1AIDzqFS1jp40BpGxUmILD/Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c5a656dc-5896-4591-8600-9267865906f2",
+                            SecurityStamp = "15642a9f-5039-4d6a-b5a8-4faa0b7126e6",
                             TwoFactorEnabled = false,
                             UserName = "Filip"
                         },
@@ -167,18 +167,18 @@ namespace Fora.Server.Migrations.UserDb
                             Id = "b74ddd14-6340-4840-95c2-db12554843e8",
                             AccessFailedCount = 0,
                             Banned = false,
-                            ConcurrencyStamp = "f5e55278-e6ce-4e70-9e0d-542613cf6577",
-                            DateTimeCreated = new DateTime(2022, 4, 12, 11, 35, 49, 661, DateTimeKind.Local).AddTicks(7418),
-                            DateTimeModified = new DateTime(2022, 4, 12, 11, 35, 49, 661, DateTimeKind.Local).AddTicks(7431),
+                            ConcurrencyStamp = "cc51e8a5-505d-4079-bc51-fa37c29b345f",
+                            DateTimeCreated = new DateTime(2022, 4, 12, 17, 1, 45, 893, DateTimeKind.Local).AddTicks(2739),
+                            DateTimeModified = new DateTime(2022, 4, 12, 17, 1, 45, 893, DateTimeKind.Local).AddTicks(2761),
                             Deleted = true,
                             Email = "mårten@gmail.com",
                             EmailConfirmed = false,
                             ForaUser = 4,
                             LockoutEnabled = false,
                             NormalizedUserName = "MÅRTEN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ3rslhPIvlevhfonC9StPE31t067cHxFznByTuK09HApdCyaH+6JzL1LCnqafbLOQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKMylNgM47gdNrLwnpzRcnjnJj90MEBnhVc8plKwRpPxI+GdgvoYJbLDxd8jfzEyMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b867f914-a041-45ca-ab27-1404413a3fbc",
+                            SecurityStamp = "58f1b277-18ec-4f5a-939a-f707e9d6f2f6",
                             TwoFactorEnabled = false,
                             UserName = "Mårten"
                         });
@@ -213,28 +213,28 @@ namespace Fora.Server.Migrations.UserDb
                     b.HasData(
                         new
                         {
-                            Id = "fab4fac1-c546-41de-aebc-a14da6895711",
+                            Id = "AdminId",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "fab4fac1-c546-41de-aebc-a14da6895712",
+                            Id = "UserId",
                             ConcurrencyStamp = "2",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "fab4fac1-c546-41de-aebc-a14da6895713",
+                            Id = "BannedId",
                             ConcurrencyStamp = "3",
                             Name = "Banned",
                             NormalizedName = "BANNED"
                         },
                         new
                         {
-                            Id = "fab4fac1-c546-41de-aebc-a14da6895714",
+                            Id = "DeletedId",
                             ConcurrencyStamp = "4",
                             Name = "Deleted",
                             NormalizedName = "DELETED"
@@ -331,27 +331,27 @@ namespace Fora.Server.Migrations.UserDb
                         new
                         {
                             UserId = "b74ddd14-6340-4840-95c2-db12554843e5",
-                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895711"
+                            RoleId = "AdminId"
                         },
                         new
                         {
                             UserId = "b74ddd14-6340-4840-95c2-db12554843e5",
-                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895712"
+                            RoleId = "UserId"
                         },
                         new
                         {
                             UserId = "b74ddd14-6340-4840-95c2-db12554843e6",
-                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895712"
+                            RoleId = "UserId"
                         },
                         new
                         {
                             UserId = "b74ddd14-6340-4840-95c2-db12554843e7",
-                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895713"
+                            RoleId = "BannedId"
                         },
                         new
                         {
                             UserId = "b74ddd14-6340-4840-95c2-db12554843e8",
-                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895714"
+                            RoleId = "DeletedId"
                         });
                 });
 

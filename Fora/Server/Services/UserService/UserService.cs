@@ -34,7 +34,11 @@ namespace Fora.Server.Services.UserService
             if (userToBan != null)
             {
                 userToBan.Banned = true;
-                await _userDbContext.SaveChangesAsync();
+                await ChangeAllUserRoles(userToBan, "Banned");
+
+                var foraUserToBan = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Id == userToBan.ForaUser);
+                foraUserToBan.Banned = true;
+                await _appDbContext.SaveChangesAsync();
             }
         }
 
@@ -51,10 +55,24 @@ namespace Fora.Server.Services.UserService
         public async Task DeleteUser(string username)
         {
             var userToDelete = await _signInManager.UserManager.FindByNameAsync(username);
+            var foraUserToDelete = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Id == userToDelete.ForaUser);
             if (userToDelete != null)
             {
-                await _signInManager.UserManager.DeleteAsync(userToDelete);
-                //await _userDbContext.SaveChangesAsync();
+                if (userToDelete.Deleted) // Remove user from database
+                {
+                    await _signInManager.UserManager.DeleteAsync(userToDelete);
+                    // Remove user from appDb
+                    //_appDbContext.Remove(foraUserToDelete);
+                    //await _appDbContext.SaveChangesAsync();
+                }
+                else // Mark user as Deleted
+                {
+                    userToDelete.Deleted = true;
+                    await ChangeAllUserRoles(userToDelete, "Deleted");
+
+                    foraUserToDelete.Deleted = true;
+                    await _appDbContext.SaveChangesAsync();
+                }
             }
         }
 
@@ -64,7 +82,11 @@ namespace Fora.Server.Services.UserService
             if (userToRemoveBan != null)
             {
                 userToRemoveBan.Banned = false;
-                await _userDbContext.SaveChangesAsync();
+                await ChangeAllUserRoles(userToRemoveBan, "User");
+
+                var foraUserToRemoveBan = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Id == userToRemoveBan.ForaUser);
+                foraUserToRemoveBan.Banned = false;
+                await _appDbContext.SaveChangesAsync();
             }
         }
 
@@ -82,6 +104,15 @@ namespace Fora.Server.Services.UserService
                 userToChange.Deleted = false;
                 await _userDbContext.SaveChangesAsync();
             }
+        }
+        private async Task<bool> ChangeAllUserRoles(ApplicationUser user, string newRole)
+        {
+            var allRoles = await _signInManager.UserManager.GetRolesAsync(user);
+            await _signInManager.UserManager.RemoveFromRolesAsync(user, allRoles);
+            await _signInManager.UserManager.AddToRoleAsync(user, newRole);
+            var result = await _userDbContext.SaveChangesAsync();
+            if (result > 0) return true;
+            return false;
         }
     }
 }
