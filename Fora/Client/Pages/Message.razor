@@ -1,4 +1,4 @@
-﻿        @inject IAuthService AuthService        
+﻿        @inject IAuthService AuthService 
 
         @if(Msg.Deleted)
         {
@@ -12,12 +12,12 @@
             <MudTd DataLabel="Message">@Msg.Message <i>Message edited</i></MudTd>
             <MudTd DataLabel="Posted">@Msg.DateTimeCreated</MudTd>
         }
-        @if(User.Id == Msg.UserId)
+        @*@if(User.Id == Msg.UserId)
         {
             <MudTd Style="background-color:lightskyblue;" DataLabel="UserId">@Msg.User.Username</MudTd>
             <MudTd Style="background-color:lightskyblue;" DataLabel="Message">@Msg.Message</MudTd>
             <MudTd Style="background-color:lightskyblue;" DataLabel="Posted">@Msg.DateTimeCreated</MudTd>
-        }
+        }*@
         @*@if(Msg.User.Banned)
         {
             <MudTd DataLabel="UserId">Banned user.</MudTd>
@@ -36,6 +36,11 @@
     public MessageModel Msg { get; set; }
     [Parameter]
     public UserAuth User { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
 
     //If user banned or deleted
     //If user logged in's message is on board, make blue

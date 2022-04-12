@@ -1,13 +1,15 @@
 ﻿    @inject IThreadService ThreadService
     @inject IAuthService AuthService
 
-       @*<EditForm Model="ThreadModel" OnSubmit="CreateThread">
+    <MudText Class="display-6">Create new thread</MudText>
+
+       <EditForm Model="threadToCreate" OnSubmit="CreateThread">
         <DataAnnotationsValidator />
         <MudGrid>
             <MudItem xs="12" sm="7">
                 <MudCard>
                     <MudCardContent>
-                        <MudTextField Label="Interest" @bind-Value="Interest.Name" />
+                        <MudTextField Label="Thread" @bind-Value="threadToCreate.Name" />
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Create</MudButton>
@@ -15,9 +17,11 @@
                 </MudCard>
             </MudItem>
         </MudGrid>
-    </EditForm>*@
+    </EditForm>
 
 @code {
+    [Parameter]
+    public int InterestId { get; set; }
     private ThreadCreateDto threadToCreate { get; set; } = new();
     private UserAuth User { get; set; } = new();
 
@@ -28,6 +32,8 @@
 
     public async Task CreateThread()
     {
-        
+        threadToCreate.UserId = User.Id;
+        threadToCreate.InterestId = InterestId;
+        await ThreadService.CreateThread(threadToCreate);
     }
 }

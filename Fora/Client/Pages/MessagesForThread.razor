@@ -9,16 +9,15 @@
         <MudTh>Posted</MudTh>
     </HeaderContent>
     <RowTemplate>
-
-        <Message Msg="@context" User="User"></Message>
-        
+       
+            <Message Msg="@context" User="User"></Message>
 
     </RowTemplate>
 </MudTable>
 
     <CascadingValue Value="this">
-                <PostMessage User="User" ThreadId="Thread"></PostMessage>
-        </CascadingValue>
+        <PostMessage User="User" ThreadId="Thread"></PostMessage>
+     </CascadingValue>
 
 @code {
     [Parameter]
@@ -31,7 +30,7 @@
         User = await AuthService.GetUser();
     }
 
-    public void RefreshMessages()
+    public async Task RefreshMessages()
     {
         //Called from child component PostMessage. Refreshes messages when user has posted a new message.
         this.StateHasChanged();
