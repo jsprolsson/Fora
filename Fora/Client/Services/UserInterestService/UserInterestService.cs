@@ -13,9 +13,9 @@
             var result = await _http.PostAsJsonAsync("api/userinterests", interestId);
         }
 
-        public Task DeleteUserInterest(int interestId)
+        public async Task DeleteUserInterest(int interestId)
         {
-            throw new NotImplementedException();
+            var result = await _http.DeleteAsync($"api/userinterests/{interestId}");
         }
 
         public async Task<List<InterestModel>> GetUserInterests()

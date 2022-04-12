@@ -5,7 +5,7 @@
           CustomHeader="true" CustomFooter="true" HeaderClass="table-head-bordered" FooterClass="table-foot-bordered">
     <HeaderContent>
         <MudTHeadRow IgnoreCheckbox="true" Class="header-centered">
-            <MudTh colspan="3">Choose your interests</MudTh>
+            <MudTh colspan="6">Choose your interests</MudTh>
         </MudTHeadRow>
         <MudTHeadRow IsCheckable="true" >
             <MudTh>Id</MudTh> 
@@ -16,8 +16,10 @@
     <RowTemplate>
         <MudTd DataLabel="Id">@context.Id</MudTd>
         <MudTd DataLabel="Name">@context.Name</MudTd>
-        <MudTd DataLabel="Delete Interest">
+        <MudTd DataLabel="Create Interest">
         <MudButton @onclick="(() => CreateUserInterest(context.Id))" Variant="Variant.Filled" Color="Color.Primary">Add</MudButton></MudTd>
+        <MudTd DataLabel="Remove Interest">
+        <MudButton @onclick="(() => DeleteUserInterest(context.Id))" Variant="Variant.Filled" Color="Color.Error">Remove</MudButton></MudTd>
     </RowTemplate>
     <FooterContent>
         <MudTFootRow>
@@ -41,5 +43,9 @@
     private async Task CreateUserInterest(int interestId)
     {
         await UserInterestService.CreateUserInterest(interestId);
+    }
+    private async Task DeleteUserInterest(int interestId)
+    {
+        await UserInterestService.DeleteUserInterest(interestId);
     }
 }
