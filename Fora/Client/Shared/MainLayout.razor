@@ -1,7 +1,7 @@
 ﻿@inherits LayoutComponentBase
 
 @*MudThemeProvider can only be used once. Currently in SwitchTheme*@
-@*<MudThemeProvider />*@ 
+@*<MudThemeProvider />*@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -11,10 +11,19 @@
         <MudText Typo="Typo.h5" Class="ml-3">Fora</MudText>
         <MudSpacer />
         <AuthorizeView>
-            <MudContainer MaxWidth="MaxWidth.Medium">
-                <MudText Align="Align.Right">Hi @context.User.Identity.Name</MudText>
-                @*<MudIcon Icon="@Icons.Outlined.WavingHand" Color="Color.Default" />*@
-            </MudContainer>
+            <Authorized>
+                <MudContainer MaxWidth="MaxWidth.Medium">
+                    <MudText Align="Align.Right">Hi @context.User.Identity.Name</MudText>
+                    @*<MudIcon Icon="@Icons.Outlined.WavingHand" Color="Color.Default" />*@
+                </MudContainer>
+            </Authorized>
+
+            <NotAuthorized>
+                <MudContainer MaxWidth="MaxWidth.Medium">
+                    <RegisterButton />
+                </MudContainer>
+            </NotAuthorized>
+
         </AuthorizeView>
         <LoginLogoutButton />
         <SwitchTheme />
@@ -25,14 +34,9 @@
     </MudDrawer>
     <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.Medium">
-            <AuthorizeView>
-                @Body
-@*                @context.User.Claims.Where(u => u.Type == "ForaUser").Select(u => u.Value).SingleOrDefault();
-                @foreach (var claim in context.User.Claims.Where(u => u.Type == "ForaUser"))
-                {
-                    <p>@claim.Value</p>
-                }*@
-            </AuthorizeView>
+
+            @Body
+
         </MudContainer>
     </MudMainContent>
 </MudLayout>

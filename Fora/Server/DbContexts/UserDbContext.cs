@@ -73,21 +73,21 @@ namespace Fora.Server.DbContexts
         private void SeedRoles(ModelBuilder builder)
         {
             builder.Entity<IdentityRole>().HasData(
-                new IdentityRole() { Id = "fab4fac1-c546-41de-aebc-a14da6895711", Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "ADMIN" },
-                new IdentityRole() { Id = "fab4fac1-c546-41de-aebc-a14da6895712", Name = "User", ConcurrencyStamp = "2", NormalizedName = "USER" },
-                new IdentityRole() { Id = "fab4fac1-c546-41de-aebc-a14da6895713", Name = "Banned", ConcurrencyStamp = "3", NormalizedName = "BANNED" },
-                new IdentityRole() { Id = "fab4fac1-c546-41de-aebc-a14da6895714", Name = "Deleted", ConcurrencyStamp = "4", NormalizedName = "DELETED" }
+                new IdentityRole() { Id = "AdminId", Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "ADMIN" },
+                new IdentityRole() { Id = "UserId", Name = "User", ConcurrencyStamp = "2", NormalizedName = "USER" },
+                new IdentityRole() { Id = "BannedId", Name = "Banned", ConcurrencyStamp = "3", NormalizedName = "BANNED" },
+                new IdentityRole() { Id = "DeletedId", Name = "Deleted", ConcurrencyStamp = "4", NormalizedName = "DELETED" }
                 );
         }
 
         private void SeedUserRoles(ModelBuilder builder)
         {
             builder.Entity<IdentityUserRole<string>>().HasData(
-                new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895711", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" },
-                new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895712", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" },
-                new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895712", UserId = "b74ddd14-6340-4840-95c2-db12554843e6" },
-                new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895713", UserId = "b74ddd14-6340-4840-95c2-db12554843e7" },
-                new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895714", UserId = "b74ddd14-6340-4840-95c2-db12554843e8" }
+                new IdentityUserRole<string>() { RoleId = "AdminId", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                new IdentityUserRole<string>() { RoleId = "UserId", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                new IdentityUserRole<string>() { RoleId = "UserId", UserId = "b74ddd14-6340-4840-95c2-db12554843e6" },
+                new IdentityUserRole<string>() { RoleId = "BannedId", UserId = "b74ddd14-6340-4840-95c2-db12554843e7" },
+                new IdentityUserRole<string>() { RoleId = "DeletedId", UserId = "b74ddd14-6340-4840-95c2-db12554843e8" }
                 );
         }
     }

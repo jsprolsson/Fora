@@ -1,14 +1,17 @@
 ﻿@page "/usersettings"
-<UserRoles />
-<UserBan />
-<UserRemoveBan />
 
-<UserDelete />
-<UserChangePassword />
-<InterestCreate />
+<AuthorizeView Roles="Admin, User">
+    <RemoveInterestAdmin />
+    <UserRoles />
+    <UserBan />
+    <UserRemoveBan />
+    <UserDelete />
+    <UserChangePassword />
+    <InterestCreate />
+    <UserInterestList />
+    <UserThreads />
+</AuthorizeView>
 
-<UserInterestList />
-<UserThreads/>
 
 @code {
 
