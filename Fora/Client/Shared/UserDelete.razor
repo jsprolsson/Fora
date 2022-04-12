@@ -1,0 +1,21 @@
+﻿@inject IAuthService AuthService
+@inject IUserService UserService
+
+<MudButton @onclick="DeleteUser" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Delete</MudButton>
+
+@code {
+    UserAuth User { get; set; } = new();
+    bool success;
+
+    protected async override Task OnInitializedAsync()
+    {
+        User = await AuthService.GetUser();
+    }
+
+    private async Task DeleteUser()
+    {
+        await UserService.DeleteUser(User.Username);
+        success = true;
+        StateHasChanged();
+    }
+}

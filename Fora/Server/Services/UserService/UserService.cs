@@ -32,13 +32,23 @@ namespace Fora.Server.Services.UserService
             }
         }
 
+        public async Task ChangePassword(UserChangePasswordDto userChangePassword)
+        {
+            var signInResult = await _signInManager.PasswordSignInAsync(userChangePassword.Username, userChangePassword.CurrentPassword, false, false);
+            if (signInResult.Succeeded)
+            {
+                var user = await _signInManager.UserManager.FindByNameAsync(userChangePassword.Username);
+                var result = await _signInManager.UserManager.ChangePasswordAsync(user, userChangePassword.CurrentPassword, userChangePassword.NewPassword);
+            }
+        }
+
         public async Task DeleteUser(string username)
         {
             var userToDelete = await _signInManager.UserManager.FindByNameAsync(username);
             if (userToDelete != null)
             {
-                userToDelete.Deleted = true;
-                await _userDbContext.SaveChangesAsync();
+                await _signInManager.UserManager.DeleteAsync(userToDelete);
+                //await _userDbContext.SaveChangesAsync();
             }
         }
 

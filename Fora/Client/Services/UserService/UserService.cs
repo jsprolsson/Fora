@@ -26,5 +26,15 @@ namespace Fora.Client.Services.UserService
         {
             var result = await _http.PostAsJsonAsync("api/user/removeban", username);
         }
+
+        public async Task ChangePassword(UserChangePasswordDto userChangePassword)
+        {
+            var result = await _http.PostAsJsonAsync("api/user/changepassword", userChangePassword);
+        }
+
+        public async Task DeleteUser(string username)
+        {
+            var result = await _http.DeleteAsync($"api/user/{username}");
+        }
     }
 }
