@@ -44,6 +44,7 @@
 
             return await _appDbContext.Threads
                 .Include(t => t.Messages)
+                .Include(t => t.User)
                 .Where(t => t.InterestId == interestId)
                 .OrderBy(t => t.Name).ToListAsync();
         }

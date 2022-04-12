@@ -10,6 +10,7 @@ namespace Fora.Shared
         public bool Deleted { get; set; }
         public List<UserInterestModel> UserInterests { get; set; } // Interests this user has
         public List<InterestModel> Interests { get; set; } // Interests created by this user
+        [JsonIgnore]
         public List<ThreadModel> Threads { get; set; } // Threads created by this user
         [JsonIgnore]
         public List<MessageModel> Messages { get; set; } // Messages created by this user

@@ -12,12 +12,27 @@
         <MudTh><b>Threads</b></MudTh>
         <MudTh><b># of messages</b></MudTh>
         <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ThreadModel, object>(t => t.DateTimeCreated)"><b>DateTime Created</b></MudTableSortLabel></MudTh>
+        <MudTh>User</MudTh>
     </HeaderContent>
     <RowTemplate>
 
         <MudTd DataLabel="Threads">@context.Name</MudTd>
         <MudTd DataLabel="# of messages">@context.Messages.Count</MudTd>
         <MudTd DataLabel="DateTime Created">@context.DateTimeCreated</MudTd>
+
+        @if(context.User.Banned)
+        {
+            <MudTd DataLabel="User">User has been banned.</MudTd>
+        }
+        else if(context.User.Deleted || context.User == null)
+        {
+            <MudTd DataLabel="User">User has been deleted.</MudTd>
+        }
+        else 
+        {
+            <MudTd DataLabel="User">@context.User.Username</MudTd>
+        }
+        
 
     </RowTemplate>
 </MudTable>
