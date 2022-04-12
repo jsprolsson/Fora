@@ -1,4 +1,5 @@
 ﻿
+using Fora.Client.Services.UserInterestService;
 using System.Security.Claims;
 
 namespace Fora.Client.Services.AuthService
@@ -8,12 +9,14 @@ namespace Fora.Client.Services.AuthService
         private readonly AuthenticationStateProvider _authStateProvider;
         private readonly HttpClient _http;
         private readonly ILocalStorageService _localStorage;
+        private readonly IUserInterestService _userInterestService;
 
-        public AuthService(AuthenticationStateProvider authStateProvider, HttpClient http, ILocalStorageService localStorage)
+        public AuthService(AuthenticationStateProvider authStateProvider, HttpClient http, ILocalStorageService localStorage, IUserInterestService userInterestService)
         {
             _authStateProvider = authStateProvider ?? throw new ArgumentNullException(nameof(authStateProvider));
             _http = http ?? throw new ArgumentNullException(nameof(http));
             _localStorage = localStorage ?? throw new ArgumentNullException(nameof(localStorage));
+            _userInterestService = userInterestService ?? throw new ArgumentNullException(nameof(userInterestService));
         }
 
         public async Task<string> GetToken()
@@ -22,12 +25,13 @@ namespace Fora.Client.Services.AuthService
             return token.Replace("\"", "");
         }
 
-        public async Task Login(UserLoginDto userLogin)
+        public async Task<bool> Login(UserLoginDto userLogin)
         {
             var result = await _http.PostAsJsonAsync("api/authentication/login", userLogin);
             var token = await result.Content.ReadAsStringAsync();
             await _localStorage.SetItemAsync("token", token);
-            await _authStateProvider.GetAuthenticationStateAsync();
+            var authState = await _authStateProvider.GetAuthenticationStateAsync();
+            return true;
         }
 
         public async Task Logout()
@@ -44,7 +48,14 @@ namespace Fora.Client.Services.AuthService
                 Username = userRegister.Username,
                 Password = userRegister.Password
             };
-            await Login(userLogin);
+            var signedIn = await Login(userLogin);
+            if (signedIn)
+            {
+                foreach (var interest in userRegister.UserInterestIds)
+                {
+                    await _userInterestService.CreateUserInterest(interest);
+                }
+            }
         }
 
         public async Task<int> GetUserId()

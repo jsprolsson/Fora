@@ -1,8 +1,9 @@
 ﻿@page "/register"
 @using System.ComponentModel.DataAnnotations
 @inject IAuthService AuthService
+@inject IInterestService InterestService
 @inject NavigationManager NavigationManager
-
+@inject IUserInterestService UserInterestService
 
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
@@ -24,34 +25,22 @@
                 </MudCardActions>
             </MudCard>
         </MudItem>
-        <MudItem xs="12" sm="5">
-            <MudPaper Class="pa-4 mud-height-full">
-                <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
-                @if (success)
-                {
-                    <MudText Color="Color.Success">Success</MudText>
-                }
-                else
-                {
-                    <MudText Color="@Color.Error">
-                        <ValidationSummary />
-                    </MudText>
-                }
-            </MudPaper>
-        </MudItem>
-        <MudItem xs="12">
-            <MudText Typo="Typo.body2" Align="Align.Center">
-                Fill out the form correctly to see the success message.
-            </MudText>
-        </MudItem>
     </MudGrid>
 </EditForm>
 
-
+<MudSelect MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))" MultiSelection="true"  @bind-SelectedValues="options" T="int" Label="Interests" AdornmentIcon="@Icons.Material.Filled.Search" AnchorOrigin="Origin.BottomCenter">
+    @foreach (var interest in AllInterests)
+    {
+        <MudSelectItem T="int" Value="interest.Id">@interest.Name</MudSelectItem>
+    }
+</MudSelect>
 
 @code {
+    private string value { get; set; } = "Nothing selected";
+    private IEnumerable<int> options { get; set; } = new HashSet<int>();
+    private List<InterestModel> AllInterests { get; set; }
+
     RegisterAccountForm model = new RegisterAccountForm();
-    bool success;
     UserRegisterDto UserRegister { get; set; } = new();
 
     public class RegisterAccountForm
@@ -71,7 +60,14 @@
         [Required]
         [Compare(nameof(Password))]
         public string Password2 { get; set; }
+    }
 
+    protected override async Task OnInitializedAsync()
+    {
+        await InterestService.GetInterests();
+        var interestsList = InterestService.Interests;
+        AllInterests = InterestService.Interests;
+        //AllInterests = interestsList.Select(i => i.Name).ToList();
     }
 
     private async Task OnValidSubmit(EditContext context)
@@ -79,11 +75,20 @@
         UserRegister.Username = model.Username;
         UserRegister.Email = model.Email;
         UserRegister.Password = model.Password;
+        
+        foreach (var interest in options)
+        {
+            UserRegister.UserInterestIds.Add(interest);
+            //Console.WriteLine(interest);
+            //await UserInterestService.CreateUserInterest(interest);
+        }
 
         await AuthService.Register(UserRegister);
-        success = true;
-        StateHasChanged();
         NavigationManager.NavigateTo("interests");
     }
 
+    private string GetMultiSelectionText(List<string> selectedValues)
+    {
+        return $"Selected interest{(selectedValues.Count > 1 ? "s" : "")}: {string.Join(", ", selectedValues.Select(x => x))}";
+    }
 }
