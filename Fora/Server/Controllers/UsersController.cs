@@ -26,5 +26,17 @@ namespace Fora.Server.Controllers
             await _userService.RemoveBan(username);
             return Ok();
         }
+        [HttpPost("changepassword")]
+        public async Task<ActionResult> ChangePassword([FromBody] UserChangePasswordDto userChangePassword)
+        {
+            await _userService.ChangePassword(userChangePassword);
+            return Ok();
+        }
+        [HttpDelete]
+        public async Task<ActionResult> DeleteUser([FromRoute] string username)
+        {
+            await _userService.DeleteUser(username);
+            return Ok();
+        }
     }
 }
