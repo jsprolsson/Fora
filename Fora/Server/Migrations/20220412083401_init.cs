@@ -136,8 +136,8 @@ namespace Fora.Server.Migrations
                 {
                     { 1, false, false, "Admin" },
                     { 2, false, false, "Jesper" },
-                    { 3, false, false, "Filip" },
-                    { 4, true, false, "Mårten" },
+                    { 3, true, false, "Filip" },
+                    { 4, false, true, "Mårten" },
                     { 5, false, false, "Dragan" }
                 });
 
@@ -146,10 +146,10 @@ namespace Fora.Server.Migrations
                 columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "Name", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4557), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Games", 1 },
-                    { 2, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4589), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Books", 2 },
-                    { 3, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4591), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Music", 2 },
-                    { 4, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4593), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hiking", 1 }
+                    { 1, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3132), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Games", 1 },
+                    { 2, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3163), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Books", 2 },
+                    { 3, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3165), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Music", 2 },
+                    { 4, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3166), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hiking", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -157,10 +157,10 @@ namespace Fora.Server.Migrations
                 columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "InterestId", "Name", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4660), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Elden Ring", 1 },
-                    { 2, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4656), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Blazors guide to the universe", 2 },
-                    { 3, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4662), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, "Hiking in dr martens??", 3 },
-                    { 4, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4664), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "About twilight...", 4 }
+                    { 1, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3194), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Elden Ring", 1 },
+                    { 2, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3191), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Blazors guide to the universe", 2 },
+                    { 3, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3195), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, "Hiking in dr martens??", 3 },
+                    { 4, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3197), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "About twilight...", 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -182,16 +182,16 @@ namespace Fora.Server.Migrations
                 columns: new[] { "Id", "DateTimeCreated", "DateTimeModified", "Deleted", "Message", "ThreadId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4675), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I love the new elden ring game", 1, 1 },
-                    { 2, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4680), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I think it's the worst in the series", 1, 4 },
-                    { 3, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4682), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "It's not a part of any series", 1, 1 },
-                    { 4, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4684), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Yes it is", 1, 4 },
-                    { 5, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4686), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I've heard they are releasing another book in the twilight franschise", 4, 4 },
-                    { 6, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4687), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "NOBODY CARES", 4, 1 },
-                    { 7, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4689), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I care", 4, 4 },
-                    { 8, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4691), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Keep a civil tone in here please and only post regarding the topic.", 4, 2 },
-                    { 9, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4693), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I'm sorry. I'm actually prtty excited 4 the new release", 4, 1 },
-                    { 10, new DateTime(2022, 4, 9, 11, 37, 38, 160, DateTimeKind.Local).AddTicks(4695), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Has anybody tried hiking in dr martens?? And if so, do you have any recommendations for me? I'm going up to Sälen next week and would like a pair of martens, but I've heard they're not that good for hiking in..", 3, 3 }
+                    { 1, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3207), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I love the new elden ring game", 1, 1 },
+                    { 2, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3210), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I think it's the worst in the series", 1, 4 },
+                    { 3, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3212), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "It's not a part of any series", 1, 1 },
+                    { 4, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3214), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Yes it is", 1, 4 },
+                    { 5, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3216), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I've heard they are releasing another book in the twilight franschise", 4, 4 },
+                    { 6, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3217), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "NOBODY CARES", 4, 1 },
+                    { 7, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3219), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I care", 4, 4 },
+                    { 8, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3251), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Keep a civil tone in here please and only post regarding the topic.", 4, 2 },
+                    { 9, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3254), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "I'm sorry. I'm actually prtty excited 4 the new release", 4, 1 },
+                    { 10, new DateTime(2022, 4, 12, 10, 34, 0, 783, DateTimeKind.Local).AddTicks(3255), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Has anybody tried hiking in dr martens?? And if so, do you have any recommendations for me? I'm going up to Sälen next week and would like a pair of martens, but I've heard they're not that good for hiking in..", 3, 3 }
                 });
 
             migrationBuilder.CreateIndex(

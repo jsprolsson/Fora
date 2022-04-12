@@ -59,8 +59,8 @@ namespace Fora.Server.Data
                 .HasData(
                 new UserModel { Id = 1, Username = "Admin", Banned = false, Deleted = false },
                 new UserModel { Id = 2, Username = "Jesper", Banned = false, Deleted = false },
-                new UserModel { Id = 3, Username = "Filip", Banned = false, Deleted = false },
-                new UserModel { Id = 4, Username = "Mårten", Banned = true, Deleted = false },
+                new UserModel { Id = 3, Username = "Filip", Banned = true, Deleted = false },
+                new UserModel { Id = 4, Username = "Mårten", Banned = false, Deleted = true },
                 new UserModel { Id = 5, Username = "Dragan", Banned = false, Deleted = false }
                 );
 

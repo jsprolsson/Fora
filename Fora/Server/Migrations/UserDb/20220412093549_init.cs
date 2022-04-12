@@ -162,17 +162,36 @@ namespace Fora.Server.Migrations.UserDb
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "fab4fac1-c546-41de-aebc-a14da6895711", "1", "Admin", "Admin" });
+                values: new object[,]
+                {
+                    { "fab4fac1-c546-41de-aebc-a14da6895711", "1", "Admin", "ADMIN" },
+                    { "fab4fac1-c546-41de-aebc-a14da6895712", "2", "User", "USER" },
+                    { "fab4fac1-c546-41de-aebc-a14da6895713", "3", "Banned", "BANNED" },
+                    { "fab4fac1-c546-41de-aebc-a14da6895714", "4", "Deleted", "DELETED" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Banned", "ConcurrencyStamp", "DateTimeCreated", "DateTimeModified", "Deleted", "Email", "EmailConfirmed", "ForaUser", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "b74ddd14-6340-4840-95c2-db12554843e5", 0, false, "af55d27b-13b0-49d5-b878-d376c24f0661", new DateTime(2022, 4, 9, 11, 39, 18, 105, DateTimeKind.Local).AddTicks(1658), new DateTime(2022, 4, 9, 11, 39, 18, 105, DateTimeKind.Local).AddTicks(2017), false, "admin@gmail.com", false, 1, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAED5KiyA15CyiDI1e/vTD5NhmFj6e/X2FwCQzCYaiLhFKhGTwICW65xj/8BvgMiJRMg==", null, false, "7f93deaa-d662-4032-9678-0e9e3b49480b", false, "Admin" });
+                values: new object[,]
+                {
+                    { "b74ddd14-6340-4840-95c2-db12554843e5", 0, false, "79296980-e146-4e76-9f4d-e76b23a3bc8f", new DateTime(2022, 4, 12, 11, 35, 49, 644, DateTimeKind.Local).AddTicks(907), new DateTime(2022, 4, 12, 11, 35, 49, 644, DateTimeKind.Local).AddTicks(974), false, "admin@gmail.com", false, 1, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEBykl4j4H70AbmM3GZvIRS9lbzkwbUySfNg0nfINSI1M+dKk50RRYZPCQaOqczwSUA==", null, false, "074734e9-24a2-4810-ac9f-c628422035d5", false, "Admin" },
+                    { "b74ddd14-6340-4840-95c2-db12554843e6", 0, false, "534e4fdf-2765-4453-9875-3c5158df6e4d", new DateTime(2022, 4, 12, 11, 35, 49, 649, DateTimeKind.Local).AddTicks(9283), new DateTime(2022, 4, 12, 11, 35, 49, 649, DateTimeKind.Local).AddTicks(9299), false, "jesper@gmail.com", false, 2, false, null, null, "JESPER", "AQAAAAEAACcQAAAAEDxURXRnZ1j1Xg5VyarO2/4AsVwxSUmc5OFSnkKWIwxjYOWHr05UgdpO9IH+IdWZag==", null, false, "73a018a6-5cf3-499c-b152-abb0063ce9cd", false, "Jesper" },
+                    { "b74ddd14-6340-4840-95c2-db12554843e7", 0, true, "e38af087-f962-4fb4-bdfe-477e161168ca", new DateTime(2022, 4, 12, 11, 35, 49, 656, DateTimeKind.Local).AddTicks(778), new DateTime(2022, 4, 12, 11, 35, 49, 656, DateTimeKind.Local).AddTicks(796), false, "filip@gmail.com", false, 3, false, null, null, "FILIP", "AQAAAAEAACcQAAAAEIRNM4HSzlew8TDx5fES3kUMP+0A6QBFejWZfJnIyUNRItCKCr2TIFoaHQCxVd7Ltg==", null, false, "c5a656dc-5896-4591-8600-9267865906f2", false, "Filip" },
+                    { "b74ddd14-6340-4840-95c2-db12554843e8", 0, false, "f5e55278-e6ce-4e70-9e0d-542613cf6577", new DateTime(2022, 4, 12, 11, 35, 49, 661, DateTimeKind.Local).AddTicks(7418), new DateTime(2022, 4, 12, 11, 35, 49, 661, DateTimeKind.Local).AddTicks(7431), true, "mårten@gmail.com", false, 4, false, null, null, "MÅRTEN", "AQAAAAEAACcQAAAAEJ3rslhPIvlevhfonC9StPE31t067cHxFznByTuK09HApdCyaH+6JzL1LCnqafbLOQ==", null, false, "b867f914-a041-45ca-ab27-1404413a3fbc", false, "Mårten" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "fab4fac1-c546-41de-aebc-a14da6895711", "b74ddd14-6340-4840-95c2-db12554843e5" });
+                values: new object[,]
+                {
+                    { "fab4fac1-c546-41de-aebc-a14da6895711", "b74ddd14-6340-4840-95c2-db12554843e5" },
+                    { "fab4fac1-c546-41de-aebc-a14da6895712", "b74ddd14-6340-4840-95c2-db12554843e5" },
+                    { "fab4fac1-c546-41de-aebc-a14da6895712", "b74ddd14-6340-4840-95c2-db12554843e6" },
+                    { "fab4fac1-c546-41de-aebc-a14da6895713", "b74ddd14-6340-4840-95c2-db12554843e7" },
+                    { "fab4fac1-c546-41de-aebc-a14da6895714", "b74ddd14-6340-4840-95c2-db12554843e8" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

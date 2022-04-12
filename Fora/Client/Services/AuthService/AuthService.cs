@@ -1,4 +1,6 @@
 ﻿
+using System.Security.Claims;
+
 namespace Fora.Client.Services.AuthService
 {
     public class AuthService : IAuthService
@@ -53,8 +55,9 @@ namespace Fora.Client.Services.AuthService
         {
             var authState = await _authStateProvider.GetAuthenticationStateAsync();
             var userClaims = authState.User.Claims.ToList();
+            var userRolesArray = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(r => r.Value).ToArray();
 
-            if (userClaims.Any())
+            if (userClaims != null)
             {
                 UserAuth userAuth = new UserAuth
                 {
@@ -64,6 +67,19 @@ namespace Fora.Client.Services.AuthService
                 return userAuth;
             }
             return null;
+        }
+
+        public async Task<bool> IsAdmin()
+        {
+            var authState = await _authStateProvider.GetAuthenticationStateAsync();
+            var userClaims = authState.User.Claims.ToList();
+            var userRoles = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(r => r.Value).ToArray();
+
+            if (userClaims != null)
+            {
+                if (userRoles[0].Contains("Admin")) return true;
+            }
+            return false;
         }
     }
 }

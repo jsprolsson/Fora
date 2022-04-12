@@ -37,5 +37,15 @@ namespace Fora.Client.Services.UserService
             var result = await _http.DeleteAsync($"api/user/{username}");
             _authService.Logout();
         }
+
+        public async Task AddRole(UserRoleDto userRole)
+        {
+            var result = await _http.PostAsJsonAsync("api/user/addrole", userRole);
+        }
+
+        public async Task RemoveRole(UserRoleDto userRole)
+        {
+            var result = await _http.PostAsJsonAsync("api/user/removerole", userRole);
+        }
     }
 }

@@ -38,5 +38,17 @@ namespace Fora.Server.Controllers
             await _userService.DeleteUser(username);
             return Ok();
         }
+        [HttpPost("addrole")]
+        public async Task<ActionResult> AddRole([FromBody] UserRoleDto userRole)
+        {
+            await _userService.AddRole(userRole);
+            return Ok();
+        }
+        [HttpPost("removerole")]
+        public async Task<ActionResult> RemoveRole([FromBody] UserRoleDto userRole)
+        {
+            await _userService.RemoveRole(userRole);
+            return Ok();
+        }
     }
 }
