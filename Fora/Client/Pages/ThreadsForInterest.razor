@@ -6,14 +6,18 @@
     <HeaderContent>
         <MudTh><b>Threads</b></MudTh>
         <MudTh><b># of messages</b></MudTh>
+        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ThreadModel, object>(t => t.DateTimeCreated)"><b>DateTime Created</b></MudTableSortLabel></MudTh>
     </HeaderContent>
     <RowTemplate>
 
         <MudTd DataLabel="Threads">@context.Name</MudTd>
         <MudTd DataLabel="# of messages">@context.Messages.Count</MudTd>
+        <MudTd DataLabel="DateTime Created">@context.DateTimeCreated</MudTd>
 
     </RowTemplate>
 </MudTable>
+
+<ThreadCreate InterestId=InterestId></ThreadCreate>
 
 @code {
 
