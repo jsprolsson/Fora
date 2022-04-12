@@ -2,7 +2,12 @@
 @inject IThreadService ThreadService
 @inject NavigationManager navManager
 
-<MudTable T="ThreadModel" OnRowClick="@RowClicked" Items="@Threads" Hover="true" LoadingProgressColor="Color.Info">
+<MudTable T="ThreadModel" OnRowClick="@RowClicked" Items="@Threads" Hover="true" Filter="new Func<ThreadModel, bool>(FilterCycleCheck)" LoadingProgressColor="Color.Info">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Available threads</MudText>
+        <MudSpacer/>
+        <MudTextField @bind-Value="Search" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField> 
+    </ToolBarContent>
     <HeaderContent>
         <MudTh><b>Threads</b></MudTh>
         <MudTh><b># of messages</b></MudTh>
@@ -23,12 +28,22 @@
 
     [Parameter]
     public int InterestId { get; set; }
+    private string Search { get; set; } = "";
 
     private List<ThreadModel> Threads { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
         Threads = await ThreadService.GetThreads(InterestId);
+    }
+
+    private bool FilterCycleCheck(ThreadModel thread)
+    {
+        if(thread.Name.Contains(Search))
+        {
+            return true;
+        }
+        return false;
     }
 
     public void RowClicked(TableRowClickEventArgs<ThreadModel> t)
