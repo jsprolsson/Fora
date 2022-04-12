@@ -8,9 +8,9 @@
         {
             _http = http ?? throw new ArgumentNullException(nameof(http));
         }
-        public Task CreateUserInterest(int interestId)
+        public async Task CreateUserInterest(int interestId)
         {
-            throw new NotImplementedException();
+            var result = await _http.PostAsJsonAsync("api/userinterests", interestId);
         }
 
         public Task DeleteUserInterest(int interestId)
