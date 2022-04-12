@@ -32,7 +32,7 @@ namespace Fora.Server.Controllers
             await _userService.ChangePassword(userChangePassword);
             return Ok();
         }
-        [HttpDelete]
+        [HttpDelete("{username}")]
         public async Task<ActionResult> DeleteUser([FromRoute] string username)
         {
             await _userService.DeleteUser(username);

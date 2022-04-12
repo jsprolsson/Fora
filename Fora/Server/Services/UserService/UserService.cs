@@ -55,10 +55,24 @@ namespace Fora.Server.Services.UserService
         public async Task DeleteUser(string username)
         {
             var userToDelete = await _signInManager.UserManager.FindByNameAsync(username);
+            var foraUserToDelete = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Id == userToDelete.ForaUser);
             if (userToDelete != null)
             {
-                await _signInManager.UserManager.DeleteAsync(userToDelete);
-                //await _userDbContext.SaveChangesAsync();
+                if (userToDelete.Deleted) // Remove user from database
+                {
+                    await _signInManager.UserManager.DeleteAsync(userToDelete);
+                    // Remove user from appDb
+                    //_appDbContext.Remove(foraUserToDelete);
+                    //await _appDbContext.SaveChangesAsync();
+                }
+                else // Mark user as Deleted
+                {
+                    userToDelete.Deleted = true;
+                    await ChangeAllUserRoles(userToDelete, "Deleted");
+
+                    foraUserToDelete.Deleted = true;
+                    await _appDbContext.SaveChangesAsync();
+                }
             }
         }
 
