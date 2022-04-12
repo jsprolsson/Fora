@@ -1,0 +1,38 @@
+﻿@inject IThreadService ThreadService
+@inject IAuthService AuthService
+
+<MudTable Items="@UserCreatedThreads" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>Thread Id</MudTh>
+        <MudTh>Thread Name</MudTh>
+        <MudTh>Delete Thread</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Thread Id">@context.Id</MudTd>
+        <MudTd DataLabel="Thread Name">@context.Name</MudTd>
+        <MudTd DataLabel="Delete Thread">
+        <MudButton @onclick="(() => DeleteThread(context))">X</MudButton></MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code {
+    private List<ThreadModel> UserCreatedThreads { get; set; } = new();
+    private UserAuth User { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {   
+        User = await AuthService.GetUser();
+        UserCreatedThreads = await ThreadService.GetUserCreatedThreads(User.Id);
+    }
+
+    public async Task DeleteThread(ThreadModel thread)
+    {
+        ThreadDeleteDto threadToDelete = new()
+            {
+                Id = thread.Id,
+                InterestId = thread.InterestId
+            };
+
+        await ThreadService.DeleteThread(threadToDelete);
+    }
+}

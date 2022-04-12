@@ -4,6 +4,7 @@
     {
         Task<ThreadModel> CreateThread(ThreadCreateDto thread);
         Task<List<ThreadModel>> GetThreads(int interestId);
+        Task<List<ThreadModel>> GetUserCreatedThreads(int userId);
         Task<ThreadModel> GetThread(int threadId);
         Task UpdateThread(ThreadUpdateDto thread);
         Task DeleteThread(int threadId);

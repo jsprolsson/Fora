@@ -41,6 +41,17 @@ namespace Fora.Client.Services.ThreadService
             else return null;
         }
 
+        public async Task<List<ThreadModel>> GetUserCreatedThreads(int userId)
+        {
+            var result = await _http.GetFromJsonAsync<List<ThreadModel>>($"api/interests/1/threads/usercreated/{userId}");
+
+            if (result != null)
+            {
+                return result;
+            }
+            else return null;
+        }
+
         public async Task UpdateThread(ThreadUpdateDto threadToUpdate)
         {
             var result = await _http.PutAsJsonAsync($"api/interests/{threadToUpdate.InterestId}/threads/{threadToUpdate.Id}", threadToUpdate);

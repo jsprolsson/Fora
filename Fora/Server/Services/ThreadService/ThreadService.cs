@@ -48,6 +48,11 @@
                 .OrderBy(t => t.Name).ToListAsync();
         }
 
+        public async Task<List<ThreadModel>> GetUserCreatedThreads(int userId)
+        {
+            return await _appDbContext.Threads.Where(t => t.UserId == userId).Include(t => t.Messages).ToListAsync();
+        }
+
         public async Task UpdateThread(ThreadUpdateDto threadToUpdate)
         {
             //Hämtar threadEntity som berättar vilken thread som ska få dem nya värdena thread som passeras in.
