@@ -43,11 +43,13 @@
     private string? Message { get; set; }
     private bool ShowEditForm { get; set; }
     private int InterestId { get; set; }
+    private bool UserIsAdmin { get; set; }
     private InterestUpdateDto interestToUpdate { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
         user = await AuthService.GetUser();
+        UserIsAdmin = await AuthService.IsAdmin();
         UserCreatedInterestsList = await InterestService.GetUserCreatedInterests(user.Id);
     }
 
@@ -59,17 +61,18 @@
 
     public void DisplayForm(InterestModel interest)
     {
-        if(interest.Threads.Count > 0)
-        {
-            ShowEditForm = false;
-            Message = "Not allowed to edit interest";
-        }
-        else
+        if(UserIsAdmin || interest.Threads.Count <= 0)
         {
             ShowEditForm = ShowEditForm == false ? true : false;
             InterestId = interest.Id;
             Message = "";
         }
+        else if(interest.Threads.Count > 0)
+        {
+            ShowEditForm = false;
+            Message = "Not allowed to edit interest";
+        }
+       
         
     }
 }
