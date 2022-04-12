@@ -107,20 +107,80 @@ namespace Fora.Server.Migrations.UserDb
                             Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
                             Banned = false,
-                            ConcurrencyStamp = "af55d27b-13b0-49d5-b878-d376c24f0661",
-                            DateTimeCreated = new DateTime(2022, 4, 9, 11, 39, 18, 105, DateTimeKind.Local).AddTicks(1658),
-                            DateTimeModified = new DateTime(2022, 4, 9, 11, 39, 18, 105, DateTimeKind.Local).AddTicks(2017),
+                            ConcurrencyStamp = "79296980-e146-4e76-9f4d-e76b23a3bc8f",
+                            DateTimeCreated = new DateTime(2022, 4, 12, 11, 35, 49, 644, DateTimeKind.Local).AddTicks(907),
+                            DateTimeModified = new DateTime(2022, 4, 12, 11, 35, 49, 644, DateTimeKind.Local).AddTicks(974),
                             Deleted = false,
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             ForaUser = 1,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAED5KiyA15CyiDI1e/vTD5NhmFj6e/X2FwCQzCYaiLhFKhGTwICW65xj/8BvgMiJRMg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBykl4j4H70AbmM3GZvIRS9lbzkwbUySfNg0nfINSI1M+dKk50RRYZPCQaOqczwSUA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7f93deaa-d662-4032-9678-0e9e3b49480b",
+                            SecurityStamp = "074734e9-24a2-4810-ac9f-c628422035d5",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "b74ddd14-6340-4840-95c2-db12554843e6",
+                            AccessFailedCount = 0,
+                            Banned = false,
+                            ConcurrencyStamp = "534e4fdf-2765-4453-9875-3c5158df6e4d",
+                            DateTimeCreated = new DateTime(2022, 4, 12, 11, 35, 49, 649, DateTimeKind.Local).AddTicks(9283),
+                            DateTimeModified = new DateTime(2022, 4, 12, 11, 35, 49, 649, DateTimeKind.Local).AddTicks(9299),
+                            Deleted = false,
+                            Email = "jesper@gmail.com",
+                            EmailConfirmed = false,
+                            ForaUser = 2,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "JESPER",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDxURXRnZ1j1Xg5VyarO2/4AsVwxSUmc5OFSnkKWIwxjYOWHr05UgdpO9IH+IdWZag==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "73a018a6-5cf3-499c-b152-abb0063ce9cd",
+                            TwoFactorEnabled = false,
+                            UserName = "Jesper"
+                        },
+                        new
+                        {
+                            Id = "b74ddd14-6340-4840-95c2-db12554843e7",
+                            AccessFailedCount = 0,
+                            Banned = true,
+                            ConcurrencyStamp = "e38af087-f962-4fb4-bdfe-477e161168ca",
+                            DateTimeCreated = new DateTime(2022, 4, 12, 11, 35, 49, 656, DateTimeKind.Local).AddTicks(778),
+                            DateTimeModified = new DateTime(2022, 4, 12, 11, 35, 49, 656, DateTimeKind.Local).AddTicks(796),
+                            Deleted = false,
+                            Email = "filip@gmail.com",
+                            EmailConfirmed = false,
+                            ForaUser = 3,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "FILIP",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIRNM4HSzlew8TDx5fES3kUMP+0A6QBFejWZfJnIyUNRItCKCr2TIFoaHQCxVd7Ltg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "c5a656dc-5896-4591-8600-9267865906f2",
+                            TwoFactorEnabled = false,
+                            UserName = "Filip"
+                        },
+                        new
+                        {
+                            Id = "b74ddd14-6340-4840-95c2-db12554843e8",
+                            AccessFailedCount = 0,
+                            Banned = false,
+                            ConcurrencyStamp = "f5e55278-e6ce-4e70-9e0d-542613cf6577",
+                            DateTimeCreated = new DateTime(2022, 4, 12, 11, 35, 49, 661, DateTimeKind.Local).AddTicks(7418),
+                            DateTimeModified = new DateTime(2022, 4, 12, 11, 35, 49, 661, DateTimeKind.Local).AddTicks(7431),
+                            Deleted = true,
+                            Email = "mårten@gmail.com",
+                            EmailConfirmed = false,
+                            ForaUser = 4,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "MÅRTEN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJ3rslhPIvlevhfonC9StPE31t067cHxFznByTuK09HApdCyaH+6JzL1LCnqafbLOQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b867f914-a041-45ca-ab27-1404413a3fbc",
+                            TwoFactorEnabled = false,
+                            UserName = "Mårten"
                         });
                 });
 
@@ -156,7 +216,28 @@ namespace Fora.Server.Migrations.UserDb
                             Id = "fab4fac1-c546-41de-aebc-a14da6895711",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
-                            NormalizedName = "Admin"
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "fab4fac1-c546-41de-aebc-a14da6895712",
+                            ConcurrencyStamp = "2",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "fab4fac1-c546-41de-aebc-a14da6895713",
+                            ConcurrencyStamp = "3",
+                            Name = "Banned",
+                            NormalizedName = "BANNED"
+                        },
+                        new
+                        {
+                            Id = "fab4fac1-c546-41de-aebc-a14da6895714",
+                            ConcurrencyStamp = "4",
+                            Name = "Deleted",
+                            NormalizedName = "DELETED"
                         });
                 });
 
@@ -251,6 +332,26 @@ namespace Fora.Server.Migrations.UserDb
                         {
                             UserId = "b74ddd14-6340-4840-95c2-db12554843e5",
                             RoleId = "fab4fac1-c546-41de-aebc-a14da6895711"
+                        },
+                        new
+                        {
+                            UserId = "b74ddd14-6340-4840-95c2-db12554843e5",
+                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895712"
+                        },
+                        new
+                        {
+                            UserId = "b74ddd14-6340-4840-95c2-db12554843e6",
+                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895712"
+                        },
+                        new
+                        {
+                            UserId = "b74ddd14-6340-4840-95c2-db12554843e7",
+                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895713"
+                        },
+                        new
+                        {
+                            UserId = "b74ddd14-6340-4840-95c2-db12554843e8",
+                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895714"
                         });
                 });
 

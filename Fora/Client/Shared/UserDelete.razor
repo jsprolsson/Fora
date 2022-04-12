@@ -1,7 +1,7 @@
 ﻿@inject IAuthService AuthService
 @inject IUserService UserService
 
-<MudButton @onclick="DeleteUser" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Delete</MudButton>
+<MudButton @onclick="DeleteUser" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Delete my profile</MudButton>
 
 @code {
     UserAuth User { get; set; } = new();

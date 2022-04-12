@@ -82,14 +82,17 @@ namespace Fora.Server.Services.AuthService
 
         public async Task Register(UserRegisterDto userRegister)
         {
+            // UserDb
             ApplicationUser newUser = new();
-
             newUser.UserName = userRegister.Username;
             newUser.Email = userRegister.Email;
 
             var result = await _signInManager.UserManager.CreateAsync(newUser, userRegister.Password);
             if (result.Succeeded)
             {
+                await _signInManager.UserManager.AddToRoleAsync(newUser, "User");
+
+                // AppDb
                 UserModel newForaUser = new UserModel
                 {
                     Username = newUser.UserName,

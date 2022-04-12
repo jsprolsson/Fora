@@ -8,5 +8,6 @@
         Task Register(UserRegisterDto userRegister);
         Task<int> GetUserId();
         Task<UserAuth> GetUser();
+        Task<bool> IsAdmin();
     }
 }

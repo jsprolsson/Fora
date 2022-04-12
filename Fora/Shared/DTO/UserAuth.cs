@@ -1,8 +1,11 @@
-﻿namespace Fora.Shared.DTO
+﻿using System.Security.Claims;
+
+namespace Fora.Shared.DTO
 {
     public class UserAuth
     {
         public int Id { get; set; }
-        public string Username { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public List<string> Roles { get; set; }
     }
 }

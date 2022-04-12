@@ -22,6 +22,12 @@ namespace Fora.Server.Services.UserService
             _authService = AuthService ?? throw new ArgumentNullException(nameof(AuthService));
         }
 
+        public async Task AddRole(UserRoleDto userRole)
+        {
+            var user = await _signInManager.UserManager.FindByNameAsync(userRole.Username);
+            var result = await _signInManager.UserManager.AddToRoleAsync(user, userRole.Role);
+        }
+
         public async Task BanUser(string username)
         {
             var userToBan = await _signInManager.UserManager.FindByNameAsync(username);
@@ -52,11 +58,6 @@ namespace Fora.Server.Services.UserService
             }
         }
 
-        public Task<List<string>> GetUserRoles(string userId)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task RemoveBan(string username)
         {
             var userToRemoveBan = await _signInManager.UserManager.FindByNameAsync(username);
@@ -66,6 +67,13 @@ namespace Fora.Server.Services.UserService
                 await _userDbContext.SaveChangesAsync();
             }
         }
+
+        public async Task RemoveRole(UserRoleDto userRole)
+        {
+            var user = await _signInManager.UserManager.FindByNameAsync(userRole.Username);
+            var result = await _signInManager.UserManager.RemoveFromRoleAsync(user, userRole.Role);
+        }
+
         public async Task UnDeleteUser(string userId)
         {
             var userToChange = await _signInManager.UserManager.FindByIdAsync(userId);
