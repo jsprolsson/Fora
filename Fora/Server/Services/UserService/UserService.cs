@@ -34,7 +34,11 @@ namespace Fora.Server.Services.UserService
             if (userToBan != null)
             {
                 userToBan.Banned = true;
-                await _userDbContext.SaveChangesAsync();
+                await ChangeAllUserRoles(userToBan, "Banned");
+
+                var foraUserToBan = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Id == userToBan.ForaUser);
+                foraUserToBan.Banned = true;
+                await _appDbContext.SaveChangesAsync();
             }
         }
 
@@ -64,7 +68,11 @@ namespace Fora.Server.Services.UserService
             if (userToRemoveBan != null)
             {
                 userToRemoveBan.Banned = false;
-                await _userDbContext.SaveChangesAsync();
+                await ChangeAllUserRoles(userToRemoveBan, "User");
+
+                var foraUserToRemoveBan = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Id == userToRemoveBan.ForaUser);
+                foraUserToRemoveBan.Banned = false;
+                await _appDbContext.SaveChangesAsync();
             }
         }
 
@@ -82,6 +90,15 @@ namespace Fora.Server.Services.UserService
                 userToChange.Deleted = false;
                 await _userDbContext.SaveChangesAsync();
             }
+        }
+        private async Task<bool> ChangeAllUserRoles(ApplicationUser user, string newRole)
+        {
+            var allRoles = await _signInManager.UserManager.GetRolesAsync(user);
+            await _signInManager.UserManager.RemoveFromRolesAsync(user, allRoles);
+            await _signInManager.UserManager.AddToRoleAsync(user, newRole);
+            var result = await _userDbContext.SaveChangesAsync();
+            if (result > 0) return true;
+            return false;
         }
     }
 }

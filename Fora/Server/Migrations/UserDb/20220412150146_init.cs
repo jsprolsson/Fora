@@ -164,10 +164,10 @@ namespace Fora.Server.Migrations.UserDb
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "fab4fac1-c546-41de-aebc-a14da6895711", "1", "Admin", "ADMIN" },
-                    { "fab4fac1-c546-41de-aebc-a14da6895712", "2", "User", "USER" },
-                    { "fab4fac1-c546-41de-aebc-a14da6895713", "3", "Banned", "BANNED" },
-                    { "fab4fac1-c546-41de-aebc-a14da6895714", "4", "Deleted", "DELETED" }
+                    { "AdminId", "1", "Admin", "ADMIN" },
+                    { "BannedId", "3", "Banned", "BANNED" },
+                    { "DeletedId", "4", "Deleted", "DELETED" },
+                    { "UserId", "2", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -175,10 +175,10 @@ namespace Fora.Server.Migrations.UserDb
                 columns: new[] { "Id", "AccessFailedCount", "Banned", "ConcurrencyStamp", "DateTimeCreated", "DateTimeModified", "Deleted", "Email", "EmailConfirmed", "ForaUser", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "b74ddd14-6340-4840-95c2-db12554843e5", 0, false, "79296980-e146-4e76-9f4d-e76b23a3bc8f", new DateTime(2022, 4, 12, 11, 35, 49, 644, DateTimeKind.Local).AddTicks(907), new DateTime(2022, 4, 12, 11, 35, 49, 644, DateTimeKind.Local).AddTicks(974), false, "admin@gmail.com", false, 1, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEBykl4j4H70AbmM3GZvIRS9lbzkwbUySfNg0nfINSI1M+dKk50RRYZPCQaOqczwSUA==", null, false, "074734e9-24a2-4810-ac9f-c628422035d5", false, "Admin" },
-                    { "b74ddd14-6340-4840-95c2-db12554843e6", 0, false, "534e4fdf-2765-4453-9875-3c5158df6e4d", new DateTime(2022, 4, 12, 11, 35, 49, 649, DateTimeKind.Local).AddTicks(9283), new DateTime(2022, 4, 12, 11, 35, 49, 649, DateTimeKind.Local).AddTicks(9299), false, "jesper@gmail.com", false, 2, false, null, null, "JESPER", "AQAAAAEAACcQAAAAEDxURXRnZ1j1Xg5VyarO2/4AsVwxSUmc5OFSnkKWIwxjYOWHr05UgdpO9IH+IdWZag==", null, false, "73a018a6-5cf3-499c-b152-abb0063ce9cd", false, "Jesper" },
-                    { "b74ddd14-6340-4840-95c2-db12554843e7", 0, true, "e38af087-f962-4fb4-bdfe-477e161168ca", new DateTime(2022, 4, 12, 11, 35, 49, 656, DateTimeKind.Local).AddTicks(778), new DateTime(2022, 4, 12, 11, 35, 49, 656, DateTimeKind.Local).AddTicks(796), false, "filip@gmail.com", false, 3, false, null, null, "FILIP", "AQAAAAEAACcQAAAAEIRNM4HSzlew8TDx5fES3kUMP+0A6QBFejWZfJnIyUNRItCKCr2TIFoaHQCxVd7Ltg==", null, false, "c5a656dc-5896-4591-8600-9267865906f2", false, "Filip" },
-                    { "b74ddd14-6340-4840-95c2-db12554843e8", 0, false, "f5e55278-e6ce-4e70-9e0d-542613cf6577", new DateTime(2022, 4, 12, 11, 35, 49, 661, DateTimeKind.Local).AddTicks(7418), new DateTime(2022, 4, 12, 11, 35, 49, 661, DateTimeKind.Local).AddTicks(7431), true, "mårten@gmail.com", false, 4, false, null, null, "MÅRTEN", "AQAAAAEAACcQAAAAEJ3rslhPIvlevhfonC9StPE31t067cHxFznByTuK09HApdCyaH+6JzL1LCnqafbLOQ==", null, false, "b867f914-a041-45ca-ab27-1404413a3fbc", false, "Mårten" }
+                    { "b74ddd14-6340-4840-95c2-db12554843e5", 0, false, "c18abf73-d824-466f-803c-58948c8c18c1", new DateTime(2022, 4, 12, 17, 1, 45, 872, DateTimeKind.Local).AddTicks(9020), new DateTime(2022, 4, 12, 17, 1, 45, 872, DateTimeKind.Local).AddTicks(9080), false, "admin@gmail.com", false, 1, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEKhPm2D78BFD7ZkW2oNU4pEFlrFsjVBfKEw78T/l0110Hs00x5LA1PGpM8P0++49dQ==", null, false, "d64c248d-6de6-4700-b002-1c7cee87d38f", false, "Admin" },
+                    { "b74ddd14-6340-4840-95c2-db12554843e6", 0, false, "bf386981-9910-4a30-8cc6-a17600802576", new DateTime(2022, 4, 12, 17, 1, 45, 879, DateTimeKind.Local).AddTicks(275), new DateTime(2022, 4, 12, 17, 1, 45, 879, DateTimeKind.Local).AddTicks(299), false, "jesper@gmail.com", false, 2, false, null, null, "JESPER", "AQAAAAEAACcQAAAAEMuG/6O+83EgRHrJAxNe1RDaMwt9uN01bvsMqniFrIMYugqMIIbWBTuNf9nXLcC80Q==", null, false, "fce43287-ba63-40f8-87fd-d2189e4f9da9", false, "Jesper" },
+                    { "b74ddd14-6340-4840-95c2-db12554843e7", 0, true, "a52c918c-fc12-4dfe-85cd-06d953397d1b", new DateTime(2022, 4, 12, 17, 1, 45, 886, DateTimeKind.Local).AddTicks(9370), new DateTime(2022, 4, 12, 17, 1, 45, 886, DateTimeKind.Local).AddTicks(9402), false, "filip@gmail.com", false, 3, false, null, null, "FILIP", "AQAAAAEAACcQAAAAEFMENBgMitl5DS89TMDNIWAxy/7y0rU078IawinUrX1AIDzqFS1jp40BpGxUmILD/Q==", null, false, "15642a9f-5039-4d6a-b5a8-4faa0b7126e6", false, "Filip" },
+                    { "b74ddd14-6340-4840-95c2-db12554843e8", 0, false, "cc51e8a5-505d-4079-bc51-fa37c29b345f", new DateTime(2022, 4, 12, 17, 1, 45, 893, DateTimeKind.Local).AddTicks(2739), new DateTime(2022, 4, 12, 17, 1, 45, 893, DateTimeKind.Local).AddTicks(2761), true, "mårten@gmail.com", false, 4, false, null, null, "MÅRTEN", "AQAAAAEAACcQAAAAEKMylNgM47gdNrLwnpzRcnjnJj90MEBnhVc8plKwRpPxI+GdgvoYJbLDxd8jfzEyMw==", null, false, "58f1b277-18ec-4f5a-939a-f707e9d6f2f6", false, "Mårten" }
                 });
 
             migrationBuilder.InsertData(
@@ -186,11 +186,11 @@ namespace Fora.Server.Migrations.UserDb
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "fab4fac1-c546-41de-aebc-a14da6895711", "b74ddd14-6340-4840-95c2-db12554843e5" },
-                    { "fab4fac1-c546-41de-aebc-a14da6895712", "b74ddd14-6340-4840-95c2-db12554843e5" },
-                    { "fab4fac1-c546-41de-aebc-a14da6895712", "b74ddd14-6340-4840-95c2-db12554843e6" },
-                    { "fab4fac1-c546-41de-aebc-a14da6895713", "b74ddd14-6340-4840-95c2-db12554843e7" },
-                    { "fab4fac1-c546-41de-aebc-a14da6895714", "b74ddd14-6340-4840-95c2-db12554843e8" }
+                    { "AdminId", "b74ddd14-6340-4840-95c2-db12554843e5" },
+                    { "UserId", "b74ddd14-6340-4840-95c2-db12554843e5" },
+                    { "UserId", "b74ddd14-6340-4840-95c2-db12554843e6" },
+                    { "BannedId", "b74ddd14-6340-4840-95c2-db12554843e7" },
+                    { "DeletedId", "b74ddd14-6340-4840-95c2-db12554843e8" }
                 });
 
             migrationBuilder.CreateIndex(
