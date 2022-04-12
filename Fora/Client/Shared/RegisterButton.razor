@@ -1,0 +1,10 @@
+﻿@inject NavigationManager NavigationManager
+
+<MudButton @onclick="GoToRegisterPage" Variant="Variant.Filled" EndIcon="@Icons.Filled.AccountCircle" Color="Color.Primary">Register</MudButton>
+
+@code {
+    private void GoToRegisterPage()
+    {
+        NavigationManager.NavigateTo("register");
+    }
+}
