@@ -4,7 +4,7 @@
     <DataAnnotationsValidator/>
     <ValidationSummary></ValidationSummary>
 
-    <MudTextField T="string" Lines="2" Variant="Variant.Outlined" Text="@BoxText" @bind-Value="MessageToCreate.Message"></MudTextField>
+    <MudTextField  T="string" Lines="2" Variant="Variant.Outlined" Text="" @bind-Value="MessageToCreate.Message"></MudTextField>
     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Send" Color="Color.Primary">Send</MudButton>
 </EditForm>
 
@@ -21,11 +21,10 @@
 
 
     private MessageCreateDto MessageToCreate { get; set; } = new();
-    private string BoxText { get; set; } = "";
 
     protected override async Task OnInitializedAsync()
     {
-        
+        //Bug, text disappears when clicking outside of textbox. Can still post message.
     }
 
     private async Task CreateMessage()
@@ -37,13 +36,12 @@
         await MessageService.CreateMessage(MessageToCreate);
         await MessageService.GetMessages(ThreadId);
         _Parent.RefreshMessages();
-        BoxText = "";
+        StateHasChanged();
     }
 
 
     private void InvalidSubmit()
     {
-        BoxText = MessageToCreate.Message;
     }
 
 }
