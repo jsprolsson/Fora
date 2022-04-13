@@ -11,7 +11,7 @@ namespace Fora.Client.Services.MessageService
             _http = http;
         }
 
-        public List<MessageModel> Messages { get; set; }
+        public List<MessageModel> Messages { get; set; } = new();
 
         public async Task CreateMessage(MessageCreateDto messageToCreate)
         {

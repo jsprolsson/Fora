@@ -10,7 +10,7 @@ namespace Fora.Shared.DTO.MessageDtos
     {
         public int Id { get; set; }
         public string Message { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public int ThreadId { get; set; }
     }
 }

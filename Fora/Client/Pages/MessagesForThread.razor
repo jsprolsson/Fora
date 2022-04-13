@@ -2,15 +2,22 @@
 @inject IMessageService MessageService
 @inject IAuthService AuthService
 
-<MudTable Items=MessageService.Messages Hover="true" LoadingProgressColor="Color.Info">
+@if(MessageService.Messages != null)
+{
+    <MudTable Items=MessageService.Messages Hover="true" LoadingProgressColor="Color.Info">
     <HeaderContent>
         <MudTh>UserId</MudTh>
         <MudTh>Message</MudTh>
         <MudTh>Posted</MudTh>
+        <MudTh>Edit</MudTh>
+        <MudTh>Delete</MudTh>
     </HeaderContent>
     <RowTemplate>
-       
+        <CascadingValue Value="this">
             <Message Msg="@context" User="User"></Message>
+        </CascadingValue>
+            
+        
 
     </RowTemplate>
 </MudTable>
@@ -18,6 +25,8 @@
     <CascadingValue Value="this">
         <PostMessage User="User" ThreadId="Thread"></PostMessage>
      </CascadingValue>
+}
+
 
 @code {
     [Parameter]
@@ -26,6 +35,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        //Clear list before every get. Object reference error occurs otherwise.
+        MessageService.Messages.Clear();
         await MessageService.GetMessages(Thread);
         User = await AuthService.GetUser();
     }
@@ -35,5 +46,6 @@
         //Called from child component PostMessage. Refreshes messages when user has posted a new message.
         this.StateHasChanged();
     }
+
 
 }

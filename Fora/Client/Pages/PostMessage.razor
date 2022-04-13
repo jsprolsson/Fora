@@ -13,9 +13,12 @@
     public int ThreadId { get; set; }
     [Parameter]
     public UserAuth User { get; set; }
+    [Parameter]
+    public MessageModel MessageToEdit { get; set; }
 
     [CascadingParameter]
     public MessagesForThread? _Parent { get; set; }
+
 
     private MessageCreateDto MessageToCreate { get; set; } = new();
     private string BoxText { get; set; } = "";
@@ -34,6 +37,11 @@
         await MessageService.GetMessages(ThreadId);
         _Parent.RefreshMessages();
         BoxText = "";
+    }
+
+    private async Task EditMessage()
+    {
+        
     }
 
     private void InvalidSubmit()

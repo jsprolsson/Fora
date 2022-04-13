@@ -1,0 +1,46 @@
+﻿@inject ISnackbar Snackbar
+@inject IMessageService MessageService
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-3 mb-n1"/>
+            Edit Message
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+                <MudTextField T=string @bind-Value="EditedMessage"/>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Error" OnClick="EditMessage">Edit Message</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public MessageModel Message { get; set; } = new MessageModel();
+    private string EditedMessage { get; set; }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private async Task EditMessage()
+    {
+        MessageUpdateDto messageToUpdate = new()
+            {
+                Id = Message.Id,
+                Message = EditedMessage,
+                ThreadId = Message.ThreadId,
+                UserId = Message.UserId
+            };
+
+        await MessageService.UpdateMessage(messageToUpdate);
+        Snackbar.Add("Message edited", Severity.Success);
+        MudDialog.Close(DialogResult.Ok(Message.Message));
+    }
+}
