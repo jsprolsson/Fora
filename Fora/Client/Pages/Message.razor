@@ -35,6 +35,7 @@
             <MudTd DataLabel="Posted">@Msg.DateTimeCreated</MudTd>
         }
 
+
 @code {
     [Parameter]
     public MessageModel Msg { get; set; }
@@ -43,6 +44,7 @@
     private bool UserIsAdmin { get; set; }
     [CascadingParameter]
     public MessagesForThread? _Parent { get; set; }
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -70,8 +72,8 @@
 
         if (!result.Cancelled)
         {
-            //In a real world scenario we would reload the data from the source here since we "removed" it in the dialog already.
             _Parent.RefreshMessages();
         }
     }
+
 }
