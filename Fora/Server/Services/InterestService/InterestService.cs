@@ -15,16 +15,23 @@ namespace Fora.Server.Services.InterestService
         }
         public async Task<InterestModel> CreateInterest(InterestCreateDto interest)
         {
-            var interestModel = new InterestModel()
-            {
-                Name = interest.Name,
-                UserId = interest.UserId,
-            };
+            var allInterests = await GetInterests();
 
-            _appDbContext.Add(interestModel);
-            var created = await _appDbContext.SaveChangesAsync();
-            if (created < 1) return new InterestModel();
-            else return null;
+            var findDuplicate = allInterests.Any(i => i.Name.ToLower() == interest.Name.ToLower());
+            if (!findDuplicate)
+            {
+                var interestModel = new InterestModel()
+                {
+                    Name = interest.Name,
+                    UserId = interest.UserId,
+                };
+
+                _appDbContext.Add(interestModel);
+                var created = await _appDbContext.SaveChangesAsync();
+                if (created < 1) return new InterestModel();
+                else return null;
+            }
+            return null;
         }
 
         public async Task DeleteInterest(int interestId)
