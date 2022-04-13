@@ -28,6 +28,7 @@ namespace Fora.Server.DbContexts
                 UserName = "Admin",
                 NormalizedUserName = "ADMIN",
                 Email = "admin@gmail.com",
+                NormalizedEmail = "ADMIN@GMAIL.COM",
                 LockoutEnabled = false,
             };
             admin.PasswordHash = passwordHasher.HashPassword(admin, "admin");
@@ -39,6 +40,7 @@ namespace Fora.Server.DbContexts
                 UserName = "Jesper",
                 NormalizedUserName = "JESPER",
                 Email = "jesper@gmail.com",
+                NormalizedEmail = "JESPER@GMAIL.COM",
                 LockoutEnabled = false,
             };
             jesper.PasswordHash = passwordHasher.HashPassword(jesper, "jesper");
@@ -51,6 +53,7 @@ namespace Fora.Server.DbContexts
                 UserName = "Filip",
                 NormalizedUserName = "FILIP",
                 Email = "filip@gmail.com",
+                NormalizedEmail = "FILIP@GMAIL.COM",
                 LockoutEnabled = false,
             };
             filip.PasswordHash = passwordHasher.HashPassword(filip, "filip");
@@ -62,12 +65,26 @@ namespace Fora.Server.DbContexts
                 Deleted = true,
                 UserName = "Mårten",
                 NormalizedUserName = "MÅRTEN",
-                Email = "mårten@gmail.com",
+                Email = "marten@gmail.com",
+                NormalizedEmail = "MARTEN@GMAIL.COM",
                 LockoutEnabled = false,
             };
             mårten.PasswordHash = passwordHasher.HashPassword(mårten, "mårten");
 
-            builder.Entity<ApplicationUser>().HasData(admin, jesper, filip, mårten);
+            ApplicationUser dragan = new()
+            {
+                Id = "b74ddd14-6340-4840-95c2-db12554843e9",
+                ForaUser = 5,
+                Deleted = false,
+                UserName = "Dragan",
+                NormalizedUserName = "DRAGAN",
+                Email = "dragan@gmail.com",
+                NormalizedEmail = "DRAGAN@GMAIL.COM",
+                LockoutEnabled = false,
+            };
+            dragan.PasswordHash = passwordHasher.HashPassword(dragan, "dragan");
+
+            builder.Entity<ApplicationUser>().HasData(admin, jesper, filip, mårten, dragan);
         }
 
         private void SeedRoles(ModelBuilder builder)
@@ -87,7 +104,8 @@ namespace Fora.Server.DbContexts
                 new IdentityUserRole<string>() { RoleId = "UserId", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" },
                 new IdentityUserRole<string>() { RoleId = "UserId", UserId = "b74ddd14-6340-4840-95c2-db12554843e6" },
                 new IdentityUserRole<string>() { RoleId = "BannedId", UserId = "b74ddd14-6340-4840-95c2-db12554843e7" },
-                new IdentityUserRole<string>() { RoleId = "DeletedId", UserId = "b74ddd14-6340-4840-95c2-db12554843e8" }
+                new IdentityUserRole<string>() { RoleId = "DeletedId", UserId = "b74ddd14-6340-4840-95c2-db12554843e8" },
+                new IdentityUserRole<string>() { RoleId = "UserId", UserId = "b74ddd14-6340-4840-95c2-db12554843e9" }
                 );
         }
     }
