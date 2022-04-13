@@ -132,8 +132,8 @@ using (var scope = app.Services.CreateScope())
     using (var context = scope.ServiceProvider.GetService<UserDbContext>())
     {
         context.Database.EnsureDeleted();
-        context.Database.Migrate();
-        //context.Database.EnsureCreated();
+        //context.Database.Migrate();
+        context.Database.EnsureCreated();
     }
 }
 
