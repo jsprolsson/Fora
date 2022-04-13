@@ -1,6 +1,18 @@
 ﻿@inject IUserInterestService UserInterestService
 @inject IInterestService InterestService
 
+<MudPaper Width="300px">
+    <MudListSubheader>
+            My interests
+        </MudListSubheader>
+    <MudList>
+        @foreach (var interest in UserInterests)
+        {
+            <MudListItem Text="@interest.Name" />
+        }
+    </MudList>
+</MudPaper>
+
 <MudTable Items="@AllInterests.Take(10)" MultiSelection="true" @bind-SelectedItems="selectedItems" Hover="true" Breakpoint="Breakpoint.Sm" Striped="true" Bordered="true"
           CustomHeader="true" CustomFooter="true" HeaderClass="table-head-bordered" FooterClass="table-foot-bordered">
     <HeaderContent>
@@ -43,9 +55,13 @@
     private async Task CreateUserInterest(int interestId)
     {
         await UserInterestService.CreateUserInterest(interestId);
+        UserInterests = await UserInterestService.GetUserInterests();
+        StateHasChanged();
     }
     private async Task DeleteUserInterest(int interestId)
     {
         await UserInterestService.DeleteUserInterest(interestId);
+        UserInterests = await UserInterestService.GetUserInterests();
+        StateHasChanged();
     }
 }
