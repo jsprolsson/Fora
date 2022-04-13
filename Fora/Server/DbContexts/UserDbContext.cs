@@ -101,7 +101,7 @@ namespace Fora.Server.DbContexts
         {
             builder.Entity<IdentityUserRole<string>>().HasData(
                 new IdentityUserRole<string>() { RoleId = "AdminId", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" },
-                new IdentityUserRole<string>() { RoleId = "UserId", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                //new IdentityUserRole<string>() { RoleId = "UserId", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" },
                 new IdentityUserRole<string>() { RoleId = "UserId", UserId = "b74ddd14-6340-4840-95c2-db12554843e6" },
                 new IdentityUserRole<string>() { RoleId = "BannedId", UserId = "b74ddd14-6340-4840-95c2-db12554843e7" },
                 new IdentityUserRole<string>() { RoleId = "DeletedId", UserId = "b74ddd14-6340-4840-95c2-db12554843e8" },
