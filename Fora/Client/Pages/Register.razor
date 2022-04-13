@@ -11,7 +11,7 @@
         <MudItem xs="12" sm="7">
             <MudCard>
                 <MudCardContent>
-                    <MudTextField Label="First name" HelperText="Max. 8 characters"
+                    <MudTextField Label="Username" HelperText="Max. 8 characters"
                                   @bind-Value="model.Username" For="@(() => model.Username)" />
                     <MudTextField Label="Email" Class="mt-3"
                                   @bind-Value="model.Email" For="@(() => model.Email)" />
@@ -38,7 +38,7 @@
 @code {
     private string value { get; set; } = "Nothing selected";
     private IEnumerable<int> options { get; set; } = new HashSet<int>();
-    private List<InterestModel> AllInterests { get; set; }
+    private List<InterestModel> AllInterests { get; set; } = new();
 
     RegisterAccountForm model = new RegisterAccountForm();
     UserRegisterDto UserRegister { get; set; } = new();
