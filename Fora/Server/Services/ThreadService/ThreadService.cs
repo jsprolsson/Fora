@@ -10,17 +10,24 @@
         }
         public async Task<ThreadModel> CreateThread(ThreadCreateDto thread)
         {
-            var threadToCreate = new ThreadModel()
-            {
-                Name = thread.Name,
-                UserId = thread.UserId,
-                InterestId = thread.InterestId
-            };
+            var allThreads = await GetThreads(thread.InterestId);
 
-            await _appDbContext.AddAsync(threadToCreate);
-            var created = await _appDbContext.SaveChangesAsync();
-            if (created < 1) return new ThreadModel();
-            else return threadToCreate;
+            var findDuplicate = allThreads.Any(i => i.Name.ToLower() == thread.Name.ToLower());
+            if (!findDuplicate)
+            {
+                var threadToCreate = new ThreadModel()
+                {
+                    Name = thread.Name,
+                    UserId = thread.UserId,
+                    InterestId = thread.InterestId
+                };
+
+                await _appDbContext.AddAsync(threadToCreate);
+                var created = await _appDbContext.SaveChangesAsync();
+                if (created < 1) return new ThreadModel();
+                else return threadToCreate;
+            }
+            return null;
         }
 
         public async Task DeleteThread(int threadId)
