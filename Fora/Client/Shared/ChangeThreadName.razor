@@ -79,6 +79,6 @@
         threadToUpdate.InterestId = InterestId;
         threadToUpdate.UserId = User.Id;
         await ThreadService.UpdateThread(threadToUpdate);
-        NavManager.NavigateTo($"threads/{InterestId}");
     }
+
 }

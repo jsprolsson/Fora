@@ -9,7 +9,7 @@
             <MudItem xs="12" sm="7">
                 <MudCard>
                     <MudCardContent>
-                        <MudTextField Label="Thread" @bind-Value="threadToCreate.Name" />
+                        <MudTextField Label="Thread" Text="" @bind-Value="threadToCreate.Name" />
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Create</MudButton>
@@ -22,6 +22,8 @@
 @code {
     [Parameter]
     public int InterestId { get; set; }
+    [Parameter]
+    public EventCallback ResetThreads { get; set; }
     private ThreadCreateDto threadToCreate { get; set; } = new();
     private UserAuth User { get; set; } = new();
 
@@ -35,5 +37,8 @@
         threadToCreate.UserId = User.Id;
         threadToCreate.InterestId = InterestId;
         await ThreadService.CreateThread(threadToCreate);
+        await InvokeResetThreads();
     }
+
+    private async Task InvokeResetThreads() => await ResetThreads.InvokeAsync();
 }
