@@ -82,32 +82,38 @@ namespace Fora.Server.Services.AuthService
 
         public async Task Register(UserRegisterDto userRegister)
         {
-            // UserDb
-            ApplicationUser newUser = new();
-            newUser.UserName = userRegister.Username;
-            newUser.Email = userRegister.Email;
+            var usernameTaken = await _signInManager.UserManager.FindByNameAsync(userRegister.Username);
+            var emailTaken = await _signInManager.UserManager.FindByEmailAsync(userRegister.Email);
 
-            var result = await _signInManager.UserManager.CreateAsync(newUser, userRegister.Password);
-            if (result.Succeeded)
+            if (usernameTaken == null && emailTaken == null)
             {
-                await _signInManager.UserManager.AddToRoleAsync(newUser, "User");
+                // UserDb
+                ApplicationUser newUser = new();
+                newUser.UserName = userRegister.Username;
+                newUser.Email = userRegister.Email;
 
-                // AppDb
-                UserModel newForaUser = new UserModel
+                var result = await _signInManager.UserManager.CreateAsync(newUser, userRegister.Password);
+                if (result.Succeeded)
                 {
-                    Username = newUser.UserName,
-                };
+                    await _signInManager.UserManager.AddToRoleAsync(newUser, "User");
 
-                _appDbContext.Add(newForaUser);
-                var created = await _appDbContext.SaveChangesAsync();
-
-                if (created > 0)
-                {
-                    var foraUser = await _appDbContext.Users.Where(u => u.Username == newUser.UserName).FirstOrDefaultAsync();
-                    if (foraUser != null)
+                    // AppDb
+                    UserModel newForaUser = new UserModel
                     {
-                        newUser.ForaUser = foraUser.Id;
-                        await _userDbContext.SaveChangesAsync();
+                        Username = newUser.UserName,
+                    };
+
+                    _appDbContext.Add(newForaUser);
+                    var created = await _appDbContext.SaveChangesAsync();
+
+                    if (created > 0)
+                    {
+                        var foraUser = await _appDbContext.Users.Where(u => u.Username == newUser.UserName).FirstOrDefaultAsync();
+                        if (foraUser != null)
+                        {
+                            newUser.ForaUser = foraUser.Id;
+                            await _userDbContext.SaveChangesAsync();
+                        }
                     }
                 }
             }

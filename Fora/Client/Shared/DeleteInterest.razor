@@ -1,19 +1,20 @@
 ﻿@inject IInterestService InterestService
 @inject IAuthService AuthService
 
-<MudText Typo="Typo.h6">Remove Created Interest From User</MudText>
+<MudText Typo="Typo.h6">Delete interest</MudText>
 
 <MudTable Items="@Interests" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
-        <MudTh>Nr</MudTh>
+        <MudTh>Id</MudTh>
         <MudTh>Name</MudTh>
         <MudTh>Delete Interest</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Nr">@context.Id</MudTd>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
         <MudTd DataLabel="Sign">@context.Name</MudTd>
         <MudTd DataLabel="Delete Interest">
-            <MudButton @onclick="(() => DeleteInterest(context.Id))">X</MudButton>
+            <MudIconButton @onclick="(() => DeleteInterestFromDb(context.Id))" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" aria-label="delete"></MudIconButton>
+            @*<MudButton @onclick="(() => DeleteInterest(context.Id))">X</MudButton>*@
         </MudTd>
     </RowTemplate>
 </MudTable>
@@ -42,7 +43,7 @@
 
     }
 
-    public async Task DeleteInterest(int id)
+    public async Task DeleteInterestFromDb(int id)
     {
         InterestDeleteDto interestToDelete = new InterestDeleteDto
             {

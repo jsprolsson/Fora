@@ -3,7 +3,7 @@
 
 <MudText Typo="Typo.h6">Change Created Interest Name</MudText>
 
-<MudTable Items="@UserCreatedInterestsList" Hover="true" Breakpoint="Breakpoint.Sm">
+<MudTable Items="@Interests" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
         <MudTh>Nr</MudTh>
         <MudTh>Name</MudTh>
@@ -12,11 +12,14 @@
     <RowTemplate>
         <MudTd DataLabel="Nr">@context.Id</MudTd>
         <MudTd DataLabel="Sign">@context.Name</MudTd>
-        <MudTd DataLabel="Change Interest Name"> <MudButton @onclick="(() => DisplayForm(context))">EDIT</MudButton></MudTd>
+        <MudTd DataLabel="Change Interest Name">
+            @*<MudButton @onclick="(() => DisplayForm(context))">EDIT</MudButton>*@
+            <MudIconButton @onclick="(() => DisplayForm(context))" Icon="@Icons.Filled.Edit" Color="Color.Dark" aria-label="delete"></MudIconButton>
+        </MudTd>
     </RowTemplate>
 </MudTable>
 
-@if(ShowEditForm)
+@if (ShowEditForm)
 {
     <EditForm Model="interestToUpdate" OnSubmit="ChangeInterest">
         <DataAnnotationsValidator />
@@ -38,7 +41,7 @@
 <p>@Message</p>
 
 @code {
-    private List<InterestModel> UserCreatedInterestsList { get; set; } = new();
+    private List<InterestModel> Interests { get; set; } = new();
     UserAuth user = new();
     private string? Message { get; set; }
     private bool ShowEditForm { get; set; }
@@ -50,7 +53,15 @@
     {
         user = await AuthService.GetUser();
         UserIsAdmin = await AuthService.IsAdmin();
-        UserCreatedInterestsList = await InterestService.GetUserCreatedInterests(user.Id);
+        if (await AuthService.IsAdmin())
+        {
+            await InterestService.GetInterests();
+            Interests = InterestService.Interests;
+        }
+        else
+        {
+            Interests = await InterestService.GetUserCreatedInterests(user.Id);
+        }
     }
 
     public async Task ChangeInterest()
@@ -61,17 +72,16 @@
 
     public void DisplayForm(InterestModel interest)
     {
-        if(UserIsAdmin || interest.Threads.Count <= 0)
+        if (UserIsAdmin || interest.Threads.Count <= 0)
         {
             ShowEditForm = ShowEditForm == false ? true : false;
             InterestId = interest.Id;
             Message = "";
         }
-        else if(interest.Threads.Count > 0)
+        else if (interest.Threads.Count > 0)
         {
             ShowEditForm = false;
             Message = "Not allowed to edit interest";
         }
-        
     }
 }
