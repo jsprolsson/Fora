@@ -38,6 +38,12 @@ namespace Fora.Server.Controllers
             await _userService.DeleteUser(username);
             return Ok();
         }
+        [HttpPost("deactivate")]
+        public async Task<ActionResult> DeactivateUser([FromBody] string username)
+        {
+            await _userService.DeactivateUser(username);
+            return Ok();
+        }
         [HttpPost("addrole")]
         public async Task<ActionResult> AddRole([FromBody] UserRoleDto userRole)
         {

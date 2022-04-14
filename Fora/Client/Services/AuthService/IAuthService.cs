@@ -9,5 +9,7 @@
         Task<int> GetUserId();
         Task<UserAuth> GetUser();
         Task<bool> IsAdmin();
+        Task<bool> IsDeleted();
+        Task RefreshToken();
     }
 }

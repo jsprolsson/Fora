@@ -82,15 +82,43 @@ namespace Fora.Client.Services.AuthService
 
         public async Task<bool> IsAdmin()
         {
-            var authState = await _authStateProvider.GetAuthenticationStateAsync();
-            var userClaims = authState.User.Claims.ToList();
-            var userRoles = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(r => r.Value).ToArray();
+            var userRoles = await GetUserRoles();
 
-            if (userClaims != null)
+            if (userRoles != null)
             {
                 if (userRoles[0].Contains("Admin")) return true;
             }
             return false;
+        }
+
+        public async Task<bool> IsDeleted()
+        {
+            var userRoles = await GetUserRoles();
+
+            if (userRoles != null)
+            {
+                if (userRoles[0].Contains("Deleted")) return true;
+            }
+            return false;
+        }
+        private async Task<string[]> GetUserRoles()
+        {
+            var authState = await _authStateProvider.GetAuthenticationStateAsync();
+            var userClaims = authState.User.Claims.ToList();
+            if (userClaims != null)
+            {
+                var userRoles = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(r => r.Value).ToArray();
+                return userRoles;
+            }
+            return null;
+        }
+
+        public async Task RefreshToken()
+        {
+            var result = await _http.GetAsync("api/authentication/refreshtoken");
+            var token = await result.Content.ReadAsStringAsync();
+            await _localStorage.SetItemAsync("token", token);
+            var authState = await _authStateProvider.GetAuthenticationStateAsync();
         }
     }
 }

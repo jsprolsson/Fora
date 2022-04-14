@@ -1,21 +1,38 @@
 ﻿@inject IAuthService AuthService
 @inject IUserService UserService
 
-<MudButton @onclick="DeleteUser" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Delete my profile</MudButton>
+@if (UserIsDeleted)
+{
+    <AuthorizeView Roles="Deleted">
+            <MudButton @onclick="DeleteUser" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Delete my profile</MudButton>
+    </AuthorizeView>
+
+}
+else
+{
+    <MudButton @onclick="DeactivateUser" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Deactivate my profile</MudButton>
+}
 
 @code {
     UserAuth User { get; set; } = new();
-    bool success;
+    bool UserIsDeleted { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
         User = await AuthService.GetUser();
+        UserIsDeleted = await AuthService.IsDeleted();
+    }
+    private async Task DeactivateUser()
+    {
+        await UserService.DeactivateUser(User.Username);
+        await AuthService.RefreshToken();
+        UserIsDeleted = true;
+        StateHasChanged();
     }
 
     private async Task DeleteUser()
     {
         await UserService.DeleteUser(User.Username);
-        success = true;
         StateHasChanged();
     }
 }

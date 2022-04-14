@@ -5,5 +5,6 @@
         int GetForaUserId();
         Task<string> Login(UserLoginDto userLogin);
         Task Register(UserRegisterDto userRegister);
+        Task<string> RefreshToken();
     }
 }
