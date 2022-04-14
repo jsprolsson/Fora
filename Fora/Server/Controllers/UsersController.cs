@@ -14,6 +14,11 @@ namespace Fora.Server.Controllers
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
+        [HttpGet]
+        public async Task<List<UserManagmentDto>> GetAllUsers()
+        {
+            return await _userService.GetAllUsers();
+        }
         [HttpPost("ban")]
         public async Task<ActionResult> BanUser([FromBody] string username)
         {
