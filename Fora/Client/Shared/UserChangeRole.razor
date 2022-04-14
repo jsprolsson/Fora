@@ -1,0 +1,69 @@
+﻿@inject IAuthService AuthService
+@inject IUserService UserService
+
+
+<MudTd DataLabel="Username">@UserToManage.Username</MudTd>
+<MudTd DataLabel="Admin">
+    <MudButton OnClick="OnAdminChanged" Variant="Variant.Filled" Color="Color.Primary">Change</MudButton>
+    <MudSwitch @bind-Checked="@UserToManage.Admin" ReadOnly="true" Color="Color.Success" />
+</MudTd>
+<MudTd DataLabel="Banned">
+    <MudButton OnClick="OnBannedChanged" Variant="Variant.Filled" Color="Color.Primary">Change</MudButton>
+    <MudSwitch @bind-Checked="@UserToManage.Banned" ReadOnly="true" Color="Color.Error" />
+</MudTd>
+
+
+@code {
+    [Parameter]
+    public UserManagmentDto UserToManage { get; set; }
+    UserRoleDto UserToChange = new();
+
+    protected async override Task OnInitializedAsync()
+    {
+        UserToChange.Username = UserToManage.Username;
+    }
+    private async Task OnAdminChanged()
+    {
+        UserToManage.Admin = !UserToManage.Admin;
+
+        if (UserToManage.Admin)
+        {
+            await AddRole("Admin");
+        }
+        else if (!UserToManage.Admin)
+        {
+            await AddRole("User");
+        }
+    }
+    private async Task OnBannedChanged()
+    {
+        UserToManage.Banned = !UserToManage.Banned;
+
+        if (UserToManage.Banned)
+        {
+            await Ban(UserToManage.Username);
+        }
+        else if (!UserToManage.Banned)
+        {
+            await RemoveBan(UserToManage.Username);
+        }
+    }
+    private async Task AddRole(string role)
+    {
+        UserToChange.Role = role;
+        await UserService.AddRole(UserToChange);
+    }
+    private async Task RemoveRole(string role)
+    {
+        UserToChange.Role = role;
+        await UserService.RemoveRole(UserToChange);
+    }
+    private async Task Ban(string username)
+    {
+        await UserService.BanUser(username);
+    }
+    private async Task RemoveBan(string username)
+    {
+        await UserService.RemoveBan(username);
+    }
+}

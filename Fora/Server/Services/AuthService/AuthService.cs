@@ -35,14 +35,15 @@ namespace Fora.Server.Services.AuthService
 
             if (signInResult.Succeeded)
             {
+                // Check if user is banned
                 var currentUser = await _signInManager.UserManager.FindByNameAsync(userLogin.Username);
-                // Create JWT
-                return await CreateToken(currentUser);
+                if (!currentUser.Banned)
+                {
+                    // Create JWT
+                    return await CreateToken(currentUser);
+                }
             }
-
-            // This will return Admin JWT. Change to null when signin is working
-            var currentUserTemp = await _signInManager.UserManager.FindByNameAsync("ADMIN");
-            return await CreateToken(currentUserTemp);
+            return null;
         }
 
         private async Task<string> CreateToken(ApplicationUser user)

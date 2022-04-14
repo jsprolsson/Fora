@@ -10,5 +10,6 @@
         Task DeleteUser(string username);
         Task UnDeleteUser(string userId);
         Task ChangePassword(UserChangePasswordDto userChangePassword);
+        Task<List<UserManagmentDto>> GetAllUsers();
     }
 }
