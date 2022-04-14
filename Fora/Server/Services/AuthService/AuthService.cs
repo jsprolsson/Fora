@@ -35,6 +35,7 @@ namespace Fora.Server.Services.AuthService
 
             if (signInResult.Succeeded)
             {
+                // Check if user is banned
                 var currentUser = await _signInManager.UserManager.FindByNameAsync(userLogin.Username);
                 if (!currentUser.Banned)
                 {
