@@ -8,5 +8,6 @@
         Task RemoveBan(string username);
         Task ChangePassword(UserChangePasswordDto userChangePassword);
         Task DeleteUser(string username);
+        Task DeactivateUser(string username);
     }
 }

@@ -32,5 +32,10 @@ namespace Fora.Server.Controllers
         {
             return _authService.GetForaUserId();
         }
+        [HttpGet("refreshtoken")]
+        public async Task<string> RefreshToken()
+        {
+            return await _authService.RefreshToken();
+        }
     }
 }
