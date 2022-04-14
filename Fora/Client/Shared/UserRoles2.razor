@@ -1,0 +1,56 @@
+﻿@inject IAuthService AuthService
+@inject IUserService UserService
+
+<MudTable Items="@AllUsers" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>Username</MudTh>
+        <MudTh>Admin</MudTh>
+        <MudTh>Banned</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Username">@context.Username</MudTd>
+        <MudTd DataLabel="Admin">
+            <MudToggleIconButton @bind-Toggled="@context.Admin"
+                                 Icon="@Icons.Filled.ToggleOff" Color="@Color.Dark" Title="Off"
+                                 ToggledIcon="@Icons.Filled.ToggleOn" ToggledColor="@Color.Success" ToggledTitle="On" />
+        </MudTd>
+        <MudTd DataLabel="Banned">
+            <MudToggleIconButton @bind-Toggled="@context.Banned"
+                                 Icon="@Icons.Filled.ToggleOff" Color="@Color.Dark" Title="Off"
+                                 ToggledIcon="@Icons.Filled.ToggleOn" ToggledColor="@Color.Success" ToggledTitle="On" />
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code {
+    UserAuth User { get; set; } = new();
+    public bool IsAdmin { get; set; } = false;
+    UserRoleDto UserToChange = new();
+    public List<UserManagmentDto> AllUsers { get; set; } = new();
+
+    protected async override Task OnInitializedAsync()
+    {
+        User = await AuthService.GetUser();
+        IsAdmin = await AuthService.IsAdmin();
+
+        AllUsers.Add(new UserManagmentDto
+            {
+                Id = 1,
+                Username = "Filip",
+                Admin = false,
+                Banned = true
+            });
+    }
+    private async Task AddRole(EditContext context)
+    {
+        UserToChange.Role = "Admin";
+        await UserService.AddRole(UserToChange);
+        StateHasChanged();
+    }
+    private async Task RemoveRole(EditContext context)
+    {
+        UserToChange.Role = "Admin";
+        await UserService.RemoveRole(UserToChange);
+        StateHasChanged();
+    }
+}

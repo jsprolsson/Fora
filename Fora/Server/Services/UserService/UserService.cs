@@ -88,6 +88,21 @@ namespace Fora.Server.Services.UserService
             }
         }
 
+        public async Task<List<UserRoleDto>> GetAllUsers()
+        {
+            //var allApplicationUsers = await _signInManager.UserManager.Users.ToListAsync();
+            //List<UserRoleDto> allUsers = new List<UserRoleDto>();
+            //foreach (var user in allApplicationUsers)
+            //{
+            //    allUsers.Add(new UserRoleDto
+            //    {
+            //        Username = user.UserName,
+            //        Role = user.
+            //    }
+            //}
+            return null;
+        }
+
         public async Task RemoveBan(string username)
         {
             var userToRemoveBan = await _signInManager.UserManager.FindByNameAsync(username);
@@ -125,6 +140,11 @@ namespace Fora.Server.Services.UserService
             var result = await _userDbContext.SaveChangesAsync();
             if (result > 0) return true;
             return false;
+        }
+        private async Task<IList<string>> GetUserRole(ApplicationUser user)
+        {
+            var roles = await _signInManager.UserManager.GetRolesAsync(user);
+            return roles;
         }
     }
 }

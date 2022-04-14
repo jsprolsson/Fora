@@ -1,5 +1,6 @@
 ﻿@inject IAuthService AuthService
 @inject IUserService UserService
+@inject NavigationManager NavigationManager
 
 @if (UserIsDeleted)
 {
@@ -33,6 +34,6 @@ else
     private async Task DeleteUser()
     {
         await UserService.DeleteUser(User.Username);
-        StateHasChanged();
+        NavigationManager.NavigateTo("/");
     }
 }
