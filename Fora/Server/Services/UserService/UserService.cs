@@ -52,6 +52,18 @@ namespace Fora.Server.Services.UserService
             }
         }
 
+        public async Task DeactivateUser(string username)
+        {
+            var userToDelete = await _signInManager.UserManager.FindByNameAsync(username);
+            var foraUserToDelete = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Id == userToDelete.ForaUser);
+
+            userToDelete.Deleted = true;
+            await ChangeAllUserRoles(userToDelete, "Deleted");
+
+            foraUserToDelete.Deleted = true;
+            await _appDbContext.SaveChangesAsync();
+        }
+
         public async Task DeleteUser(string username)
         {
             var userToDelete = await _signInManager.UserManager.FindByNameAsync(username);
@@ -65,14 +77,14 @@ namespace Fora.Server.Services.UserService
                     //_appDbContext.Remove(foraUserToDelete);
                     //await _appDbContext.SaveChangesAsync();
                 }
-                else // Mark user as Deleted
-                {
-                    userToDelete.Deleted = true;
-                    await ChangeAllUserRoles(userToDelete, "Deleted");
+                //else // Mark user as Deleted
+                //{
+                //    userToDelete.Deleted = true;
+                //    await ChangeAllUserRoles(userToDelete, "Deleted");
 
-                    foraUserToDelete.Deleted = true;
-                    await _appDbContext.SaveChangesAsync();
-                }
+                //    foraUserToDelete.Deleted = true;
+                //    await _appDbContext.SaveChangesAsync();
+                //}
             }
         }
 

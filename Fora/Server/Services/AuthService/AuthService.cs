@@ -118,5 +118,16 @@ namespace Fora.Server.Services.AuthService
                 }
             }
         }
+
+        public async Task<string> RefreshToken()
+        {
+            var currentUser = _httpContextAccessor.HttpContext.User;
+            var applicationUser = await _signInManager.UserManager.FindByNameAsync(currentUser.Identity.Name);
+            if (applicationUser != null)
+            {
+                return await CreateToken(applicationUser);
+            }
+            return null;
+        }
     }
 }
