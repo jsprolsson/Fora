@@ -21,7 +21,7 @@
     protected override async Task OnInitializedAsync()
     {   
         User = await AuthService.GetUser();
-        UserCreatedThreads = await ThreadService.GetUserCreatedThreads(User.Id);
+        //UserCreatedThreads = await ThreadService.GetUserCreatedThreads(User.Id, 0);
     }
 
 }

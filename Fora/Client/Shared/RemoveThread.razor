@@ -33,7 +33,7 @@
         }
         else
         {
-            Threads = await ThreadService.GetUserCreatedThreads(User.Id);
+            Threads = await ThreadService.GetUserCreatedThreads(User.Id, 0);
         }
     }
 

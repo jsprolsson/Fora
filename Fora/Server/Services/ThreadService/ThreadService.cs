@@ -56,10 +56,23 @@
                 .OrderBy(t => t.Name).ToListAsync();
         }
 
-        public async Task<List<ThreadModel>> GetUserCreatedThreads(int userId)
+        public async Task<List<ThreadModel>> GetUserCreatedThreads(int userId, int interestId)
         {
-            return await _appDbContext.Threads.Where(t => t.UserId == userId).Include(t => t.Messages).ToListAsync();
+            if(interestId == 0)
+            {
+                return await _appDbContext.Threads.Where(t => t.UserId == userId).Include(t => t.Messages).ToListAsync();
+            }
+            else
+            {
+                return await _appDbContext.Threads.Where(t => t.UserId == userId && t.InterestId == interestId).Include(t => t.Messages).ToListAsync();
+            }
+
         }
+
+        //public async Task<List<ThreadModel>> GetUserCreatedThreadsWithInterestId(int userId, int interestId)
+        //{
+        //    return await _appDbContext.Threads.Where(t => t.UserId == userId && t.InterestId == interestId).Include(t => t.Messages).ToListAsync();
+        //}
 
         public async Task UpdateThread(ThreadUpdateDto threadToUpdate)
         {

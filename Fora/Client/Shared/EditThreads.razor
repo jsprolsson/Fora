@@ -1,0 +1,62 @@
+﻿@inject IThreadService ThreadService
+@inject IAuthService AuthService
+@inject IDialogService DialogService
+
+<MudText Typo="Typo.h6">Manage your threads</MudText>
+
+<MudTable Items="@UserCreatedThreadsList" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh>Change Thread Name</MudTh>
+        <MudTh>Delete Thread</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        
+        <ThreadToEdit Thread=@context User=User></ThreadToEdit>
+
+    </RowTemplate>
+</MudTable>
+
+@code {
+    [Parameter]
+    public int InterestId { get; set; }
+    private List<ThreadModel> UserCreatedThreadsList { get; set; } = new();
+    private string? Message { get; set; }
+    private bool DisableEdit { get; set; } = true;
+    private bool UserIsAdmin { get; set; }
+    private UserAuth User { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        User = await AuthService.GetUser();
+        UserIsAdmin = await AuthService.IsAdmin();
+        UserCreatedThreadsList = await ThreadService.GetUserCreatedThreads(User.Id, InterestId);
+
+    }
+
+
+    public async Task EditThreadName(ThreadModel thread)
+    {
+        var parameters = new DialogParameters { ["Thread"] = thread };
+
+        var dialog = DialogService.Show<EditThreadDialog>("Edit Thread Name", parameters);
+        var result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+           
+        }
+    }
+
+    public async Task DeleteThread(ThreadModel thread)
+    {
+        ThreadDeleteDto threadToDelete = new()
+            {
+                Id = thread.Id,
+                InterestId = thread.InterestId
+            };
+
+            await ThreadService.DeleteThread(threadToDelete);
+    }
+}

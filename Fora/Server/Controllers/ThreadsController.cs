@@ -24,11 +24,13 @@ namespace Fora.Server.Controllers
         {
             return await _threadService.GetThread(id);
         }
+
         [HttpGet("usercreated/{userid}")]
-        public async Task<List<ThreadModel>> GetUserCreatedThreads(int userId)
+        public async Task<List<ThreadModel>> GetUserCreatedThreads(int userId, int interestId)
         {
-            return await _threadService.GetUserCreatedThreads(userId);
+            return await _threadService.GetUserCreatedThreads(userId, interestId);
         }
+
 
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] ThreadCreateDto thread)

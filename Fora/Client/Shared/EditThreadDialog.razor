@@ -1,0 +1,45 @@
+﻿@inject ISnackbar Snackbar
+@inject IThreadService ThreadService
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-3 mb-n1"/>
+            Edit Thread Name
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+                <MudTextField T=string @bind-Value="EditedThreadName"/>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Error" OnClick="EditThreadName">Edit Name</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public ThreadModel Thread { get; set; } = new ThreadModel();
+    private string EditedThreadName { get; set; }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private async Task EditThreadName()
+    {
+        ThreadUpdateDto threadToUpdate = new()
+            {
+                Id = Thread.Id,
+                Name = EditedThreadName,
+                InterestId = Thread.InterestId,
+                UserId = Thread.UserId
+            };
+
+        await ThreadService.UpdateThread(threadToUpdate);
+        Snackbar.Add("Thread edited", Severity.Success);
+        MudDialog.Close(DialogResult.Ok(Thread.Name));
+    }
+}
