@@ -38,6 +38,11 @@
             await _appDbContext.SaveChangesAsync();
         }
 
+        public async Task<List<ThreadModel>> GetAllThreads()
+        {
+            return await _appDbContext.Threads.ToListAsync();
+        }
+
         public async Task<ThreadModel> GetThread(int threadId)
         {
             return await _appDbContext.Threads.Where(i => i.Id == threadId).FirstOrDefaultAsync();

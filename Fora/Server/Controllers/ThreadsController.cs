@@ -16,6 +16,10 @@ namespace Fora.Server.Controllers
         [HttpGet]
         public async Task<List<ThreadModel>> GetThreads(int interestId)
         {
+            if(interestId == 0)
+            {
+                return await _threadService.GetAllThreads();
+            }
             return await _threadService.GetThreads(interestId);
         }
 

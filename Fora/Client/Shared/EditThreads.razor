@@ -16,6 +16,9 @@
         <ThreadToEdit Thread=@context User=User></ThreadToEdit>
 
     </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
 </MudTable>
 
 @code {
@@ -31,32 +34,20 @@
     {
         User = await AuthService.GetUser();
         UserIsAdmin = await AuthService.IsAdmin();
-        UserCreatedThreadsList = await ThreadService.GetUserCreatedThreads(User.Id, InterestId);
 
-    }
-
-
-    public async Task EditThreadName(ThreadModel thread)
-    {
-        var parameters = new DialogParameters { ["Thread"] = thread };
-
-        var dialog = DialogService.Show<EditThreadDialog>("Edit Thread Name", parameters);
-        var result = await dialog.Result;
-
-        if (!result.Cancelled)
+        if(UserIsAdmin)
         {
-           
+            //If interestId is 0 and user is admin, get all threads on settings page.
+            //If interestId is the id of an actual interest in db and user is admin, admin gets access to edit all the threads in the corresponding interest.
+            UserCreatedThreadsList = await ThreadService.GetThreads(InterestId);
         }
+        else
+        {
+            //If interestId is 0 and user is not admin, get all threads that user created on settings page.
+            //If interestId is the id of an actual interest in db, user only gets access to edit the threads they created in the interest.
+            UserCreatedThreadsList = await ThreadService.GetUserCreatedThreads(User.Id, InterestId);
+        }
+        
     }
-
-    public async Task DeleteThread(ThreadModel thread)
-    {
-        ThreadDeleteDto threadToDelete = new()
-            {
-                Id = thread.Id,
-                InterestId = thread.InterestId
-            };
-
-            await ThreadService.DeleteThread(threadToDelete);
-    }
+    
 }
