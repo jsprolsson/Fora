@@ -14,9 +14,7 @@
     </HeaderContent>
     <RowTemplate>
 
-        <CascadingValue Value="this">
-            <Message Msg="@context" User="User"></Message>
-        </CascadingValue>
+            <Message ResetMessages="ResetMessages" Msg="@context" User="User"></Message>
 
     </RowTemplate>
 </MudTable>
@@ -35,7 +33,6 @@
     protected override async Task OnInitializedAsync()
     {
         //Clear list before every get. Object reference error occurs otherwise.
-        MessageService.Messages.Clear();
         await MessageService.GetMessages(Thread);
         User = await AuthService.GetUser();
     }
@@ -46,5 +43,9 @@
         this.StateHasChanged();
     }
 
+    private async Task ResetMessages()
+    {
+        await MessageService.GetMessages(Thread);
+    }
 
 }

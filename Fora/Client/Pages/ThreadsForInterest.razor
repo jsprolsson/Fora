@@ -37,8 +37,9 @@
     </RowTemplate>
 </MudTable>
 
-<ThreadCreate ResetThreads="ResetThreads" InterestId=InterestId></ThreadCreate>
-<EditThreads InterestId=InterestId></EditThreads>
+    <ThreadCreate ResetThreads="ResetThreads" InterestId=InterestId></ThreadCreate>
+    <EditThreads ResetThreads="ResetThreads" InterestId=InterestId></EditThreads>
+
 
 @code {
 
@@ -67,7 +68,7 @@
         navManager.NavigateTo($"/messages/{t.Item.Id}");
     }
 
-    private async Task ResetThreads()
+    public async Task ResetThreads()
     {
         Threads = await ThreadService.GetThreads(InterestId);
     }

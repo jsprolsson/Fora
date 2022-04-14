@@ -25,6 +25,7 @@ namespace Fora.Client.Services.MessageService
 
         public async Task GetMessages(int threadId)
         {
+            Messages.Clear();
             var result = await _http.GetFromJsonAsync<List<MessageModel>>($"api/threads/{threadId}/messages");
             if (result != null)
             {

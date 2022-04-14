@@ -12,7 +12,7 @@
     [Parameter]
     public UserAuth User { get; set; }
     [Parameter]
-    public EventCallback ResetThreads{ get; set; }
+    public EventCallback ResetEditThreads{ get; set; }
 
     private bool UserIsAdmin { get; set; }
     private bool DisableEdit { get; set; } = true;
@@ -37,7 +37,7 @@
 
         if (!result.Cancelled)
         {
-            await InvokeResetThreads();
+            await InvokeResetEditThreads();
         }
     }
 
@@ -50,8 +50,8 @@
             };
 
         await ThreadService.DeleteThread(threadToDelete);
-        await InvokeResetThreads();
+        await InvokeResetEditThreads();
     }
 
-    private async Task InvokeResetThreads() => await ResetThreads.InvokeAsync();
+    private async Task InvokeResetEditThreads() => await ResetEditThreads.InvokeAsync();
 }

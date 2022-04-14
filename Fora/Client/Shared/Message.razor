@@ -16,7 +16,9 @@
     public MessageModel Msg { get; set; }
     [Parameter]
     public UserAuth User { get; set; }
-    
+    [Parameter]
+    public EventCallback ResetMessages { get; set; }
+
 
     private bool UserIsAdmin { get; set; }
     private string parameter { get; set; }
@@ -77,6 +79,7 @@
             };
 
         await MessageService.DeleteMessage(messageToDelete);
+        await InvokeResetMessages();
     }
 
     public async Task EditMessage(MessageModel Message)
@@ -88,7 +91,9 @@
 
         if (!result.Cancelled)
         {
-           
+            await InvokeResetMessages();
         }
     }
+
+    private async Task InvokeResetMessages() => await ResetMessages.InvokeAsync();
 }
