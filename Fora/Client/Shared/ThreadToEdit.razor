@@ -11,6 +11,8 @@
     public ThreadModel Thread { get; set; }
     [Parameter]
     public UserAuth User { get; set; }
+    [Parameter]
+    public EventCallback ResetThreads{ get; set; }
 
     private bool UserIsAdmin { get; set; }
     private bool DisableEdit { get; set; } = true;
@@ -35,7 +37,7 @@
 
         if (!result.Cancelled)
         {
-           
+            await InvokeResetThreads();
         }
     }
 
@@ -47,6 +49,9 @@
                 InterestId = thread.InterestId
             };
 
-            await ThreadService.DeleteThread(threadToDelete);
+        await ThreadService.DeleteThread(threadToDelete);
+        await InvokeResetThreads();
     }
+
+    private async Task InvokeResetThreads() => await ResetThreads.InvokeAsync();
 }

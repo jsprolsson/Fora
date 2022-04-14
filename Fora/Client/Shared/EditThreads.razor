@@ -13,7 +13,7 @@
     </HeaderContent>
     <RowTemplate>
         
-        <ThreadToEdit Thread=@context User=User></ThreadToEdit>
+        <ThreadToEdit ResetThreads=RefreshThreads Thread=@context User=User></ThreadToEdit>
 
     </RowTemplate>
     <PagerContent>
@@ -47,7 +47,18 @@
             //If interestId is the id of an actual interest in db, user only gets access to edit the threads they created in the interest.
             UserCreatedThreadsList = await ThreadService.GetUserCreatedThreads(User.Id, InterestId);
         }
-        
     }
-    
+
+    public async Task RefreshThreads()
+    {
+        if(UserIsAdmin)
+        {
+            UserCreatedThreadsList = await ThreadService.GetThreads(InterestId);
+        }
+        else
+        {
+            UserCreatedThreadsList = await ThreadService.GetUserCreatedThreads(User.Id, InterestId);
+        }
+    }
+
 }
