@@ -4,13 +4,11 @@
 
 <AuthorizeView>
     <Authorized>
-        @*<MudIconButton Icon="@Icons.Filled.Logout" @onclick="Logout" aria-label="delete"></MudIconButton>*@
         <MudButton Variant="Variant.Filled" StartIcon="@Icons.Filled.Logout" @onclick="OpenLogOutDialog" IconColor="Color.Secondary">Logout</MudButton>
     </Authorized>
     <NotAuthorized>
-                    <MudTextField @bind-Value="UserLogin.Username" Label="Username" Variant="Variant.Outlined" Margin="Margin.Dense" />
-                    <MudTextField @bind-Value="UserLogin.Password" Label="Password" InputType="InputType.Password" Variant="Variant.Outlined" Margin="Margin.Dense" />
-        @*<MudIconButton Icon="@Icons.Filled.Login" @onclick="Login" aria-label="delete"></MudIconButton>*@
+        <MudTextField @bind-Value="UserLogin.Username" Label="Username" Variant="Variant.Outlined" Margin="Margin.Dense" />
+        <MudTextField @bind-Value="UserLogin.Password" Label="Password" InputType="InputType.Password" Variant="Variant.Outlined" Margin="Margin.Dense" />
         <MudButton Variant="Variant.Filled" StartIcon="@Icons.Filled.Login" @onclick="Login" IconColor="Color.Primary">Login</MudButton>
     </NotAuthorized>
 </AuthorizeView>
@@ -25,14 +23,12 @@
     }
     private void OpenLogOutDialog()
     {
-		var options = new DialogOptions { CloseOnEscapeKey = true };
+        var options = new DialogOptions { CloseOnEscapeKey = true };
         DialogService.Show<LogoutDialog>("", options);
     }
     async Task Logout()
     {
         await AuthService.Logout();
         NavigationManager.NavigateTo("/");
-        //await LocalStorage.RemoveItemAsync("token");
-        //await AuthStateProvider.GetAuthenticationStateAsync();
     }
 }
