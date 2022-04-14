@@ -25,7 +25,8 @@ namespace Fora.Server.Services.UserService
         public async Task AddRole(UserRoleDto userRole)
         {
             var user = await _signInManager.UserManager.FindByNameAsync(userRole.Username);
-            var result = await _signInManager.UserManager.AddToRoleAsync(user, userRole.Role);
+            //var result = await _signInManager.UserManager.AddToRoleAsync(user, userRole.Role);
+            await ChangeAllUserRoles(user, userRole.Role);
         }
 
         public async Task BanUser(string username)
@@ -88,19 +89,22 @@ namespace Fora.Server.Services.UserService
             }
         }
 
-        public async Task<List<UserRoleDto>> GetAllUsers()
+        public async Task<List<UserManagmentDto>> GetAllUsers()
         {
-            //var allApplicationUsers = await _signInManager.UserManager.Users.ToListAsync();
-            //List<UserRoleDto> allUsers = new List<UserRoleDto>();
-            //foreach (var user in allApplicationUsers)
-            //{
-            //    allUsers.Add(new UserRoleDto
-            //    {
-            //        Username = user.UserName,
-            //        Role = user.
-            //    }
-            //}
-            return null;
+            var allApplicationUsers = await _signInManager.UserManager.Users.ToListAsync();
+            List<UserManagmentDto> allUsers = new List<UserManagmentDto>();
+
+            foreach (var user in allApplicationUsers)
+            {
+                allUsers.Add(new UserManagmentDto
+                {
+                    Id = user.ForaUser,
+                    Username = user.UserName,
+                    Admin = await _signInManager.UserManager.IsInRoleAsync(user, "Admin"),
+                    Banned = user.Banned,
+                });
+            }
+            return allUsers;
         }
 
         public async Task RemoveBan(string username)

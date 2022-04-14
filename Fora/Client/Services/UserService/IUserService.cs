@@ -9,5 +9,6 @@
         Task ChangePassword(UserChangePasswordDto userChangePassword);
         Task DeleteUser(string username);
         Task DeactivateUser(string username);
+        Task<List<UserManagmentDto>> GetAllUsers();
     }
 }

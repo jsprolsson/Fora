@@ -52,5 +52,10 @@ namespace Fora.Client.Services.UserService
         {
             var result = await _http.PostAsJsonAsync("api/user/deactivate", username);
         }
+
+        public async Task<List<UserManagmentDto>> GetAllUsers()
+        {
+            return await _http.GetFromJsonAsync<List<UserManagmentDto>>("api/user");
+        }
     }
 }

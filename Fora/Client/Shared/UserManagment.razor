@@ -1,0 +1,21 @@
+﻿@inject IUserService UserService
+
+<MudTable Items="@AllUsers" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>Username</MudTh>
+        <MudTh>Admin</MudTh>
+        <MudTh>Banned</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <UserChangeRole UserToManage=@context></UserChangeRole>
+    </RowTemplate>
+</MudTable>
+
+@code {
+    public List<UserManagmentDto> AllUsers { get; set; } = new();
+
+    protected async override Task OnInitializedAsync()
+    {
+        AllUsers = await UserService.GetAllUsers();
+    }
+}
