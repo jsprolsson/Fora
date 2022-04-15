@@ -18,6 +18,7 @@ namespace Fora.Server.Controllers
         public async Task<ActionResult<string>> Login(UserLoginDto userLogin)
         {
             var token = await _authService.Login(userLogin);
+            if (string.IsNullOrEmpty(token)) return Unauthorized();
             return token;
         }
         [HttpPost("register")]
