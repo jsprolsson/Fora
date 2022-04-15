@@ -1,11 +1,8 @@
 ﻿@inject IUserInterestService UserInterestService
 @inject IInterestService InterestService
 
+<MudText Typo="Typo.h6">My interests</MudText>
 <MudPaper Width="300px">
-    <MudListSubheader>
-            <MudText Typo="Typo.h6">My interests</MudText>
-
-        </MudListSubheader>
     <MudList>
         @foreach (var interest in UserInterests)
         {
@@ -14,11 +11,11 @@
     </MudList>
 </MudPaper>
 
-<MudTable Items="@AllInterests.Take(10)" MultiSelection="true" @bind-SelectedItems="selectedItems" Hover="true" Breakpoint="Breakpoint.Sm" Striped="true" Bordered="true"
-          CustomHeader="true" CustomFooter="true" HeaderClass="table-head-bordered" FooterClass="table-foot-bordered">
+<MudTable Items="@AllInterests" Hover="true" Breakpoint="Breakpoint.Sm" Striped="true" Bordered="true"
+          CustomHeader="true" HeaderClass="table-head-bordered" FooterClass="table-foot-bordered">
     <HeaderContent>
         <MudTHeadRow IgnoreCheckbox="true" Class="header-centered">
-            <MudTh colspan="6">Choose your interests</MudTh>
+            <MudTh colspan="3">Choose your interests</MudTh>
         </MudTHeadRow>
         <MudTHeadRow IsCheckable="true" >
             <MudTh>Name</MudTh>
@@ -32,17 +29,11 @@
         <MudTd DataLabel="Remove Interest">
         <MudButton @onclick="(() => DeleteUserInterest(context.Id))" Variant="Variant.Filled" Color="Color.Error">Remove</MudButton></MudTd>
     </RowTemplate>
-    <FooterContent>
-        <MudTFootRow>
-            <MudTd colspan="5">Selected: @selectedItems.Count</MudTd>
-        </MudTFootRow>
-    </FooterContent>
 </MudTable>
 
 @code {
     List<InterestModel> AllInterests { get; set; } = new();
     List<InterestModel> UserInterests { get; set; } = new();
-    private HashSet<InterestModel> selectedItems = new HashSet<InterestModel>();
 
     protected override async Task OnInitializedAsync()
     {
