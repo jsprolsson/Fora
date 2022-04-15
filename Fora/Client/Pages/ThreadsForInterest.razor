@@ -22,11 +22,11 @@
 
         @if(context.User.Banned)
         {
-            <MudTd DataLabel="User">User has been banned.</MudTd>
+            <MudTd DataLabel="User">Banned user.</MudTd>
         }
         else if(context.User.Deleted || context.User == null)
         {
-            <MudTd DataLabel="User">User has been deleted.</MudTd>
+            <MudTd DataLabel="User">Deleted user.</MudTd>
         }
         else 
         {
@@ -58,7 +58,7 @@
 
     private bool FilterCycleCheck(ThreadModel thread)
     {
-        if(thread.Name.Contains(Search))
+        if(thread.Name.ToLower().Contains(Search.ToLower()))
         {
             return true;
         }
