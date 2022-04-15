@@ -18,8 +18,15 @@
 
     async Task Login()
     {
-        await AuthService.Login(UserLogin);
-        NavigationManager.NavigateTo("interests");
+        var signIn = await AuthService.Login(UserLogin);
+        if (signIn) NavigationManager.NavigateTo("interests");
+        else OpenLoginDialog();
+
+    }
+    private void OpenLoginDialog()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show<LoginDialog>("", options);
     }
     private void OpenLogOutDialog()
     {

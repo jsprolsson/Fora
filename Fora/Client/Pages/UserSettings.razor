@@ -2,15 +2,16 @@
 @attribute [Authorize]
 
 <AuthorizeView Roles="Admin">
+    <UserAdmin />
     <DeleteInterest />
     <UserManagment />
 </AuthorizeView>
 
-<UserDelete />
 <UserChangePassword />
 <InterestCreate />
 <UserInterestList />
 <EditThreads></EditThreads>
+<UserDelete />
 
 @code {
 

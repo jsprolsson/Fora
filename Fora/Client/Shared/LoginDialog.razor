@@ -1,0 +1,13 @@
+﻿<MudDialog>
+    <DialogContent>
+        Something went wrong
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Close">Close</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    void Close() => MudDialog.Cancel();
+}
