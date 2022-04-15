@@ -1,0 +1,56 @@
+﻿        @inject IInterestService InterestService
+        @inject IDialogService DialogService
+        @inject IAuthService AuthService
+
+        <MudTd DataLabel="Name">@Interest.Name</MudTd>
+        <MudTd DataLabel="Change Interest Name"> <MudButton Class="btn-outline-info" Disabled=@DisableEdit OnClick="@((e) => EditInterestName(Interest))">EDIT</MudButton></MudTd>
+        <MudTd DataLabel="Delete Interest"><MudButton Class="btn-outline-danger" @onclick="(() => DeleteInterest(Interest))">X</MudButton></MudTd>
+
+@code {
+    [Parameter]
+    public InterestModel Interest { get; set; }
+    [Parameter]
+    public UserAuth User { get; set; }
+    [Parameter]
+    public EventCallback ResetEditInterests { get; set; }
+
+    private bool UserIsAdmin { get; set; }
+    private bool DisableEdit { get; set; } = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        UserIsAdmin = await AuthService.IsAdmin();
+
+        if(UserIsAdmin || Interest.Threads.Count == 0)
+        {
+            DisableEdit = false;
+        }
+    }
+
+
+    public async Task EditInterestName(InterestModel interest)
+    {
+        var parameters = new DialogParameters { ["Interest"] = interest };
+
+        var dialog = DialogService.Show<EditInterestDialog>("Edit Interest Name", parameters);
+        var result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+            await InvokeResetEditInterests();
+        }
+    }
+
+    public async Task DeleteInterest(InterestModel interest)
+    {
+        InterestDeleteDto interestToDelete = new()
+            {
+                Id = interest.Id,
+            };
+
+        await InterestService.DeleteInterest(interestToDelete);
+        await InvokeResetEditInterests();
+    }
+
+    private async Task InvokeResetEditInterests() => await ResetEditInterests.InvokeAsync();
+}

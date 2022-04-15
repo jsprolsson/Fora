@@ -1,0 +1,56 @@
+﻿@using Fora.Client.Pages
+@inject IInterestService InterestService
+@inject IAuthService AuthService
+@inject IDialogService DialogService
+
+<MudText Typo="Typo.h6">Manage @(!UserIsAdmin ? "Your" : "") Interests</MudText>
+
+<MudTable Items="@InterestsToEdit" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>Change Interest Name</MudTh>
+        <MudTh>Delete Interest</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        
+        <InterestToEdit ResetEditInterests=RefreshEditInterests Interest=@context User=User></InterestToEdit>
+
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+@code {
+    [Parameter]
+    public EventCallback RefreshInterests { get; set; }
+    private List<InterestModel> InterestsToEdit { get; set; } = new();
+    private UserAuth User { get; set; }
+    private bool UserIsAdmin { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        User = await AuthService.GetUser();
+        UserIsAdmin = await AuthService.IsAdmin();
+        await GetInterestsByRole();
+    }
+
+    private async Task GetInterestsByRole()
+    {
+        if (UserIsAdmin)
+        {
+            await InterestService.GetInterests();
+            InterestsToEdit = InterestService.Interests;
+        }
+        else
+        {
+            InterestsToEdit = await InterestService.GetUserCreatedInterests(User.Id);
+        }
+    }
+
+    private async Task RefreshEditInterests()
+    {
+        await GetInterestsByRole();
+        await RefreshInterests.InvokeAsync();
+    }
+}

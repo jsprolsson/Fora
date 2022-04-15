@@ -16,15 +16,11 @@
 
         <MudTd DataLabel="Interest">@context.Name</MudTd>
         <MudTd DataLabel="# of threads">@context.Threads.Count()</MudTd>
-        
 
     </RowTemplate>
 </MudTable>
 
-<DeleteInterest RefreshInterests=RefreshInterests></DeleteInterest>
-
-<ChangeInterestName RefreshInterests=RefreshInterests></ChangeInterestName>
-
+<EditInterests RefreshInterests=RefreshInterests></EditInterests>
 
 @code {
     private List<InterestModel>? UserInterestsList { get; set; }

@@ -1,0 +1,43 @@
+﻿@inject ISnackbar Snackbar
+@inject IInterestService InterestService
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-3 mb-n1"/>
+            Edit Interest Name
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+                <MudTextField T=string @bind-Value="EditedInterestName"/>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Error" OnClick="EditInterestName">Edit Name</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public InterestModel Interest { get; set; } = new InterestModel();
+    private string EditedInterestName { get; set; }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private async Task EditInterestName()
+    {
+        InterestUpdateDto interestToUpdate = new()
+            {
+                Id = Interest.Id,
+                Name = EditedInterestName,
+            };
+
+        await InterestService.UpdateInterest(interestToUpdate);
+        Snackbar.Add("Interest edited", Severity.Success);
+        MudDialog.Close(DialogResult.Ok(Interest.Name));
+    }
+}
