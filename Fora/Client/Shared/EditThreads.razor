@@ -21,7 +21,7 @@
     </PagerContent>
 </MudTable>
 
-@if(InterestId != 0)
+@if(OnThreadsPage)
 {
     <MudText Typo="Typo.h6">Create new thread</MudText>
 
@@ -54,12 +54,14 @@
     private string? Message { get; set; }
     private bool DisableEdit { get; set; } = true;
     private bool UserIsAdmin { get; set; }
+    private bool OnThreadsPage { get; set; }
     private UserAuth User { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         User = await AuthService.GetUser();
         UserIsAdmin = await AuthService.IsAdmin();
+        OnThreadsPage = InterestId != 0 ? true : false;
         await GetThreadsByRole();
     }
 

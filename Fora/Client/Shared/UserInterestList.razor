@@ -39,7 +39,6 @@
     {
         await InterestService.GetInterests();
         AllInterests = InterestService.Interests;
-        //AllInterests = await InterestService.GetInterests();
         UserInterests = await UserInterestService.GetUserInterests();
     }
     private async Task CreateUserInterest(int interestId)
