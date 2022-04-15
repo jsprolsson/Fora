@@ -1,10 +1,16 @@
-﻿        @inject IInterestService InterestService
-        @inject IDialogService DialogService
-        @inject IAuthService AuthService
+﻿@inject IInterestService InterestService
+@inject IDialogService DialogService
+@inject IAuthService AuthService
 
-        <MudTd DataLabel="Name">@Interest.Name</MudTd>
-        <MudTd DataLabel="Change Interest Name"> <MudButton Class="btn-outline-info" Disabled=@DisableEdit OnClick="@((e) => EditInterestName(Interest))">EDIT</MudButton></MudTd>
-        <MudTd DataLabel="Delete Interest"><MudButton Class="btn-outline-danger" @onclick="(() => DeleteInterest(Interest))">X</MudButton></MudTd>
+<MudTd DataLabel="Name">@Interest.Name</MudTd>
+<MudTd DataLabel="Change Interest Name">
+    <MudIconButton Disabled=@DisableEdit OnClick="@((e) => EditInterestName(Interest))" Icon="@Icons.Filled.Edit" Color="Color.Primary"></MudIconButton>
+    @*<MudButton Class="btn-outline-info" Disabled=@DisableEdit OnClick="@((e) => EditInterestName(Interest))">EDIT</MudButton>*@
+</MudTd>
+<MudTd DataLabel="Delete Interest">
+    <MudIconButton @onclick="(() => DeleteInterest(Interest))" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" aria-label="delete"></MudIconButton>
+    @*<MudButton Class="btn-outline-danger" @onclick="(() => DeleteInterest(Interest))">X</MudButton>*@
+</MudTd>
 
 @code {
     [Parameter]
@@ -21,7 +27,7 @@
     {
         UserIsAdmin = await AuthService.IsAdmin();
 
-        if(UserIsAdmin || Interest.Threads.Count == 0)
+        if (UserIsAdmin || Interest.Threads.Count == 0)
         {
             DisableEdit = false;
         }
