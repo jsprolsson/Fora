@@ -3,7 +3,7 @@
 @inject IAuthService AuthService
 @inject IDialogService DialogService
 
-<MudText Typo="Typo.h6">Manage @(!UserIsAdmin ? "Your" : "") threads</MudText>
+<MudText Typo="Typo.h6">Manage @(!UserIsAdmin ? "your" : "") threads</MudText>
 
 <MudTable Items="@UserCreatedThreadsList" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
@@ -13,7 +13,7 @@
     </HeaderContent>
     <RowTemplate>
         
-        <ThreadToEdit ResetEditThreads=ResetEditThreads Thread=@context User=User></ThreadToEdit>
+        <ThreadToEdit ResetEditThreads=GetThreadsByRole Thread=@context User=User></ThreadToEdit>
 
     </RowTemplate>
     <PagerContent>
@@ -41,7 +41,7 @@
         </MudGrid>
     </EditForm>
 }
-
+<p>@Message</p>
 
 @code {
     [Parameter]
@@ -60,10 +60,14 @@
     {
         User = await AuthService.GetUser();
         UserIsAdmin = await AuthService.IsAdmin();
+        await GetThreadsByRole();
+    }
 
+    public async Task GetThreadsByRole()
+    {
         if(UserIsAdmin)
         {
-            //If interestId is 0 and user is admin, get all threads on settings page.
+            //If interestId is 0 and user is admin, get all threads available on settings page.
             //If interestId is the id of an actual interest in db and user is admin, admin gets access to edit all the threads in the corresponding interest.
             UserCreatedThreadsList = await ThreadService.GetThreads(InterestId);
         }
@@ -73,29 +77,26 @@
             //If interestId is the id of an actual interest in db, user only gets access to edit the threads they created in the interest.
             UserCreatedThreadsList = await ThreadService.GetUserCreatedThreads(User.Id, InterestId);
         }
-    }
-
-    public async Task ResetEditThreads()
-    {
-        if(UserIsAdmin)
-        {
-            UserCreatedThreadsList = await ThreadService.GetThreads(InterestId);
-        }
-        else
-        {
-            UserCreatedThreadsList = await ThreadService.GetUserCreatedThreads(User.Id, InterestId);
-        }
 
         await InvokeResetThreads();
     }
 
     public async Task CreateThread()
     {
-        threadToCreate.UserId = User.Id;
-        threadToCreate.InterestId = InterestId;
-        await ThreadService.CreateThread(threadToCreate);
-        await InvokeResetThreads();
-        await ResetEditThreads();
+        if(String.IsNullOrWhiteSpace(threadToCreate.Name))
+        {
+            Message = "Thread name required";
+        }
+        else
+        {
+            threadToCreate.UserId = User.Id;
+            threadToCreate.InterestId = InterestId;
+            await ThreadService.CreateThread(threadToCreate);
+            await InvokeResetThreads();
+            await GetThreadsByRole();
+            Message = "";
+        }
+        
     }
 
     private async Task InvokeResetThreads() => await ResetThreads.InvokeAsync();
