@@ -16,6 +16,8 @@
 @code {
     [Parameter]
     public UserManagmentDto UserToManage { get; set; }
+    [Parameter]
+    public EventCallback RefreshUsers { get; set; }
     UserRoleDto UserToChange = new();
 
     protected async override Task OnInitializedAsync()
@@ -34,6 +36,7 @@
         {
             await AddRole("User");
         }
+        await InvokeRefreshUsers();
     }
     private async Task OnBannedChanged()
     {
@@ -47,6 +50,7 @@
         {
             await RemoveBan(UserToManage.Username);
         }
+        await InvokeRefreshUsers();
     }
     private async Task AddRole(string role)
     {
@@ -66,4 +70,5 @@
     {
         await UserService.RemoveBan(username);
     }
+    private async Task InvokeRefreshUsers() => await RefreshUsers.InvokeAsync();
 }

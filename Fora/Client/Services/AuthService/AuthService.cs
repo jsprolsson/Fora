@@ -28,6 +28,7 @@ namespace Fora.Client.Services.AuthService
         public async Task<bool> Login(UserLoginDto userLogin)
         {
             var result = await _http.PostAsJsonAsync("api/authentication/login", userLogin);
+            // if token is null?
             var token = await result.Content.ReadAsStringAsync();
             await _localStorage.SetItemAsync("token", token);
             var authState = await _authStateProvider.GetAuthenticationStateAsync();

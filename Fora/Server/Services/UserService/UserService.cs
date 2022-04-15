@@ -92,6 +92,8 @@ namespace Fora.Server.Services.UserService
         public async Task<List<UserManagmentDto>> GetAllUsers()
         {
             var allApplicationUsers = await _signInManager.UserManager.Users.ToListAsync();
+            var admin = await _signInManager.UserManager.FindByNameAsync("ADMIN");
+            allApplicationUsers.Remove(admin);
             List<UserManagmentDto> allUsers = new List<UserManagmentDto>();
 
             foreach (var user in allApplicationUsers)

@@ -7,7 +7,7 @@
         <MudTh>Banned</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <UserChangeRole UserToManage=@context></UserChangeRole>
+        <UserChangeRole RefreshUsers=RefreshUsers UserToManage=@context></UserChangeRole>
     </RowTemplate>
 </MudTable>
 
@@ -15,6 +15,10 @@
     public List<UserManagmentDto> AllUsers { get; set; } = new();
 
     protected async override Task OnInitializedAsync()
+    {
+        AllUsers = await UserService.GetAllUsers();
+    }
+    public async Task RefreshUsers()
     {
         AllUsers = await UserService.GetAllUsers();
     }
