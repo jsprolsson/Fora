@@ -2,16 +2,14 @@
 @inject IDialogService DialogService
 @inject IAuthService AuthService
 
-<MudTd DataLabel="Id">@Thread.Id</MudTd>
 <MudTd DataLabel="Sign">@Thread.Name</MudTd>
 <MudTd DataLabel="Change Thread Name">
-    @*<MudTd DataLabel="Change Thread Name"> <MudButton Class="btn-outline-info" Disabled=@DisableEdit OnClick="@((e) => EditThreadName(Thread))">EDIT</MudButton></MudTd>*@
     <MudIconButton Disabled=@DisableEdit OnClick="@((e) => EditThreadName(Thread))" Icon="@Icons.Filled.Edit" Color="Color.Primary" aria-label="delete"></MudIconButton>
 </MudTd>
 <MudTd DataLabel="Delete Thread">
-    @*<MudButton Class="btn-outline-danger" @onclick="(() => DeleteThread(Thread))">X</MudButton>*@
     <MudIconButton @onclick="(() => DeleteThread(Thread))" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" aria-label="delete"></MudIconButton>
 </MudTd>
+
 @code {
     [Parameter]
     public ThreadModel Thread { get; set; }
