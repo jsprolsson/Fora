@@ -1,6 +1,9 @@
 ﻿@inject IUserService UserService
 
 <MudTable Items="@AllUsers" Hover="true" Breakpoint="Breakpoint.Sm">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">User managment</MudText>
+    </ToolBarContent>
     <HeaderContent>
         <MudTh>Username</MudTh>
         <MudTh>Admin</MudTh>
