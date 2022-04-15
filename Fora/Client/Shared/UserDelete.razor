@@ -2,17 +2,19 @@
 @inject IUserService UserService
 @inject NavigationManager NavigationManager
 
+
 @if (UserIsDeleted)
 {
     <AuthorizeView Roles="Deleted">
-            <MudButton @onclick="DeleteUser" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Delete my profile</MudButton>
+        <MudButton @onclick="DeleteUser" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Delete my profile</MudButton>
     </AuthorizeView>
-
 }
 else
 {
     <MudButton @onclick="DeactivateUser" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Deactivate my profile</MudButton>
 }
+
+
 
 @code {
     UserAuth User { get; set; } = new();
