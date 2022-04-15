@@ -21,9 +21,9 @@
     </RowTemplate>
 </MudTable>
 
-<DeleteInterest></DeleteInterest>
+<DeleteInterest RefreshInterests=RefreshInterests></DeleteInterest>
 
-<ChangeInterestName></ChangeInterestName>
+<ChangeInterestName RefreshInterests=RefreshInterests></ChangeInterestName>
 
 
 @code {
@@ -40,5 +40,10 @@
     {
         //Passes in the item which the user clicked on's interestid.
         navManager.NavigateTo($"/threads/{i.Item.Id}");
+    }
+
+    private async Task RefreshInterests()
+    {
+        UserInterestsList = await UserInterestService.GetUserInterests();
     }
 }

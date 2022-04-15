@@ -5,15 +5,12 @@
 
 <MudTable Items="@Interests" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
-        <MudTh>Nr</MudTh>
         <MudTh>Name</MudTh>
         <MudTh>Change Interest Name</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Nr">@context.Id</MudTd>
         <MudTd DataLabel="Sign">@context.Name</MudTd>
         <MudTd DataLabel="Change Interest Name">
-            @*<MudButton @onclick="(() => DisplayForm(context))">EDIT</MudButton>*@
             <MudIconButton @onclick="(() => DisplayForm(context))" Icon="@Icons.Filled.Edit" Color="Color.Dark" aria-label="delete"></MudIconButton>
         </MudTd>
     </RowTemplate>
@@ -41,6 +38,8 @@
 <p>@Message</p>
 
 @code {
+    [Parameter]
+    public EventCallback RefreshInterests { get; set; }
     private List<InterestModel> Interests { get; set; } = new();
     UserAuth user = new();
     private string? Message { get; set; }
@@ -53,21 +52,14 @@
     {
         user = await AuthService.GetUser();
         UserIsAdmin = await AuthService.IsAdmin();
-        if (await AuthService.IsAdmin())
-        {
-            await InterestService.GetInterests();
-            Interests = InterestService.Interests;
-        }
-        else
-        {
-            Interests = await InterestService.GetUserCreatedInterests(user.Id);
-        }
+        await GetInterestsByRole();
     }
 
     public async Task ChangeInterest()
     {
         interestToUpdate.Id = InterestId;
         await InterestService.UpdateInterest(interestToUpdate);
+        await InvokeRefreshInterests();
     }
 
     public void DisplayForm(InterestModel interest)
@@ -82,6 +74,25 @@
         {
             ShowEditForm = false;
             Message = "Not allowed to edit interest";
+        }
+    }
+
+    private async Task InvokeRefreshInterests()
+    {
+        await RefreshInterests.InvokeAsync();
+        await GetInterestsByRole();
+    }
+
+    private async Task GetInterestsByRole()
+    {
+        if (await AuthService.IsAdmin())
+        {
+            await InterestService.GetInterests();
+            Interests = InterestService.Interests;
+        }
+        else
+        {
+            Interests = await InterestService.GetUserCreatedInterests(user.Id);
         }
     }
 }

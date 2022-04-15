@@ -5,23 +5,21 @@
 
 <MudTable Items="@Interests" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
-        <MudTh>Id</MudTh>
         <MudTh>Name</MudTh>
         <MudTh>Delete Interest</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Id">@context.Id</MudTd>
         <MudTd DataLabel="Sign">@context.Name</MudTd>
         <MudTd DataLabel="Delete Interest">
             <MudIconButton @onclick="(() => DeleteInterestFromDb(context.Id))" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" aria-label="delete"></MudIconButton>
-            @*<MudButton @onclick="(() => DeleteInterest(context.Id))">X</MudButton>*@
         </MudTd>
     </RowTemplate>
 </MudTable>
 
 
 @code {
-
+    [Parameter]
+    public EventCallback RefreshInterests { get; set; }
     public int InterestId { get; set; }
     private UserAuth User { get; set; }
 
@@ -30,16 +28,7 @@
     protected override async Task OnInitializedAsync()
     {
         User = await AuthService.GetUser();
-
-        if (await AuthService.IsAdmin())
-        {
-            await InterestService.GetInterests();
-            Interests = InterestService.Interests;
-        }
-        else
-        {
-            Interests = await InterestService.GetUserCreatedInterests(User.Id);
-        }
+        await GetInterestsByRole();
 
     }
 
@@ -51,7 +40,25 @@
             };
 
         await InterestService.DeleteInterest(interestToDelete);
-        StateHasChanged();
+        await InvokeRefreshInterests();
     }
 
+    private async Task GetInterestsByRole()
+    {
+        if (await AuthService.IsAdmin())
+        {
+            await InterestService.GetInterests();
+            Interests = InterestService.Interests;
+        }
+        else
+        {
+            Interests = await InterestService.GetUserCreatedInterests(User.Id);
+        }
+    }
+
+    private async Task InvokeRefreshInterests()
+    { 
+        await RefreshInterests.InvokeAsync();
+        await GetInterestsByRole();
+    } 
 }
