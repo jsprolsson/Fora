@@ -1,0 +1,20 @@
+﻿@inject IAuthService AuthService
+
+<MudPaper Width="300px">
+    <MudList>
+        @if (IsAdmin)
+        {
+            <MudListItem Text="You are Admin" />
+        }
+    </MudList>
+</MudPaper>
+
+
+@code {
+    public bool IsAdmin { get; set; } = false;
+
+    protected async override Task OnInitializedAsync()
+    {
+        IsAdmin = await AuthService.IsAdmin();
+    }
+}

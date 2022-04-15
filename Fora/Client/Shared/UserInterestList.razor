@@ -3,7 +3,8 @@
 
 <MudPaper Width="300px">
     <MudListSubheader>
-            My interests
+            <MudText Typo="Typo.h6">My interests</MudText>
+
         </MudListSubheader>
     <MudList>
         @foreach (var interest in UserInterests)
@@ -20,13 +21,11 @@
             <MudTh colspan="6">Choose your interests</MudTh>
         </MudTHeadRow>
         <MudTHeadRow IsCheckable="true" >
-            <MudTh>Id</MudTh> 
             <MudTh>Name</MudTh>
             <MudTh>My interests</MudTh>
         </MudTHeadRow>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Id">@context.Id</MudTd>
         <MudTd DataLabel="Name">@context.Name</MudTd>
         <MudTd DataLabel="Create Interest">
         <MudButton @onclick="(() => CreateUserInterest(context.Id))" Variant="Variant.Filled" Color="Color.Primary">Add</MudButton></MudTd>
